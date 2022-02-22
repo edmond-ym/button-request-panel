@@ -27,6 +27,7 @@ class DeviceController extends Controller
             'newCredential'=>'required'
             //'save_this_key'=>'nullable'
         ]);
+        
         if(!$validator->fails() && Auth::check()){
             $validated= $validator->validate();
             //return $validated['deviceId'];
@@ -49,8 +50,7 @@ class DeviceController extends Controller
                     'bearerToken'=>$validated['bearerToken']
                 ];
               
-                Mail::to($request->user())
-                ->send(new DeviceCreated(Auth::user()->name, $validated['newCredential'], $deviceCredential));
+                Mail::to($request->user())->send(new DeviceCreated(Auth::user()->name, $validated['newCredential'], $deviceCredential));
                
                 return ["result"=>"success", "errors"=>[]];
             } else {

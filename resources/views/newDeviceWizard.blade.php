@@ -70,7 +70,7 @@
               },
               params: {deviceId: deviceId, bearerToken: bearerToken, nickname: nickname, newCredential: newCredential}
             }).then(function (response) {
-              
+                //console.log(response);
                 if(response.data.result=='success'){
                   window.location.href="{{ route('deviceList')}}";
                 }else{
