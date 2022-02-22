@@ -1,0 +1,92 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\MobileAccess;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
+use App\Library\Services\UserRightOnMobileTokenService;
+use App\Library\Services\MessageService;
+
+class MobileAccessController extends Controller
+{
+    //
+    
+    public function mobile_access_new(Request $request){
+        $validator=Validator::make($request->all(), [
+            'nickname' => 'required|max:40|'
+        ]);
+    
+        $validated= $validator->validate();
+    
+        if(!$validator->fails() && Auth::check()){
+            MobileAccess::insert([
+                'case_id' => Str::random(15),
+                'access_token' => Str::random(100),
+                'user_id' => Auth::id(),
+                //'eligible_device' => '',
+                'nickname' => $validated['nickname']
+            ]);
+        }
+        
+        return redirect(url()->previous());
+
+    }
+    public function mobile_access_list(){
+        $data=MobileAccess::where('user_id', '=', Auth::id())->get();
+        return view('mobileAccess', ['data'=>$data]);
+    }
+    public function mobile_device_list_query($case_id=null){
+        if ($case_id==null) {
+            $data=MobileAccess::where('user_id', '=', Auth::id())->get();//Ensure Right
+        }else{
+            $data=MobileAccess::where('user_id', '=', Auth::id())->where('case_id', '=', $case_id)->get();//Ensure Right
+        }
+       
+        return $data;
+    }
+    public function mobile_access_individual($case_id){
+        
+        if (UserRightOnMobileTokenService::right($case_id)) {
+            $data=MobileAccess::where('case_id', '=', $case_id)
+            ->where('user_id', '=', Auth::id()) // ensure user right on that
+            ->get();
+            //$eligible_nick_name_list=MessageService::AllMessagesNicknameList(Auth::id());
+            
+            return view('IndividualMobileTokenSettings', ['basic_info'=>$data[0]]);
+        }
+        return "No Privilege or Not Exist";
+
+    }
+    public function mobile_access_amend($case_id, Request $request){
+        if (UserRightOnMobileTokenService::right($case_id)) {
+            $validator=Validator::make($request->all(), [
+                'nickname' => 'required|max:40|'
+            ]);
+        
+            $validated= $validator->validate();
+        
+            if(!$validator->fails() && Auth::check()){
+                MobileAccess::where('case_id', '=', $case_id)
+                ->where('user_id', '=', Auth::id()) // ensure user right on that
+                ->update(['nickname'=>$validated['nickname']]);
+            }
+        }
+        return redirect(url()->previous());
+
+
+    }
+    public function mobile_access_destroy($case_id){
+        if (UserRightOnMobileTokenService::right($case_id)) {
+
+            if(Auth::check()){
+                MobileAccess::where('case_id', '=', $case_id)
+                ->where('user_id', '=', Auth::id()) // ensure user right on that
+                ->delete();
+            }
+        }
+        return redirect(route('mobile_access_list'));
+    }
+}
