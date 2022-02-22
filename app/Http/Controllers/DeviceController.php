@@ -49,8 +49,10 @@ class DeviceController extends Controller
                     'deviceId'=>$validated['deviceId'],
                     'bearerToken'=>$validated['bearerToken']
                 ];
-              
-                Mail::to($request->user())->send(new DeviceCreated(Auth::user()->name, $validated['newCredential'], $deviceCredential));
+                if (env('MAIL_ENABLED')) {
+                    Mail::to($request->user())->send(new DeviceCreated(Auth::user()->name, $validated['newCredential'], $deviceCredential));
+                }
+                
                
                 return ["result"=>"success", "errors"=>[]];
             } else {

@@ -68,11 +68,14 @@ class DeviceOwnershipShareController extends Controller
                 'created_time'=>gmdate("Y-m-d H:i:s P")
             ]);
             if ($r) {
-                Mail::to($validated['email'])
-                ->send(new \App\Mail\DeviceShared("sharee", Auth::id(), $targetId, $device_id));
-
-                Mail::to(Auth::user()->email)
-                ->send(new \App\Mail\DeviceShared("sharer", Auth::id(), $targetId, $device_id));
+                if (env('MAIL_ENABLED')) {
+                     Mail::to($validated['email'])
+                     ->send(new \App\Mail\DeviceShared("sharee", Auth::id(), $targetId, $device_id));
+     
+                     Mail::to(Auth::user()->email)
+                     ->send(new \App\Mail\DeviceShared("sharer", Auth::id(), $targetId, $device_id));
+                }
+               
             }
         } 
         //return $device_id;

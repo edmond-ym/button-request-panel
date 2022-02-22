@@ -45,10 +45,10 @@ Route::get('/doc', function () {
 });
 Route::get('/test', function (Request $request) {
     //return Auth::user();
-    
+    return "a";
     //return new \App\Mail\DeviceShared("sharee", 1, 2, 'ebaefc98-80bd-4e61-917d-9187b0e60b9b');
 
-    $deviceCredential=(Object)[
+    /*$deviceCredential=(Object)[
         'nickname'=>'nnn',
         'deviceId'=>'1a7e96e0-730d-45c3-a3b9-e599d0a184c1',
         'bearerToken'=>'dev_b3oGnEcdYE0aaUtCjPsgAbOmJQ7h2GoVDOndD5XD'
@@ -60,7 +60,7 @@ Route::get('/test', function (Request $request) {
     //}catch(Exception $e){
 
     //}
-    return new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential);
+    return new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential);*/
 
     //Mail::to($request->user())->send(new DeviceCreated());
     //return BasicInfoService::deviceList()->number;
