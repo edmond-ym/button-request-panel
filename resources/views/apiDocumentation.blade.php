@@ -6,7 +6,7 @@
 </head>
 <body>
   <rapi-doc
-    spec-url="{{URL::to('/')}}/api_doc_yaml"
+    spec-url="{{asset('apiDoc/data.yaml')}}"
     theme = "light"
   > </rapi-doc>
 </body>

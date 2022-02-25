@@ -48,10 +48,7 @@ Route::get('/api-doc', function () {
     
     return view('apiDocumentation');
 });
-Route::get('/api_doc_yaml', function(){
-   
-    return Storage::get('apiDoc/data.yaml');
-});
+
 Route::get('/test', function (Request $request) {
 
   // return file_get_contents(asset('public/apiDoc/data.yaml'));

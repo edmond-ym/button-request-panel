@@ -1,0 +1,56 @@
+openapi: 3.0.0
+servers:
+  - url: https://143.198.74.202/deviceAPI/v1
+    description: Button Device Server
+  
+info:
+  title: Button Request
+  version: 1.0.0
+  description: >
+    # Introduction
+    
+    Button Request is a platform for someone who want to replace tedious and repeated message with 
+    a button. 
+    
+    ## API Categories
+
+    There are only 1 category of API
+   
+    Below is the API classification
+    
+      - Button Device API
+
+    ## API Operations
+
+    ### Button Device API
+    
+    Using the Button Device API, you may send the defined messages to the console.
+
+   
+
+    # Authentication
+  
+    ##For Button Device API, the device id and the bearer token is the authentication method 
+
+
+
+tags:
+  - name: deviceAPI
+    description: Button Device API
+ 
+paths:
+  
+  '/deviceAPI/v1/{deviceId}':
+    post:
+      tags:
+        - deviceAPI
+      description: Send a Button Request
+      parameters:
+          - name: buttonId
+            in: path
+  
+            required: true
+            deprecated: false
+            schema:
+              type: varchar
+            
