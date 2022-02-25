@@ -47,7 +47,6 @@ class DeviceShared extends Mailable implements ShouldQueue
             'deviceInfo'=>(Object)["deviceId"=>$this->deviceId,
              "nickname"=>DeviceList::where("device_id", '=', $this->deviceId)->get()[0]->nickname, 
         ]
-            
         ]);
     }
 }
