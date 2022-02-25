@@ -50,7 +50,9 @@ Route::get('/api-doc', function () {
 });
 
 Route::get('/test', function (Request $request) {
-
+    //$token = $request->user()->createToken("jjj");
+ 
+    //return ['token' => $token->plainTextToken];
   // return file_get_contents(asset('public/apiDoc/data.yaml'));
    // use Yaml;
    // $yamlContents = Yaml::parse(file_get_contents(''));
