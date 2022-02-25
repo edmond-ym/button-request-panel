@@ -1,26 +1,23 @@
-@component('mail::message')
+
 
 @if ($receiverType=="sharer")
     Hi {{$sharerFullName}}, 
         <p>You have shared your device to {{$shareeEmail}}.</p>
-        |                   |                                      | 
-        | :-----------------|:------------------------------------ |
-        | Nickname:         | {{$deviceInfo->nickname}}            | 
-        | Device ID:        | {{$deviceInfo->deviceId}}            |
+        
+        <p>Nickname:          {{$deviceInfo->nickname}}            </p> 
+        <p>Device ID:         {{$deviceInfo->deviceId}}            </p>
 @endif
 
 @if ($receiverType=="sharee")
     Hi {{$shareeFullName}}, 
         <p>User {{$sharerEmail}} has shared his/her device to you.</p>
-        |                   |                                      | 
-        | :-----------------|:------------------------------------ |
-        | Nickname:         | {{$deviceInfo->nickname}}            | 
-        | Device ID:        | {{$deviceInfo->deviceId}}            |        
+        
+        <p> Nickname:         | {{$deviceInfo->nickname}}            </p> 
+        <p> Device ID:        | {{$deviceInfo->deviceId}}            </p>        
        
 @endif
 
 
 Thanks,<br>
-{{ config('app.name') }}
-@endcomponent
+Inchoatae Limited
 

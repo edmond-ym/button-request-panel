@@ -38,7 +38,7 @@ class DeviceShared extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('mail.deviceShared')->with([
+        return $this->view('mail.deviceShared')->with([
             'receiverType'=>$this->receiverType,
             'sharerFullName'=>User::find($this->sharerUserId)->name,
             'sharerEmail'=>User::find($this->sharerUserId)->email,
