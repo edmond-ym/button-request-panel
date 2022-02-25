@@ -45,6 +45,10 @@ Route::get('/doc', function () {
 });
 Route::get('/test', function (Request $request) {
     //return Auth::user();
+    /*if (!$request->secure()) {
+        return redirect()->secure($request->path());
+    }*/
+    
     return "a";
     //return new \App\Mail\DeviceShared("sharee", 1, 2, 'ebaefc98-80bd-4e61-917d-9187b0e60b9b');
 
