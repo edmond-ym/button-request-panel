@@ -34,7 +34,7 @@ class DeviceCreated extends Mailable implements ShouldQueue
     public function build()
     {
 
-        return $this->markdown('mail.deviceCreated')->with([
+        return $this->view('mail.deviceCreated')->with([
             'fullName'=>$this->fullName,
             'newCredential' =>$this->newCredential,
             'deviceCredential'=>$this->deviceCredential,
