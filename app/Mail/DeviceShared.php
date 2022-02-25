@@ -45,8 +45,8 @@ class DeviceShared extends Mailable implements ShouldQueue
             'shareeFullName'=>User::find($this->shareeUserId)->name,
             'shareeEmail'=>User::find($this->shareeUserId)->email,
             'deviceInfo'=>(Object)["deviceId"=>$this->deviceId,
-             "nickname"=>DeviceList::where("device_id", '=', $this->deviceId)->get()[0]->nickname
-             ]
+             "nickname"=>DeviceList::where("device_id", '=', $this->deviceId)->get()[0]->nickname, 
+        ]
             
         ]);
     }

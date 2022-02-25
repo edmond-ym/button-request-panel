@@ -44,37 +44,17 @@ Route::get('/doc', function () {
     return view('documentation');
 });
 Route::get('/test', function (Request $request) {
-    //return Auth::user();
-    /*if (!$request->secure()) {
-        return redirect()->secure($request->path());
-    }*/
     
-    return "a";
-    //return new \App\Mail\DeviceShared("sharee", 1, 2, 'ebaefc98-80bd-4e61-917d-9187b0e60b9b');
-
-    /*$deviceCredential=(Object)[
+    $deviceCredential=(Object)[
         'nickname'=>'nnn',
         'deviceId'=>'1a7e96e0-730d-45c3-a3b9-e599d0a184c1',
         'bearerToken'=>'dev_b3oGnEcdYE0aaUtCjPsgAbOmJQ7h2GoVDOndD5XD'
     ];
-    //return new DeviceCreated(Auth::user()->name, "kk", $deviceCredential);
-    //try{
-        Mail::to($request->user())
-        ->send(new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential));
-    //}catch(Exception $e){
-
-    //}
-    return new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential);*/
-
-    //Mail::to($request->user())->send(new DeviceCreated());
-    //return BasicInfoService::deviceList()->number;
-    //return "test";
-    //subscription_status_updated
-    /*$all=User::all();
-    for ($i=0; $i < count($all); $i++) { 
-        $userId=$all[$i]->id;
-        User::where('id', '=', $userId)->update(['subscription_status_updated'=>'false']);
-    }*/
+    
+    Mail::to($request->user())
+    ->send(new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential));
+    return "a";
+   
 })->withoutMiddleware([VerifyCsrfToken::class]);
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware(['subscription'])->group(function(){
