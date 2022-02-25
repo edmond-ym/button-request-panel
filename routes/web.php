@@ -45,12 +45,13 @@ Route::get('/doc', function () {
 });
 Route::get('/test', function (Request $request) {
     
+    
     $deviceCredential=(Object)[
         'nickname'=>'nnn',
         'deviceId'=>'1a7e96e0-730d-45c3-a3b9-e599d0a184c1',
         'bearerToken'=>'dev_b3oGnEcdYE0aaUtCjPsgAbOmJQ7h2GoVDOndD5XD'
     ];
-    
+    return new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential);
     Mail::to($request->user())
     ->send(new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential));
     return "a";
