@@ -43,9 +43,20 @@ Route::get('/', function () {
 Route::get('/doc', function () {
     return view('documentation');
 });
+
+Route::get('/api-doc', function () {
+    
+    return view('apiDocumentation');
+});
+Route::get('/api_doc_yaml', function(){
+   
+    return Storage::get('apiDoc/data.yaml');
+});
 Route::get('/test', function (Request $request) {
-    
-    
+
+  // return file_get_contents(asset('public/apiDoc/data.yaml'));
+   // use Yaml;
+   // $yamlContents = Yaml::parse(file_get_contents(''));
     /*$deviceCredential=(Object)[
         'nickname'=>'nnn',
         'deviceId'=>'1a7e96e0-730d-45c3-a3b9-e599d0a184c1',
@@ -127,7 +138,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
 //device api
 //To launch request, Query Param button_id need to be given and Bearer Token need to be given. Link: deviceAPI/{device_id}
-Route::post('/deviceAPI/{device_id?}', [DeviceAPIController::class, 'push_msg'])->withoutMiddleware([VerifyCsrfToken::class]);//Subs Protected
+Route::post('/deviceAPI/v1/{device_id?}', [DeviceAPIController::class, 'push_msg'])->withoutMiddleware([VerifyCsrfToken::class]);//Subs Protected
 
 
 
