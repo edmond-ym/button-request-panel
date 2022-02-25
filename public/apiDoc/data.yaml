@@ -1,8 +1,9 @@
 openapi: 3.0.0
 servers:
-  - url: https://143.198.74.202/deviceAPI/v1
+  - url: https://143.198.74.202
     description: Button Device Server
-  
+  ##- url: http://localhost
+  ##  description: Button Device Server
 info:
   title: Button Request
   version: 1.0.0
@@ -41,16 +42,55 @@ tags:
 paths:
   
   '/deviceAPI/v1/{deviceId}':
+
     post:
+      
+      security:
+        - DeviceAPIAuth: [] 
+            
       tags:
         - deviceAPI
       description: Send a Button Request
       parameters:
-          - name: buttonId
+          - name: deviceId
             in: path
-  
             required: true
             deprecated: false
             schema:
               type: varchar
+          - name: button_id
+            in: query
+            required: true
+            deprecated: false
+            schema:
+              type: varchar
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
             
+          
+      
+components:
+  securitySchemes:
+    DeviceAPIAuth:
+      description: This is for the Button Device Request
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+
+  schemas:
+    Result:
+      type: object
+      properties:
+        result: 
+          description: Result of the Action
+          type: string
+          example: success
+      
+
+
+
