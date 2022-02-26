@@ -76,7 +76,7 @@ class MessageController extends Controller
     }
     public function msg_dashboard_ui (Request $request) {
         if(Auth::check()){
-            return view('message', ['login_session'=> $request->session()->getId()]);
+            return view('dashboard.message', ['login_session'=> $request->session()->getId()]);
         }else{
             return "xxx";
         }

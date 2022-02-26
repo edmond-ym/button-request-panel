@@ -69,7 +69,7 @@ Route::get('/test', function (Request $request) {
 })->withoutMiddleware([VerifyCsrfToken::class]);
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware(['subscription'])->group(function(){
-        Route::get('/dashboard', function(){return view('dashboard', ['data'=>BasicInfoService::forDashboard()]);})->name('dashboard');
+        Route::get('/dashboard', function(){return view('dashboard.home', ['data'=>BasicInfoService::forDashboard()]);})->name('dashboard');
         Route::get('/dashboard/deviceList', [DeviceController::class, 'device_list_table'])->name('deviceList');
         //Mobile Access Controller
         Route::get('/mobileAccessList',[MobileAccessController::class, 'mobile_access_list'] )->name('mobile_access_list');

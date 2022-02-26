@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\MessageEnquiry;
 use App\Models\DeviceOwnershipShare;
 
+
 class DeviceList extends Model
 {
     use HasFactory;
+
     protected $table = 'device_list';
     protected $primaryKey = 'case_id';
     public $incrementing = false;

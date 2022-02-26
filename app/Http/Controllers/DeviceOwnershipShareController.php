@@ -25,7 +25,7 @@ class DeviceOwnershipShareController extends Controller
         ,'device_list.nickname','device_list.status', 'device_list.info', 'device_ownership_share.right', 'users.name as owner_name','users.email as owner_email')
         ->get();
         
-        return view('deviceSharedToMe', ['data'=>$data]);
+        return view('dashboard.buttonDevice.sharedToMe', ['data'=>$data]);
     }
 
     public function device_share_revoke(Request $request) {
@@ -103,14 +103,14 @@ class DeviceOwnershipShareController extends Controller
                 ->where('device_id', $device_id)
                 ->get();
             if(count($data)==0){
-                return view('IndividualDeviceOwnership', ['result'=>'fail', 'data'=>[], 'device_id'=>[], 'device_nickname'=>[]]);
+                return view('dashboard.buttonDevice.ownershipSettings', ['result'=>'fail', 'data'=>[], 'device_id'=>[], 'device_nickname'=>[]]);
 
             }else{    
                 $data1 =DeviceList::join('device_ownership_share', 'device_ownership_share.device_id', '=', 'device_list.device_id')
                 ->join('users', 'users.id', '=', 'device_ownership_share.share_to_user_id')
                 ->where('device_list.user_id','=', $userId)->where('device_list.device_id','=',$device_id)// Ensure the right
                 ->select('device_ownership_share.case_id','device_ownership_share.share_to_user_id', 'users.email as share_to_email', 'device_ownership_share.created_time', 'device_ownership_share.right')->get();
-                return view('IndividualDeviceOwnership', ['result'=>'success', 'data'=>$data1, 'device_id'=>$device_id, 'device_nickname'=>$data[0]->nickname]);
+                return view('dashboard.buttonDevice.ownershipSettings', ['result'=>'success', 'data'=>$data1, 'device_id'=>$device_id, 'device_nickname'=>$data[0]->nickname]);
             }
         }else{
             return "xxx";

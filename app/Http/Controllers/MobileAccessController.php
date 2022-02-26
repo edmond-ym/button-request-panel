@@ -36,7 +36,7 @@ class MobileAccessController extends Controller
     }
     public function mobile_access_list(){
         $data=MobileAccess::where('user_id', '=', Auth::id())->get();
-        return view('mobileAccess', ['data'=>$data]);
+        return view('dashboard.mobileAccessDevice.all', ['data'=>$data]);
     }
     public function mobile_device_list_query($case_id=null){
         if ($case_id==null) {
@@ -55,7 +55,7 @@ class MobileAccessController extends Controller
             ->get();
             //$eligible_nick_name_list=MessageService::AllMessagesNicknameList(Auth::id());
             
-            return view('IndividualMobileTokenSettings', ['basic_info'=>$data[0]]);
+            return view('dashboard.mobileAccessDevice.individualSettings', ['basic_info'=>$data[0]]);
         }
         return "No Privilege or Not Exist";
 

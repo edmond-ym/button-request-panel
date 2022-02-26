@@ -32,7 +32,7 @@ class SubscriptionManagementController extends Controller
         $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET'));
    
         $SubscriptionData=SubscriptionManagementService::currentSubscriptionData(Auth::id());
-        return view("subscriptionManagement", [
+        return view("dashboard.subscriptionManagement", [
             'intent' => $user->createSetupIntent(),
             'currentPaymentMethod'=>$user->paymentMethods(),
             'defaultPaymentMethod'=>$user->defaultPaymentMethod(),

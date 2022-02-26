@@ -189,10 +189,10 @@ class DeviceController extends Controller
             
             if(DeviceRightService::AbsoluteRightOnDevice($device_id) || DeviceRightService::SharedDeviceAdvancedRight(Auth::id(), $device_id)){//Ensure the Right
                 $data=DeviceList::where('device_id', $device_id)->get();
-                return view('IndividualDeviceData', ['result'=>'success','data'=>$data[0], 'info'=>($data[0]->info), 'info_len'=>count(json_decode($data[0]->info))]);
+                return view('dashboard.buttonDevice.deviceSettings', ['result'=>'success','data'=>$data[0], 'info'=>($data[0]->info), 'info_len'=>count(json_decode($data[0]->info))]);
                 
             }else{            
-                return view('IndividualDeviceData', ['result'=>'fail', 'data'=>[], 'info'=>[], 'info_len'=>[]]);
+                return view('dashboard.buttonDevice.deviceSettings', ['result'=>'fail', 'data'=>[], 'info'=>[], 'info_len'=>[]]);
             }
         }else{
             return "xxx";
@@ -203,10 +203,10 @@ class DeviceController extends Controller
             $user_id=Auth::id();
         }
         $data=DeviceList::select('case_id','device_id', 'info', 'datetime', 'status', 'nickname')->where("user_id", "=",$user_id )->get();
-        return view('deviceList', ['data'=>$data]);
+        return view('dashboard.buttonDevice.all', ['data'=>$data]);
     }
 
     public function newDeviceWizard(){
-        return view('newDeviceWizard');
+        return view('dashboard.buttonDevice.newDeviceWizard');
     }
 }
