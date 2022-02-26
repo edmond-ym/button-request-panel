@@ -38,16 +38,14 @@ info:
 tags:
   - name: deviceAPI
     description: Button Device API
+  - name: MessageAPI
+    description: Fetch/Pin/Unpin/Delete Message through Normal API
  
 paths:
-  
   '/deviceAPI/v1/{deviceId}':
-
     post:
-      
       security:
-        - DeviceAPIAuth: [] 
-            
+        - DeviceAPIAuth: []    
       tags:
         - deviceAPI
       description: Send a Button Request
@@ -71,9 +69,88 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Result'
-            
-          
+  '/api/v1/message/fetch':   
+    post:
+      security:
+        - NormalAPIAuth: []    
+      tags:
+        - MessageAPI
+      description: Fetch all messages
       
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+
+  '/api/v1/message/pin/{msgId?}': 
+    post:
+      security:
+        - NormalAPIAuth: []    
+      tags:
+        - MessageAPI
+      description: Pin Message
+      parameters:
+
+          - name: msgId
+            in: path
+            required: true
+            deprecated: false
+            schema:
+              type: varchar
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+  '/api/v1/message/unpin/{msgId?}': 
+    post:
+      security:
+        - NormalAPIAuth: []    
+      tags:
+        - MessageAPI
+      description: Unpin Message
+      parameters:
+          - name: msgId
+            in: path
+            required: true
+            deprecated: false
+            schema:
+              type: varchar
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+  '/api/v1/message/delete/{msgId?}':    
+    post:
+      security:
+        - NormalAPIAuth: []    
+      tags:
+        - MessageAPI
+      description: Delete Message
+      parameters:
+
+          - name: msgId
+            in: path
+            required: true
+            deprecated: false
+            schema:
+              type: varchar
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Result'
+
 components:
   securitySchemes:
     DeviceAPIAuth:
@@ -81,7 +158,11 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT 
-
+    NormalAPIAuth:
+      description: This is normal API
+      type: http
+      scheme: bearer
+      
   schemas:
     Result:
       type: object

@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Models\DeviceList;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DeviceOwnershipShare;
+use Illuminate\Support\Facades\DB;
 
 class MessageService
 {
@@ -68,6 +69,58 @@ class MessageService
             }
         }
         return $new_array;
+    }
+
+
+    public static function pinMessage($userId, $message_id, $true_false){
+        //$userId=Auth::id();
+        $result=["result"=> "fail"];
+        $data_to_pin=DeviceList::join('message', 'message.device_case_id', '=', 'device_list.case_id')
+        ->select('message.msg_id','message.message','message.datetime', 'device_list.device_id')
+        /*->where("user_id", "=", $userId)*/->where("msg_id", "=", $message_id)/*->where("status", "=", "active")*/->get();
+        
+        if (count($data_to_pin)==1 ) {
+            $device_id=$data_to_pin[0]->device_id;
+            
+            if ((DeviceRightService::SharedDeviceMiddleRight($userId, $device_id) || DeviceRightService::AbsoluteRightOnDevice($device_id))) {
+                $resN=DB::table('message')->where('msg_id', '=', $data_to_pin[0]->msg_id)
+                ->update(['pin'=>$true_false]);               
+                if($resN==1){
+                    $result= ["result"=> "success"];
+                }else{
+                    $result=["result"=> "fail"];
+                }
+            }else{
+                $result=["result"=> "no-privilege"];
+            }
+        }else{
+            $result=["result"=> "not-exist"];
+        }
+        return $result;
+    }
+
+    public static function deleteMessage($userId, $message_id){
+        $result=['result'=>'fail'];
+        $data_to_del=DeviceList::join('message', 'message.device_case_id', '=', 'device_list.case_id')
+        ->select('message.msg_id','message.message','message.datetime', 'device_list.device_id')
+        /*->where("user_id", "=", $userId)*/->where("msg_id", "=", $message_id)/*->where("status", "=", "active")*/->get();
+        
+        if (count($data_to_del)==1 ) {
+            $device_id=$data_to_del[0]->device_id;
+            if ((DeviceRightService::SharedDeviceMiddleRight($userId, $device_id) || DeviceRightService::AbsoluteRightOnDevice($device_id))) {
+                $resN=DB::table('message')->where('msg_id', '=', $data_to_del[0]->msg_id)->delete();
+                if($resN==1){
+                    $result= ["result"=> "success"];
+                }else{
+                    $result= ["result"=> "fail"];
+                }
+            }else{
+                $result= ["result"=> "no-privilege"];
+            }
+        }else{
+            $result= ["result"=> "not-exist"];
+        }
+        return $result;
     }
    
 

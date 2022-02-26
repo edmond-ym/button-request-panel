@@ -31,6 +31,8 @@ use App\Mail\DeviceCreated;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+
 Route::get('/', function () {
     //$stripeCustomer = $user->createAsStripeCustomer();
     //return  User::find(Auth::id())->deviceSharedToMe;
