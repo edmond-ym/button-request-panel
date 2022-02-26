@@ -37,8 +37,10 @@ Route::get('/', function () {
     //return  User::find(Auth::id())->deviceSharedToMe;
     //return User::find(Auth::id())->messageOfMyDevice()->orderBy('datetime')->get();
     
-    return view('welcome');
-});
+    //return view('welcome');
+    return view('home');
+
+})->name('home');
 
 Route::get('/doc', function () {
     return view('documentation');
@@ -47,7 +49,7 @@ Route::get('/doc', function () {
 Route::get('/api-doc', function () {
     
     return view('apiDocumentation');
-});
+})->name('apiDoc');
 
 Route::get('/test', function (Request $request) {
     //$token = $request->user()->createToken("jjj");
