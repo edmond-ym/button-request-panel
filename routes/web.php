@@ -145,15 +145,3 @@ Route::post('/deviceAPI/v1/{device_id?}', [DeviceAPIController::class, 'push_msg
 
 
 
-Route::post('/mobileAPI/{access_token?}/{phone_token?}', [MobileAPIController::class, 'fetch_message'])->withoutMiddleware([VerifyCsrfToken::class]);//protected 
-Route::post('/mobileAPIDeleteMessage/{access_token?}/{phone_token?}/{msg_id?}', [MobileAPIController::class, 'delete_message'])->withoutMiddleware([VerifyCsrfToken::class]);//protected
-Route::post('/mobileAPIPinMessage/{access_token?}/{phone_token?}/{msg_id?}/{true_false?}', [MobileAPIController::class, 'pin_message'])->withoutMiddleware([VerifyCsrfToken::class]);//protected
-Route::post('/mobileAPIValidCheck/{access_token?}/{phone_token?}', [MobileAPIController::class, 'AccessTokenValidCheck'])->withoutMiddleware([VerifyCsrfToken::class]);//protected
-Route::post('/mobileConnect/{access_token?}/{randStrFromPhone?}', [MobileAPIController::class, 'mobileConnect'])->withoutMiddleware([VerifyCsrfToken::class]);//no need
-Route::post('/mobileBasicData/{access_token?}/{phone_token?}', [MobileAPIController::class, 'basic_data'])->withoutMiddleware([VerifyCsrfToken::class]);//no need
-Route::post('/mobileDisconnect/{access_token?}', [MobileAPIController::class, 'mobileDisconnect'])->withoutMiddleware([VerifyCsrfToken::class]);//no need
-
-
-Route::post('/mobileAPIDeviceList/{access_token?}/{phone_token?}/{device_id?}', [MobileAPIController::class, 'fetch_device_list'])->withoutMiddleware([VerifyCsrfToken::class]);//protected
-
-

@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use App\Library\Services\UserRightOnMobileTokenService;
 use App\Library\Services\MessageService;
-
+use App\Library\Services\MobileAccessService;
 class MobileAccessController extends Controller
 {
     //
@@ -22,13 +22,7 @@ class MobileAccessController extends Controller
         $validated= $validator->validate();
     
         if(!$validator->fails() && Auth::check()){
-            MobileAccess::insert([
-                'case_id' => Str::random(15),
-                'access_token' => Str::random(100),
-                'user_id' => Auth::id(),
-                //'eligible_device' => '',
-                'nickname' => $validated['nickname']
-            ]);
+            MobileAccessService::NewMobileAccess(Auth::id(), $validated['nickname']);
         }
         
         return redirect(url()->previous());

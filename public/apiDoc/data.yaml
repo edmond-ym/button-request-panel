@@ -85,7 +85,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Result'
 
-  '/api/v1/message/pin/{msgId?}': 
+  '/api/v1/message/pin/{msgId}': 
     post:
       security:
         - NormalAPIAuth: []    
@@ -107,7 +107,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Result'
-  '/api/v1/message/unpin/{msgId?}': 
+  '/api/v1/message/unpin/{msgI}': 
     post:
       security:
         - NormalAPIAuth: []    
@@ -128,7 +128,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Result'
-  '/api/v1/message/delete/{msgId?}':    
+  '/api/v1/message/delete/{msgId}':    
     post:
       security:
         - NormalAPIAuth: []    
