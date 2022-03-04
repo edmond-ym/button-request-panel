@@ -9,8 +9,14 @@ use App\Models\DeviceList;
 use App\Library\Services\DeviceRightService;
 use App\Models\MobileAccess;
 use App\Library\Services\MobileAccessService;
+use App\Library\Services\APIQueryService;
+use App\Library\Services\DeviceListService;
+use App\Models\DeviceOwnershipShare;
+use App\Models\User;
+use App\Library\Services\DeviceShareService;
 
-
+//use App\Library\Services\APIBasicTest;
+//use App\Http\Middleware\ParameterAllFilled;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,6 +27,8 @@ use App\Library\Services\MobileAccessService;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -39,26 +47,25 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
-        Route::post('pin/{msgId?}', function (Request $request, $msgId){
+        Route::post('pinStatus/{msgId}/{action}', function (Request $request, $msgId, $action){
             if ($request->user()->tokenCan('update')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
-                    return response()->json(MessageService::pinMessage(Auth::id(), $msgId, 'true'));
+                    
+                    if ($action=="unpin") {
+                        return response()->json(MessageService::pinMessage(Auth::id(), $msgId, 'false'));
+                    }elseif ($action=="pin") {
+                        return response()->json(MessageService::pinMessage(Auth::id(), $msgId, 'true'));
+                    }else{
+                        return response()->json(['result'=>'invalid-action']);
+                    }
                 }
                 return response()->json(['result'=>'not-subscribed']);
             }
             return response()->json(['result'=>'no-privilege']);
         });
-        Route::post('unpin/{msgId?}', function (Request $request, $msgId){
-            if ($request->user()->tokenCan('update')) {
-                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
-                    return response()->json(MessageService::pinMessage(Auth::id(), $msgId, 'false'));
-                }
-                return response()->json(['result'=>'not-subscribed']);
-            }
-            return response()->json(['result'=>'no-privilege']);
-        });
-        Route::post('delete/{msgId?}', function (Request $request, $msgId){
-            if ($request->user()->tokenCan('update')) {
+        
+        Route::post('delete/{msgId}', function (Request $request, $msgId){
+            if ($request->user()->tokenCan('delete')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     return response()->json(MessageService::deleteMessage(Auth::id(), $msgId));
                 }
@@ -73,19 +80,159 @@ Route::middleware(['auth:sanctum'])->group(function () {
             if ($request->user()->tokenCan('read')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     if ($device_id==null) {
-                        $data=DeviceList::select('device_id', 'info', 'datetime', 'status', 'nickname', 'repeated_message')->where("user_id", "=",$request->user()->id )->get();
+                        $data=DeviceList::select('device_id', 'info', 'datetime', 'status', 'nickname', 'repeated_message')
+                        ->where("user_id", "=",$request->user()->id )->get();
                     }
                     else{
                         $data=DeviceList::select('device_id', 'info', 'datetime', 'status', 'nickname', 'repeated_message')
                         ->where("user_id", "=",$request->user()->id )->where("device_id","=",$device_id)->get();
                     }
-                   
+                    for ($i=0; $i < count($data); $i++) { 
+                        $data[$i]['OwnershipShare']=DeviceOwnershipShare::join('users', 'users.id', '=', 'device_ownership_share.share_to_user_id')
+                        ->select("users.name", "users.email", "right", "created_time")->where('device_id', '=', $data[$i]['device_id'])->get();
+                    }
                     return response()->json(['result'=>'success', 'data'=>$data]);
                 }
                 return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
+        Route::post('myDevice/repeatedMessage/{device_id}/{action}', function (Request $request, $device_id, $action){
+            if ($request->user()->tokenCan('update')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    if ($action=="allow") {
+                        $r=DeviceListService::repeatMessageAllowUpdate($request->user()->id,$device_id, $action);
+                        return response()->json(['result'=>$r->result, 'data'=>$r->data]);
+                    }elseif($action=="disallow"){
+                        $r=DeviceListService::repeatMessageAllowUpdate($request->user()->id,$device_id, $action);
+                        return response()->json(['result'=>$r->result, 'data'=>$r->data]);
+                    }
+                    return response()->json(['result'=>'invalid-command', 'data'=>[]]);
+                }
+                return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
+
+        Route::post('myDevice/{device_id}/buttonId/{action}', function (Request $request, $device_id, $action){
+            if ($request->user()->tokenCan('update')) {
+               
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    /*$a=json_decode('
+                    [
+                        {
+                            "buttonNo": "ewq",
+                            "message": "ewq1"
+                        },
+                        {
+                            "buttonNo": "dew",
+                            "message": "dsw"
+                        },
+                        {
+                            "buttonNo": "dew1j2nj2jj2",
+                            "message": "dsw"
+                        }
+                    ]'
+                    , true);
+                    $b=json_decode('
+                    [
+                        "ewq"
+                    ]'
+                    , true);*/
+                    if ($request->has('passData')) {
+                        $r=DeviceListService::buttonMessageConfigure(Auth::id(), $device_id, $action, json_decode($request->input('passData'), true));
+                        return response()->json(['result'=>$r->result, 'data'=>$r->data]);
+
+                    }else{
+                        return response()->json(['result'=>'passData-query-param-missing', 'data'=>[]]);
+                    }
+                    
+                    
+                    //return response()->json(['result'=>'invalid-command', 'data'=>[]]);
+                }
+                return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
+        
+        
+        Route::post('deviceSharedToMe/fetch', function (Request $request){
+            if ($request->user()->tokenCan('read')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    $data=DeviceOwnershipShare::where("share_to_user_id", "=", Auth::id())//->where('device_list.status', '='."'active'")
+                    ->join('device_list', 'device_list.device_id', '=', 'device_ownership_share.device_id')
+                    ->join('users', 'device_list.user_id', '=', 'users.id')
+                    ->select('device_ownership_share.case_id','device_ownership_share.device_id','device_ownership_share.share_to_user_id','device_ownership_share.created_time'
+                    ,'device_list.nickname','device_list.status', 'device_list.info', 'device_ownership_share.right', 'users.name as owner_name','users.email as owner_email')
+                    ->get();
+                    return response()->json(['result'=>'success', 'data'=>$data]);
+                }
+                return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
+        Route::post('deviceSharedToMe/delete/{case_id}', function (Request $request, $case_id){
+            if ($request->user()->tokenCan('delete')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    $r=DeviceShareService::GiveUpShareeRight($request->user()->id, $case_id);
+                    return response()->json(['result'=>$r->result, 'data'=>["case_id"=>$r->case_id]]);
+                }
+                return response()->json(['result'=>'not-subscribed','data'=>["case_id"=>$r->case_id]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>["case_id"=>$r->case_id]]);
+        });
+        Route::post('shareDevice/new/{email}/{device_id}', function (Request $request, $email, $device_id){
+            if ($request->user()->tokenCan('create')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    $r=DeviceShareService::ShareNewDevice($request->user()->id, $email, $device_id);
+                    if($r->result=="success"){
+                        return response()->json(['result'=>$r->result, 'data'=>
+                            DeviceOwnershipShare::join('users', 'users.id', '=', 'device_ownership_share.share_to_user_id')
+                            ->select("users.name", "users.email", "right","device_id", "case_id", "created_time")->where('device_id', '=', $device_id)->get()
+                        ]);
+                    }
+                    return response()->json(['result'=>$r->result,'data'=>[]]);
+                    
+                }
+                return response()->json(['result'=>'not-subscribed','data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
+        Route::post('shareDevice/changeRight/{case_id}/{right}', function (Request $request, $case_id, $right){
+            if ($request->user()->tokenCan('update')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    
+
+                    $r=DeviceShareService::changeShareeRight(Auth::id(), $case_id, $right);
+                    if ($r->result=="success") {
+                        return response()->json(['result'=>$r->result,'data'=>
+                            DeviceOwnershipShare::join('users', 'users.id', '=', 'device_ownership_share.share_to_user_id')
+                            ->select("users.name", "users.email", "right","device_id", "case_id", "created_time")->where('case_id', '=', $case_id)->get()
+                        ]);
+                    }
+                    return response()->json(['result'=>$r->result,'data'=>[]]);
+                }
+                return response()->json(['result'=>'not-subscribed','data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
+
+        Route::post('shareDevice/revokeSharee/{case_id}', function (Request $request, $case_id){
+            if ($request->user()->tokenCan('delete')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    $r=DeviceShareService::revokeShareeRight($request->user()->id,  $case_id);
+                    if ($r->result=="success") {
+                        return response()->json(['result'=>$r->result,'data'=>[]]);
+                    }
+                    return response()->json(['result'=>$r->result,'data'=>[]]);
+                }
+                return response()->json(['result'=>'not-subscribed','data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
+
+        
+
         /*Route::post('myDevice/update/{device_id}', function (Request $request, $device_id){
             if ($request->user()->tokenCan('read')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
@@ -99,11 +246,21 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });*/
+        Route::post('myDevice/new/{nickname}', function (Request $request, $nickname){
+            if ($request->user()->tokenCan('create')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    
+                    $rObj=DeviceListService::newDeviceGenerate($request->user()->id, $nickname);
+                    return response()->json(['result'=>$rObj->result, 'data'=>$rObj->data]);
+                }
+                return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
         
 
     });
     Route::prefix('mobileDevice')->group(function(){
-    
         Route::post('fetch', function (Request $request){
             if ($request->user()->tokenCan('read')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
@@ -115,7 +272,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
         Route::post('new/{nickname}', function (Request $request, $nickname){
-            if ($request->user()->tokenCan('read')) {
+            if ($request->user()->tokenCan('create')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     $rObj=MobileAccessService::NewMobileAccess($request->user()->id, $nickname);
                     if ($rObj->result=="success") {
@@ -128,8 +285,36 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
-        
-       
+        Route::post('revoke/{case_id}', function (Request $request, $case_id){
+
+            if ($request->user()->tokenCan('delete')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    
+                    $rObj=MobileAccessService::MobileAccessDestroy($request->user()->id, $case_id);
+                    return response()->json(['result'=>$rObj->result, 'data'=>['case_id'=>$rObj->case_id]]);
+                }
+                return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
+
+        Route::post('amend/{case_id}', function (Request $request, $case_id){
+
+            if ($request->user()->tokenCan('update')) {
+                if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                    //$a=new APIQueryService(["nickname"=>"nick_name", "key"=>"k_e_y"]);
+                    $a=new APIQueryService(["nickname"=>"nickname"]); 
+                    
+
+                    $rObj=MobileAccessService::MobileAccessAmend($request->user()->id, $case_id, $a->toDBUpdateArray($request->input()));
+
+                    return response()->json(['result'=>$rObj->result, 'data'=>$rObj->data]);
+
+                }
+                return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
+            }
+            return response()->json(['result'=>'no-privilege', 'data'=>[]]);
+        });
 
     });
 });

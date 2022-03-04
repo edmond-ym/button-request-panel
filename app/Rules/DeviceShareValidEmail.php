@@ -14,9 +14,10 @@ class DeviceShareValidEmail implements Rule
      *
      * @return void
      */
-    public function __construct($device_id)
+    public function __construct($device_id, $errorInJson=false)
     {
         $this->device_id=$device_id;
+        $this->errorInJson=$errorInJson;
         $this->error_message="";
     }
 
@@ -31,20 +32,35 @@ class DeviceShareValidEmail implements Rule
     {
         $myEmail=User::where('id', '=', Auth::id())->get()[0]->email;
         if ($myEmail==$value) {
-            $this->error_message="Email is the same as yours";
+            
+            if ($this->errorInJson) {
+                $this->error_message="your-email";
+            }else{
+                $this->error_message="Email is the same as yours";
+            }
             return false;//same as myemail
         }else{
             if(count(User::where('email', '=', $value)->get())>0){
                 $userIdToReceiveShare=User::where('email', '=', $value)->get()[0]->id;
                 if (count(DeviceOwnershipShare::where('share_to_user_id', '=', $userIdToReceiveShare)->where('device_id','=', $this->device_id)->get())>0) {
-                    $this->error_message="Added already";
+                   
+                    if ($this->errorInJson) {
+                        $this->error_message="email-added-already";
+                    }else{
+                        $this->error_message="Added already";
+                    }
                     return false;//exist already
                 }else{
                     return true;
                 }
 
             }else{
-                $this->error_message="No this email";
+                if ($this->errorInJson) {
+                    $this->error_message="email-not-exists";
+                }else{
+                    $this->error_message="No this email";
+                }
+                
                 return false;
             }
         }

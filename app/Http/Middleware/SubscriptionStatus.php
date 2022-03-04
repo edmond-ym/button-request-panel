@@ -21,7 +21,7 @@ class SubscriptionStatus
 
     
     //public static $testMode=false;
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next/*, $api=false*/)
     {
         
         $stripeCustomer = Auth::user()->createOrGetStripeCustomer();
@@ -37,8 +37,11 @@ class SubscriptionStatus
             /*if (!SubscriptionManagementService::subscribed(Auth::id())) {
                 return redirect(route('subscription_dashboard_ui'));
             }*/
+            //echo $api;
             if (!SubscriptionManagementService::offlineStatusSubscribed(Auth::id())) {
-                
+                /*if ($api) {
+                    return response()->json(['result'=>'not-subscribed']);
+                }*/
                 return redirect(route('subscription_dashboard_ui'));
             }
 

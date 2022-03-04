@@ -12,6 +12,7 @@ use App\Rules\DeviceShareValidEmail;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
+use App\Library\Services\DeviceShareService;
 
 class DeviceOwnershipShareController extends Controller
 {
@@ -33,11 +34,14 @@ class DeviceOwnershipShareController extends Controller
             'revoke' => 'required', //non editable
         ]);            
         $validated= $validator->validate();
-        $data=DeviceOwnershipShare::where("case_id",'=', $validated['revoke'])->get();
+        //
+        /*$data=DeviceOwnershipShare::where("case_id",'=', $validated['revoke'])->get();
         $device_id=$data[0]->device_id;
         if(DeviceRightService::AbsoluteRightOnDevice($device_id)){
             DeviceOwnershipShare::where('device_id', '=', $device_id)->where('case_id', '=', $validated['revoke'])->delete();
-        }
+        }*/
+        DeviceShareService::revokeShareeRight(Auth::id(),  $validated['revoke']);
+        //
         return redirect(url()->previous());
     }
 
@@ -47,53 +51,42 @@ class DeviceOwnershipShareController extends Controller
         ]);            
         $validated= $validator->validate();
         $case_id=$validated['give_up'];
-        DeviceOwnershipShare::where('share_to_user_id', '=', Auth::id()) // ensure the right
-        ->where('case_id', '=', $case_id)->delete();
+        /*DeviceOwnershipShare::where('share_to_user_id', '=', Auth::id()) // ensure the right
+        ->where('case_id', '=', $case_id)->delete();*/
+        DeviceShareService::GiveUpShareeRight(Auth::id(), $case_id);
         return redirect(url()->previous());
     
     }
     public function device_share_add(Request $request, $device_id) {
+        
+        //////////
         $validator=Validator::make($request->all(), [
             'email' => ['required','email',new DeviceShareValidEmail($device_id)], //non editable
         ]);            
         $validated= $validator->validate();
-       //return $validated;
-        $targetId=User::where('email', '=', $validated['email'])->get()[0]->id;
-        if (DeviceRightService::AbsoluteRightOnDevice($device_id)) {
-            $r=DeviceOwnershipShare::insert([
-                'case_id'=>Str::random(40),
-                'device_id'=>$device_id,
-                'share_to_user_id'=>$targetId,
-                'right'=>'basic',
-                'created_time'=>gmdate("Y-m-d H:i:s P")
-            ]);
-            if ($r) {
-                if (env('MAIL_ENABLED')) {
-                     Mail::to($validated['email'])
-                     ->send(new \App\Mail\DeviceShared("sharee", Auth::id(), $targetId, $device_id));
-     
-                     Mail::to(Auth::user()->email)
-                     ->send(new \App\Mail\DeviceShared("sharer", Auth::id(), $targetId, $device_id));
-                }
-               
-            }
-        } 
-        //return $device_id;
+      
+        DeviceShareService::ShareNewDevice(Auth::id(), $validated['email'], $device_id);
+        //////////
+        
         return redirect(url()->previous());
     }
     public function change_right(Request $request, $case_id) {
     
         $validator=Validator::make($request->all(), [
             'right_alter' => 'required', //non editable
-        ]);            
+        ]);        
+        
         $validated= $validator->validate();
-        $data=DeviceOwnershipShare::where("case_id",'=', $case_id)->get();
+        //
+        /*$data=DeviceOwnershipShare::where("case_id",'=', $case_id)->get();
         
         $device_id=$data[0]->device_id;
         if(DeviceRightService::AbsoluteRightOnDevice($device_id)){//Protection
             $new_right=$validated['right_alter'];
             DeviceOwnershipShare::where('device_id', '=', $device_id)->where('case_id', '=', $case_id)->update(['right'=>$new_right]);
-        }
+        }*/
+        DeviceShareService::changeShareeRight(Auth::id(), $case_id, $validated['right_alter']);
+        //
         return redirect(url()->previous());
     }
     public function individual_device_ownership_view($device_id,Request $request,DeviceController $dc) {

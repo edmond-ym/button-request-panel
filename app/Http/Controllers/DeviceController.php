@@ -20,7 +20,7 @@ class DeviceController extends Controller
         
         
         $validator=Validator::make($request->all(), [
-            'deviceId' => 'required|max:100|unique:device_list,device_id',
+            'deviceId' => 'required|max:100|unique:device_list,device_id|uuid',
             'bearerToken' => 'required|max:100|unique:device_list,bearer_token',
             //'info' => 'required|max:65536',
             'nickname'=>'required|max:100',

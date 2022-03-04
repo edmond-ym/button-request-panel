@@ -73,14 +73,15 @@ class MobileAccessController extends Controller
 
     }
     public function mobile_access_destroy($case_id){
-        if (UserRightOnMobileTokenService::right($case_id)) {
+        //if (UserRightOnMobileTokenService::right($case_id)) {
 
             if(Auth::check()){
-                MobileAccess::where('case_id', '=', $case_id)
+               /*MobileAccess::where('case_id', '=', $case_id)
                 ->where('user_id', '=', Auth::id()) // ensure user right on that
-                ->delete();
+                ->delete();*/
+                MobileAccessService::MobileAccessDestroy(Auth::id(), $case_id);
             }
-        }
+        //}
         return redirect(route('mobile_access_list'));
     }
 }
