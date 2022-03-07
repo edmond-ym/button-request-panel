@@ -156,9 +156,11 @@
 
 <div ng-app="newDeviceWizard">
     <div ng-controller="NewDeviceController">
-
+      <div class="container">
+      <x-card>
         <div class="container">
-
+       
+           
             
             <div ng-show="wizardPage==1">
                 <div class="mb-3">
@@ -234,7 +236,12 @@
               <h3 style="color:red;">@{{i}}</h3>
             </div>
 
-        </div>
+        
+        
+        
+      </div>
+    </x-card>
+      </div>
     </div>
 
 </div>

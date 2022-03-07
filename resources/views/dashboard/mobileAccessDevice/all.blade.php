@@ -84,6 +84,7 @@
         }
 
     </style>
+    
 
 
 
@@ -104,6 +105,7 @@
                 <div class="mb-3">
                     <label for="nickname" class="form-label">Nickname</label>
                     <input type="text" class="form-control" id="nickname" name="nickname" aria-describedby="emailHelp">
+                    
                     @error('nickname')<div class="alert alert-danger">{{ $message }}</div>@enderror
                 </div>
             </div>

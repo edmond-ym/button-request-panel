@@ -54,7 +54,6 @@ Route::get('/api-doc', function () {
     
     return view('apiDocumentation');
 })->name('apiDoc');
-Route::get('/reveal-device-bearer-token/{device_id}', [DeviceController::class, 'revealDeviceBearerToken'])->name('revealDeviceBearerToken');
 
 Route::get('/test', function (Request $request) {
     //return "an";
@@ -90,6 +89,7 @@ Route::get('/test', function (Request $request) {
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware(['subscription'])->group(function(){
         //Route::get
+        Route::get('/reveal-device-bearer-token/{device_id}', [DeviceController::class, 'revealDeviceBearerToken'])->name('revealDeviceBearerToken');
 
         Route::get('/dashboard', function(){ return view('dashboard.home', ['data'=>BasicInfoService::forDashboard()]);})->name('dashboard');
         Route::get('/dashboard/deviceList', [DeviceController::class, 'device_list_table'])->name('deviceList');

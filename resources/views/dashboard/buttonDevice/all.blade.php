@@ -1,5 +1,6 @@
 <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
 
+
 <div ng-app="deviceListApp">
 <x-app-layout >
     <x-slot name="header">
