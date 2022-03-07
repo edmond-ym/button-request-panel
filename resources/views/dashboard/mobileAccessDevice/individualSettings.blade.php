@@ -8,13 +8,15 @@
     <script type="text/javascript" src="/js/qrcode.js"></script>
     
     
-    <div class="py-12">
+      <div class="py-12" hidden>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             </div>
-          </div>
+        </div>
       </div>
-      
+      <br>
+      <div class="container">
+      <x-card>
       <div class="container">
         <div class="mb-3">
           <label for="device_id" class="col-form-label">Connection Status:</label>
@@ -82,6 +84,8 @@
 
             </form>
       </div>
+    </x-card>
+    </div>
       
           
     
