@@ -66,6 +66,11 @@
         $scope.TableArray=SearchService.TableArray;
         $scope.IncludeFilterDict=SearchService.IncludeFilterDict;
         $scope.DiscreteFilterDict=SearchService.DiscreteFilterDict;
+
+        $scope.openRevealBearerTokenWindow=function($device_id){
+
+          window.open("{{route('openRevealBearerTokenWindow')}}/"+$device_id, "_blank", "toolbar=yes, scrollbars=yes, resizable=no, top=500,left=500,width=400, height=400");
+        }
         
       }).controller('SearchController', function(SearchService, $scope){
         $scope.TableArray=SearchService.TableArray;
@@ -224,10 +229,14 @@
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                   <li><a  class="dropdown-item" href="{{route('individual_device')}}/@{{i['device_id']}}">Edit</a></li> 
                                   <li><a  class="dropdown-item" href="{{route('individual_device_ownership')}}/@{{i['device_id']}}">Ownership share</a></li>
+                                  <li><a  class="dropdown-item" 
+                                    
+                                    ng-click="openRevealBearerTokenWindow(i['device_id']);"
+                                  >Reveal Bearer Token</a></li>
+
                                 </ul>
                              </div>
-                            
-                           
+                             
                           </td>
                           <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                             <input class=" checkbox-round" type="checkbox" name="device_case[]"value="@{{i['case_id']}}">
@@ -245,6 +254,9 @@
                            }
     
                           </style>
+                          <script>
+                            
+                          </script>
                         </tr>
                        
                        </tbody>

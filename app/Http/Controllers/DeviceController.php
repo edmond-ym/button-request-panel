@@ -11,6 +11,8 @@ use App\Models\DeviceList;
 use App\Library\Services\DeviceRightService;
 use App\Rules\DeviceRevokeBarPass;
 use Illuminate\Support\Facades\Mail;
+use App\Library\Services\CommonService;
+use Illuminate\Support\Facades\URL;
 
 use App\Mail\DeviceCreated;
 
@@ -35,7 +37,7 @@ class DeviceController extends Controller
                 'case_id' => Str::random(10),
                 'device_id' => $validated['deviceId'],
                 'user_id' => Auth::id(),
-                'bearer_token' => hash('sha256', $validated['bearerToken']),
+                'bearer_token' => CommonService::DeviceAPIEncrypt($validated['bearerToken']),
                 //'info' => $validated['info'],
                 'info' => '[]',
                 'datetime' =>  gmdate("Y-m-d H:i:s P"),
@@ -99,7 +101,7 @@ class DeviceController extends Controller
                 'case_id' => Str::random(10),
                 'device_id' => $validated['deviceId'],
                 'user_id' => Auth::id(),
-                'bearer_token' => hash('sha256', $validated['bearerToken']),
+                'bearer_token' => Common::DeviceAPIEncrypt($validated['bearerToken']) ,
                 //'info' => $validated['info'],
                 'info' => '[]',
                 'datetime' =>  gmdate("Y-m-d H:i:s P"),
@@ -208,5 +210,55 @@ class DeviceController extends Controller
 
     public function newDeviceWizard(){
         return view('dashboard.buttonDevice.newDeviceWizard');
+    }
+
+    public function revealDeviceBearerToken(Request $request, $device_id){
+        if (! $request->hasValidSignature()) {
+            abort(401);
+        }
+        if (Auth::check()) {
+            $data=DeviceList::select('device_id', 'bearer_token')
+            ->where("user_id", "=",Auth::id() )    // ensure power
+            ->where("device_id", "=", $device_id)
+            ->get();
+            if (count($data)>0) {
+                $device_id=$data[0]->device_id;
+                $bearerTokenEncrypted=$data[0]->bearer_token;
+                $res=CommonService::DeviceAPIDecrypt($bearerTokenEncrypted);
+                if ($res->result=="success") {
+                    $decrypedBearerToken=$res->decryptedString;
+                    return view('misc.revealDeviceBearerToken',
+                    ["result"=>"success", "data"=>[
+                        "device_id"=>$device_id,"bearer_token"=>$decrypedBearerToken
+                    ]]);
+                   
+                }else{
+                    return view('misc.revealDeviceBearerToken',["result"=>"decryption-failed", "data"=>[]]);
+
+                }
+            }else{
+                return view('misc.revealDeviceBearerToken',["result"=>"no-privilege",  "data"=>[]]);
+            }
+        }
+        return view('misc.revealDeviceBearerToken',["result"=>"no-privilege",  "data"=>[]]);
+        //return "a";
+    }
+    public function openRevealBearerTokenWindow($device_id){
+        $data=DeviceList::select('device_id', 'bearer_token')
+            ->where("user_id", "=",Auth::id() )    // ensure power
+            ->where("device_id", "=", $device_id)
+            ->get();
+        if (count($data)>0) {
+            
+            $temUrl=URL::temporarySignedRoute(
+                'revealDeviceBearerToken', now()->addMinutes(5),['device_id' => $device_id]
+            );
+            return redirect($temUrl);
+           
+            
+        }
+        
+        
+        
     }
 }

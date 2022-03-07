@@ -13,6 +13,7 @@ use App\Rules\DeviceRevokeBarPass;
 use App\Models\MessageEnquiry;
 use App\Models\User;
 use App\Library\Services\SubscriptionManagementService;
+use App\Library\Services\CommonService;
 
 
 class DeviceAPIController extends Controller
@@ -20,7 +21,7 @@ class DeviceAPIController extends Controller
     public function push_msg($device_id=null, Request $request) {
         
         
-        $bearerToken=hash('sha256',$request->bearerToken());
+       /* $bearerToken=hash('sha256',$request->bearerToken());
         $result=[];
         if($device_id != "" && $bearerToken != "" && $request->has('button_id')){
             $button_id=$request->input("button_id");
@@ -32,7 +33,37 @@ class DeviceAPIController extends Controller
             $result=["result"=>"non-valid-request"];
             //return response()->json()->header('Access-Control-Allow-Origin', '*');
         }
+        return response()->json($result);*/
+
+        $result=[];
+        if($device_id != "" && $request->bearerToken() != "" && $request->has('button_id')){
+            $button_id=$request->input("button_id");
+            $data=DeviceList::where('device_id', $device_id)
+            ->get();
+            if (count($data)==1) {
+               
+                $res=CommonService::DeviceAPIDecrypt($data[0]->bearer_token);
+                if ($res->result=="success") {
+                    if ($res->decryptedString==$request->bearerToken() ) {// Ensure Right
+                        $result=self::push_msg_internal($data, $button_id);
+                    }else{
+                        $result=["result"=>"no-privilege"];
+                    }
+                } else {
+                    $result=["result"=>"decryption-failed"];
+                }
+            }else{
+                $result=["result"=>"device-id-not-exist"];
+            }
+
+            
+        }else{
+            $result=["result"=>"non-valid-request"];
+            //return response()->json()->header('Access-Control-Allow-Origin', '*');
+        }
         return response()->json($result);
+
+
     }
 
 
@@ -55,7 +86,7 @@ class DeviceAPIController extends Controller
                 }
             }
             if(!$exist){
-                $result=["result"=>"non-exist"];
+                $result=["result"=>"button-id-not-exist"];
                 //return response()->json()->header('Access-Control-Allow-Origin', '*'); 
             }else{
                 $repeated_message=$data[0]->repeated_message;

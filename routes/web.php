@@ -19,8 +19,10 @@ use App\Http\Controllers\DeviceAPIController;
 use App\Http\Controllers\MobileAccessController;
 use App\Http\Controllers\MobileAPIController;
 use App\Http\Controllers\SubscriptionManagementController;
-
 use App\Mail\DeviceCreated;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Contracts\Encryption\DecryptException;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,10 +54,24 @@ Route::get('/api-doc', function () {
     
     return view('apiDocumentation');
 })->name('apiDoc');
+Route::get('/reveal-device-bearer-token/{device_id}', [DeviceController::class, 'revealDeviceBearerToken'])->name('revealDeviceBearerToken');
 
 Route::get('/test', function (Request $request) {
+    //return "an";
+    //$a1= DeviceList::where("device_id",'=', '244a5a0e-3d0c-402f-9191-c2a3dd57d2ec')->get()[0]->bearer_token;
+    //return URL::signedRoute('revealDeviceBearerToken', ['user' => 1]);
     //$token = $request->user()->createToken("jjj");
- 
+    //$a="dev_2Z6jg80bMm42l374j0g6plWo3sd3GFq15UfzcfyB";
+     
+    //$a1=Crypt::encryptString($a); echo $a1;
+    //echo "t1";
+    /*try {
+        $decrypted = Crypt::decryptString($a1);
+        echo $decrypted;
+    } catch (DecryptException $e) {
+        //
+    }*/
+    //return Crypt::encryptString("dev_2Z6jg80bMm42l374j0g6plWo3sd3GFq15UfzcfyB");
     //return ['token' => $token->plainTextToken];
   // return file_get_contents(asset('public/apiDoc/data.yaml'));
    // use Yaml;
@@ -68,12 +84,14 @@ Route::get('/test', function (Request $request) {
     return new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential);
     Mail::to($request->user())
     ->send(new App\Mail\DeviceCreated(Auth::user()->name, true, $deviceCredential));*/
-    return "test";
+    return "";
    
 })->withoutMiddleware([VerifyCsrfToken::class]);
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware(['subscription'])->group(function(){
-        Route::get('/dashboard', function(){return view('dashboard.home', ['data'=>BasicInfoService::forDashboard()]);})->name('dashboard');
+        //Route::get
+
+        Route::get('/dashboard', function(){ return view('dashboard.home', ['data'=>BasicInfoService::forDashboard()]);})->name('dashboard');
         Route::get('/dashboard/deviceList', [DeviceController::class, 'device_list_table'])->name('deviceList');
         //Mobile Access Controller
         Route::get('/mobileAccessList',[MobileAccessController::class, 'mobile_access_list'] )->name('mobile_access_list');
@@ -84,6 +102,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::post('/mobile_access_settings/{case_id?}', [MobileAccessController::class, 'mobile_device_list_query'])->name('mobile_device_list_query')->withoutMiddleware([VerifyCsrfToken::class]);
         Route::get('/dashboard/deviceList/{device_id?}', [DeviceController::class, 'individual_device_view'])->name('individual_device');
         Route::get('/dashboard/deviceOwnership/{device_id?}',[DeviceOwnershipShareController::class, 'individual_device_ownership_view'] )->name('individual_device_ownership');
+        
+        Route::get('/dashboard/openRevealBearerTokenWindow/{device_id?}',[DeviceController::class, 'openRevealBearerTokenWindow'] )->name('openRevealBearerTokenWindow')->middleware(['password.confirm']);
+
         Route::post('/device_amend', [DeviceController::class, 'device_amend']);
         Route::post('/device_list_action', [DeviceController::class, 'device_list_action']);
         Route::post('/new_device', [DeviceController::class, 'new_device']);

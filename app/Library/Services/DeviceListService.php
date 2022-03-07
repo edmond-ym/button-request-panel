@@ -8,6 +8,7 @@ use App\Library\Services\MessageService;
 use App\Models\MobileAccess;
 use Illuminate\Support\Str;
 use App\Library\Services\DeviceRightService;
+use App\Library\Services\CommonService;
 
 
 class DeviceListService
@@ -26,7 +27,7 @@ class DeviceListService
             'case_id' => $case_id,
             'device_id' => $device_id,
             'user_id' => $user_id,
-            'bearer_token' => hash('sha256', $bearerToken),
+            'bearer_token' => CommonService::DeviceAPIEncrypt($bearerToken),
             //'info' => $validated['info'],
             'info' => '[]',
             'datetime' =>  gmdate("Y-m-d H:i:s P"),

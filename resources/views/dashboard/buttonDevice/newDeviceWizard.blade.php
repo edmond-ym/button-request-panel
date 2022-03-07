@@ -200,7 +200,7 @@
                       <input type="text" class="form-control" aria-label="Recipient's username" id="bearerToken" name="bearerToken" ng-model="bearer_token" value="{{ 'dev_'.Str::random(40) }}" aria-describedby="button-addon2" readonly> 
                       <button class="btn btn-outline-secondary" data-clipboard-target="#bearerToken"type="button" id="button-copy" data-clipboard-action="copy" data-clipboard-target="#bearerToken">Copy</button>
                     </div>
-                    <p class="text-danger">This is the only time you may copy the bearerToken!</p>
+                    <p class="text-danger" hidden>This is the only time you may copy the bearerToken!</p>
                     <div class="form-check" hidden disabled>
                       <input class="form-check-input" type="checkbox" value="true" id="save_this_key" name="save_this_key">
                       <label class="form-check-label" for="save_this_key">
