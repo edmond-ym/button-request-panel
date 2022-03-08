@@ -43,7 +43,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api/versionRouteList.php'));
 
-            Route::prefix('/dashboard')
+            Route::prefix('dashboard')
                 ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/dashboard.php'));
@@ -72,6 +72,9 @@ class RouteServiceProvider extends ServiceProvider
     protected function configureRateLimiting()
     {
         RateLimiter::for('api', function (Request $request) {
+            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
+        });
+        RateLimiter::for('deviceAPI', function (Request $request) {
             return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
     }
