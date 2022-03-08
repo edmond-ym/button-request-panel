@@ -86,7 +86,7 @@
                         </td>
                         
                         <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                             <form method="post" action="/give_up_shared_right">
+                             <form method="post" action="{{route('give_up_shared_right')}}">
                                  @csrf
                                 <button  class="btn btn-danger"  name="give_up" value="@{{i['case_id']}}" type="submit">Give Up</button>
                              </form>

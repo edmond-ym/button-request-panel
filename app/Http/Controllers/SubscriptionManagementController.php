@@ -87,7 +87,7 @@ class SubscriptionManagementController extends Controller
         $validated= $validator->validate();
 
         if(!$validator->fails() && Auth::check()){
-            if (self::rightOnPaymentMethod(Auth::id(), $validated['delete_payment_method'])) {
+            if (SubscriptionManagementService::rightOnPaymentMethod(Auth::id(), $validated['delete_payment_method'])) {
                 $stripe->paymentMethods->detach(
                     $validated['delete_payment_method'],
                     []

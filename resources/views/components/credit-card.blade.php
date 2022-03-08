@@ -2,11 +2,11 @@
     <div class="card-body">
         <div class="text-right">
             @if ($withDeleteButton=="true")
-                <form method="post" action="/set_default_payment_method" hidden>
+                <form method="post" action="{{route('set_default_payment_method')}}" hidden>
                     @csrf
                     <button type="submit" class="btn text-right" value="{{$paymentId}}" name="set_as_default" aria-label="Close" hidden>Default</button>
                 </form>
-                <form method="post" action="/delete_payment_method">
+                <form method="post" action="{{route('delete_payment_method')}}">
                     @csrf
                     <button type="submit" class="btn-close text-right" value="{{$paymentId}}" name="delete_payment_method" aria-label="Close"></button>
                 </form>

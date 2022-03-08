@@ -118,7 +118,7 @@
 
 
     
-<form method="post" action="/device_list_action">
+<form method="post" action="{{route('device_list_action')}}">
     @csrf
     <!----------------------------->
       <div class="container">

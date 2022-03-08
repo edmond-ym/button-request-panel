@@ -49,27 +49,34 @@
             </div>
             <div class="row justify-content-center features">
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fas fa-tools icon"></i>
+                    <div class="box" style="height: 350px;"><i class="fas fa-tools icon"></i>
                         <h3 class="name">Message configurable</h3>
                         <p class="description">You may set the message for the corresponding button</p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fas fa-sitemap icon"></i>
+                    <div class="box" style="height: 350px;"><i class="fas fa-sitemap icon"></i>
                         <h3 class="name">Device - Button Hierarchy<br></h3>
                         <p class="description">There can be more than 1 button in a device. There can be many devices attach to 1 account<br></p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fa fa-share-square-o icon"></i>
+                    <div class="box" style="height: 350px;"><i class="fa fa-share-square-o icon"></i>
                         <h3 class="name">device shareable</h3>
                         <p class="description">A device can be shared to other account. The owner of the device may set the sharee's access right of the corresponding device<br></p>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
-                    <div class="box"><i class="fas fa-mobile-alt icon"></i>
+                    <div class="box" style="height: 350px;"><i class="fas fa-mobile-alt icon"></i>
+                        <h3 class="name">PWA App</h3>
+                        <p class="description">PWA Message Manager App Available. 
+                            You may use it to view new messages. It is installable in the Google chrome.</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-5 col-lg-4 item">
+                    <div class="box" style="height: 350px;"><i class="fas fa-mobile-alt icon"></i>
                         <h3 class="name">mobile accessible(Coming soon)</h3>
-                        <p class="description">You may use the mobile device to view messages received.</p>
+                        <p class="description">You may use the mobile app to view messages received.</p>
                     </div>
                 </div>
             </div>

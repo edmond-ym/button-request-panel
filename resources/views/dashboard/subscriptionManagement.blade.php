@@ -20,7 +20,7 @@
                     @if ($hasPaymentMethod)
                       @if ($currentSubscriptionType == "none")
                         <h3>Not Subscribed</h3>
-                        <form method="post" action="/subscribe_service">
+                        <form method="post" action="{{route('subscribe_service')}}">
                             @csrf
                             <label for="plan_selector">Plan</label>
                             <select class="form-select" aria-label="Default select example" name="subscribe_item" id="plan_selector" required>
@@ -82,7 +82,7 @@
                                 <p>No default payment method attached</p>
                             @endif
                             <br>
-                            <form method="post" action="/cancel_subscription/{{$subscriptionItemList[$i]->subscription}}">
+                            <form method="post" action="{{route('cancelSubscriptionItem')}}/{{$subscriptionItemList[$i]->subscription}}">
                               @csrf
                               <button class="btn btn-primary" type="submit" name="cancel_subscription" >Cancel</button>
                               <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#paymentMethodAmendModal" data-PaymentID="{{$subscriptionItemList[$i]->subscription}}">Update Payment Method</button>
@@ -203,7 +203,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       
-      <form method="post" action="/update_payment_method">
+      <form method="post" action="{{route('update_payment_method')}}">
         @csrf
         <div class="modal-body">
             <div class="mb-3" hidden>
@@ -271,7 +271,7 @@ paymentMethodAmendModal.addEventListener('show.bs.modal', function (event) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       
-      <form method="post" action="/change_plan">
+      <form method="post" action="{{route('change_plan')}}">
         @csrf
         <div class="modal-body">
             <div class="mb-3">

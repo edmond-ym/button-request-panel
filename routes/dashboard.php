@@ -91,8 +91,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         //Route::get
         Route::get('/reveal-device-bearer-token/{device_id}', [DeviceController::class, 'revealDeviceBearerToken'])->name('revealDeviceBearerToken');
 
-        Route::get('/dashboard', function(){ return view('dashboard.home', ['data'=>BasicInfoService::forDashboard()]);})->name('dashboard');
-        Route::get('/dashboard/deviceList', [DeviceController::class, 'device_list_table'])->name('deviceList');
+        Route::get('/', function(){ return view('dashboard.home', ['data'=>BasicInfoService::forDashboard()]);})->name('dashboard');
+        Route::get('/deviceList', [DeviceController::class, 'device_list_table'])->name('deviceList');
         //Mobile Access Controller
         Route::get('/mobileAccessList',[MobileAccessController::class, 'mobile_access_list'] )->name('mobile_access_list');
         Route::post('/mobile_access_new',[MobileAccessController::class, 'mobile_access_new'] )->name('mobile_access_new');
@@ -100,26 +100,26 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::post('/mobile_access_amend/{case_id?}',[MobileAccessController::class, 'mobile_access_amend'] )->name('mobile_access_amend');
         Route::post('/mobile_access_destroy/{case_id?}',[MobileAccessController::class, 'mobile_access_destroy'] )->name('mobile_access_destroy');
         Route::post('/mobile_access_settings/{case_id?}', [MobileAccessController::class, 'mobile_device_list_query'])->name('mobile_device_list_query')->withoutMiddleware([VerifyCsrfToken::class]);
-        Route::get('/dashboard/deviceList/{device_id?}', [DeviceController::class, 'individual_device_view'])->name('individual_device');
-        Route::get('/dashboard/deviceOwnership/{device_id?}',[DeviceOwnershipShareController::class, 'individual_device_ownership_view'] )->name('individual_device_ownership');
+        Route::get('/deviceList/{device_id?}', [DeviceController::class, 'individual_device_view'])->name('individual_device');
+        Route::get('/deviceOwnership/{device_id?}',[DeviceOwnershipShareController::class, 'individual_device_ownership_view'] )->name('individual_device_ownership');
         
-        Route::get('/dashboard/openRevealBearerTokenWindow/{device_id?}',[DeviceController::class, 'openRevealBearerTokenWindow'] )->name('openRevealBearerTokenWindow')->middleware(['password.confirm']);
+        Route::get('/openRevealBearerTokenWindow/{device_id?}',[DeviceController::class, 'openRevealBearerTokenWindow'] )->name('openRevealBearerTokenWindow')->middleware(['password.confirm']);
 
-        Route::post('/device_amend', [DeviceController::class, 'device_amend']);
-        Route::post('/device_list_action', [DeviceController::class, 'device_list_action']);
+        Route::post('/device_amend', [DeviceController::class, 'device_amend'])->name("device_amend");
+        Route::post('/device_list_action', [DeviceController::class, 'device_list_action'])->name('device_list_action');
         Route::post('/new_device', [DeviceController::class, 'new_device']);
         Route::post('/new_device_two_method', [DeviceController::class, 'new_device_two_method'])->name('new_device_two_method')->withoutMiddleware([VerifyCsrfToken::class]);
 
-        Route::get('/dashboard/deviceSharedToMe',[DeviceOwnershipShareController::class, 'fetchTable'] )->name('deviceSharedToMe');
-        Route::get('/dashboard/newDeviceWizard', [DeviceController::class, 'newDeviceWizard'])->name('newDeviceWizard');
+        Route::get('/deviceSharedToMe',[DeviceOwnershipShareController::class, 'fetchTable'] )->name('deviceSharedToMe');
+        Route::get('/newDeviceWizard', [DeviceController::class, 'newDeviceWizard'])->name('newDeviceWizard');
         Route::post('/save_device_credential', [DeviceController::class, 'save_device_credential'])->name('save_device_credential');
 
-        Route::get('/dashboard/message', [MessageController::class, 'msg_dashboard_ui'] )->name('message'); //ok
+        Route::get('/message', [MessageController::class, 'msg_dashboard_ui'] )->name('message'); //ok
        
-        Route::post('/device_share_revoke', [DeviceOwnershipShareController::class, 'device_share_revoke']);
-        Route::post('/change_right_to/{case_id}',[DeviceOwnershipShareController::class, 'change_right'] );
-        Route::post('/give_up_shared_right', [DeviceOwnershipShareController::class, 'give_up_shared_right']);
-        Route::post('/device_share_add/{device_id}',[DeviceOwnershipShareController::class, 'device_share_add']);
+        Route::post('/device_share_revoke', [DeviceOwnershipShareController::class, 'device_share_revoke'])->name('device_share_revoke');
+        Route::post('/change_right_to/{case_id?}',[DeviceOwnershipShareController::class, 'change_right'] )->name('change_right_to');
+        Route::post('/give_up_shared_right', [DeviceOwnershipShareController::class, 'give_up_shared_right'])->name('give_up_shared_right');
+        Route::post('/device_share_add/{device_id?}',[DeviceOwnershipShareController::class, 'device_share_add'])->name('device_share_add');
     
        
     });
@@ -129,7 +129,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
      Route::post('/msg_enquiry_pin/{login_session?}/{message_id?}/{true_false?}', [MessageController::class, 'msg_pin'] )->name('msg_pin_api')->withoutMiddleware([VerifyCsrfToken::class]);
  
  
-    /*Route::get('dashboard/billing-portal', function (Request $request) {
+    /*Route::get('/billing-portal', function (Request $request) {
         return $request->user()->redirectToBillingPortal(route('subscription_dashboard_ui'));
     });*/
     //Route::get('/user/subscribe', function (Request $request) {
@@ -145,14 +145,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
      
    
     //Subscription (No need subs protection)
-    Route::get('/dashboard/subscription', [SubscriptionManagementController::class, 'subscription_dashboard_ui'])->name('subscription_dashboard_ui');
+    Route::get('/subscription', [SubscriptionManagementController::class, 'subscription_dashboard_ui'])->name('subscription_dashboard_ui');
     Route::get('/add_new_setup_intent', [SubscriptionManagementController::class, 'add_new_setup_intent'])->name('add_new_setup_intent');
     Route::post('/delete_payment_method', [SubscriptionManagementController::class, 'delete_payment_method'])->name('delete_payment_method');
     Route::post('/set_default_payment_method', [SubscriptionManagementController::class, 'set_default_payment_method'])->name('set_default_payment_method');
     Route::post('/update_payment_method', [SubscriptionManagementController::class, 'paymentMethodUpdate'])->name('update_payment_method');
     Route::post('/change_plan', [SubscriptionManagementController::class, 'changePlan'])->name('change_plan');
     Route::post('/subscribe_service', [SubscriptionManagementController::class, 'subscribe_service'])->name('subscribe_service');
-    Route::post('/cancel_subscription/{SubId}', [SubscriptionManagementController::class, 'cancelSubscriptionItem'])->name('cancelSubscriptionItem');
+    Route::post('/cancel_subscription/{SubId?}', [SubscriptionManagementController::class, 'cancelSubscriptionItem'])->name('cancelSubscriptionItem');
 
     //
     

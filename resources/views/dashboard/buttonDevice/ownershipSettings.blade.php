@@ -22,7 +22,7 @@
                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 <h3>Device Id: {{$device_id}} </h3>
                 <h3>Device Nickname: {{$device_nickname}}</h3>
-                <form method="post" action="/device_share_add/{{$device_id}}">
+                <form method="post" action="{{route('device_share_add')}}/{{$device_id}}">
                   @csrf
                   <div class="input-group mb-3">
                      <input type="text" class="form-control" placeholder="Enter Email" name="email" value="{{old('email')}}"aria-label="Recipient's username" aria-describedby="button-addon2">
@@ -53,7 +53,7 @@
                        <td class="px-6 py-4 whitespace-nowrap">{{$item->share_to_email}}</td>
                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{$item->created_time}} </td>
                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                           <form method="post" action="/change_right_to/{{$item->case_id}}">
+                           <form method="post" action="{{route('change_right_to')}}/{{$item->case_id}}">
                               @csrf
                               
                               <div class="dropdown">
@@ -80,7 +80,7 @@
                        
                        <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                          
-                         <form method="post" action="/device_share_revoke">
+                         <form method="post" action="{{route('device_share_revoke')}}">
                              @csrf
                             <button class="btn btn-danger"  name="revoke"type="submit" value="{{$item->case_id}}">Revoke</button>
                          </form>

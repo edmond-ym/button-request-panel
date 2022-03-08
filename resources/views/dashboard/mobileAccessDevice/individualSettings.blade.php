@@ -58,7 +58,7 @@
           qr.make();
           document.getElementById('qrCode').innerHTML = qr.createSvgTag(8);
         </script>
-            <form method="post" action="/mobile_access_amend/{{$basic_info->case_id}}">
+            <form method="post" action="{{route('mobile_access_amend')}}/{{$basic_info->case_id}}">
               @csrf
               
 
@@ -78,7 +78,7 @@
                 <button type="submit" class="btn btn-primary">Amend</button>
               </div>
             </form>
-            <form method="post" action="/mobile_access_destroy/{{$basic_info->case_id}}">
+            <form method="post" action="{{route('mobile_access_destroy')}}/{{$basic_info->case_id}}">
               @csrf
               <button type="submit" class="btn btn-danger">Destroy</button>
 

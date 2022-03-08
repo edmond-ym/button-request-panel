@@ -16,7 +16,7 @@
                 @if ($result=='success')
                 <h3 class="text-dark mb-1" >Device Id: {{$data->device_id}}</h3>
 
-                <form method="post" action="/device_amend">
+                <form method="post" action="{{route('device_amend')}}">
                   @csrf
                   <div class="mb-3">
                     <input type="text" class="form-control" id="case_id" name="case_id" value="{{$data->case_id}}"hidden required>
