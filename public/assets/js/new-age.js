@@ -8,7 +8,7 @@
     var navbarCollapse = mainNav.querySelector('.navbar-collapse');
     
     if (navbarCollapse) {
-
+      
       var collapse = new bootstrap.Collapse(navbarCollapse, {
         toggle: false
       });
