@@ -4,7 +4,8 @@
             <div class="row h-100">
                 <div class="col-lg-7 my-auto">
                     <div class="mx-auto header-content">
-                        <h1 class="mb-5">Message App allows you manage the App effectively in your mobile phone</h1><a class="btn btn-outline-warning btn-xl" role="button" href="#download">Link for PWA APP</a>
+                        <h1 class="mb-5">Message App allows you manage the App effectively in your mobile phone</h1>
+                        <a class="btn btn-outline-warning btn-xl" role="button" href="https://button-request.web.app/">Link for PWA APP</a>
                     </div>
                 </div>
                 <div class="col-lg-5 my-auto">
