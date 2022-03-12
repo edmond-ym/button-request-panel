@@ -43,7 +43,7 @@
                     <h4 class="alert-heading">Device API</h4>
                     <p>You may send the request using the link below. </p>
                     <hr>
-                    <div style="display:flex; align-items:baseline;">
+                    <div style="display:flex; ">
                       <p class="mb-0">Link:&nbsp;  </p><span>{{route('deviceAPI.v1', ['device_id'=>$data['device_id']])}}</span>
                     </div>
                     <p class="mb-0">Bearer Token Required</p>
