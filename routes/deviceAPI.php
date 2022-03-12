@@ -13,5 +13,5 @@ use App\Http\Controllers\DeviceAPIController;
     return ['result'=>"GET Method is Not Supported in API"];
 });*/
 
-Route::post('/v1/{device_id?}', [DeviceAPIController::class, 'push_msg'])->withoutMiddleware([VerifyCsrfToken::class]);//Subs Protected
+Route::post('/v1/{device_id?}', [DeviceAPIController::class, 'push_msg'])->withoutMiddleware([VerifyCsrfToken::class])->name("deviceAPI.v1");//Subs Protected
 

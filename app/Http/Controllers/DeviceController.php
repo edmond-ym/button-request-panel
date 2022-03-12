@@ -229,6 +229,7 @@ class DeviceController extends Controller
                     $decrypedBearerToken=$res->decryptedString;
                     return view('misc.revealDeviceBearerToken',
                     ["result"=>"success", "data"=>[
+                        
                         "device_id"=>$device_id,"bearer_token"=>$decrypedBearerToken
                     ]]);
                    

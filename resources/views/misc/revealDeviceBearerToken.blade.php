@@ -14,6 +14,9 @@
 
 
 <div class="container-fluid" style="padding-top:50px;">
+    
+              
+     
     <div class="row">
         <div  class="badge-item col-12	col-sm-12	col-md-6	col-lg-4	col-xl-3 " ></div>
         <div  class="badge-item col-12	col-sm-12	col-md-6	col-lg-4	col-xl-3 ">
@@ -36,6 +39,18 @@
                   <input type="text" class="form-control" aria-label="Recipient's username" id="bearerToken" name="bearerToken" ng-model="bearer_token" value="{{$data['bearer_token']}}" aria-describedby="button-addon2" readonly> 
                   <button class="btn btn-outline-secondary" data-clipboard-target="#bearerToken"type="button" id="button-copy" data-clipboard-action="copy" data-clipboard-target="#bearerToken">Copy</button>
                 </div>
+                <div class="alert alert-success" role="alert">
+                    <h4 class="alert-heading">Device API</h4>
+                    <p>You may send the request using the link below. </p>
+                    <hr>
+                    <div style="display:flex; align-items:baseline;">
+                      <p class="mb-0">Link:&nbsp;  </p><span>{{route('deviceAPI.v1')}}</span>
+                    </div>
+                    <p class="mb-0">Bearer Token Required</p>
+                    <p class="mb-0">Query Parameters: button_id</p>
+                    
+                </div>
+                
             @else
                 <h1>No Privilege</h1>
             @endif

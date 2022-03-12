@@ -70,7 +70,7 @@
 
         $scope.openRevealBearerTokenWindow=function($device_id){
 
-          window.open("{{route('openRevealBearerTokenWindow')}}/"+$device_id, "_blank", "toolbar=yes, scrollbars=yes, resizable=no, top=500,left=500,width=400, height=400");
+          window.open("{{route('openRevealBearerTokenWindow')}}/"+$device_id, "_blank", "toolbar=yes, scrollbars=yes, resizable=no, top=400,left=500,width=400, height=500");
         }
         
       }).controller('SearchController', function(SearchService, $scope){

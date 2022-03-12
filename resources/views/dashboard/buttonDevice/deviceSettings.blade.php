@@ -10,9 +10,37 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
             </div>
-          </div>
-      </div>
+        </div>
+    </div>
+    
+      
       <div class="container">
+        <div class="accordion" id="accordionExample" hidden>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Device API
+              </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse " aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <h4 class="alert-heading">Device API</h4>
+                  <p>You may send the request using the link below. </p>
+                <div class="alert alert-success" role="alert">
+
+                  <div style="display:flex; align-items:baseline;">
+                    <p class="mb-0">Link:&nbsp;  </p><span>{{route('deviceAPI.v1',['device_id'=>$data->device_id])}}</span>
+                  </div>
+                  <p class="mb-0">Bearer Token Required</p>
+                  <p class="mb-0">Query Parameters: button_id</p>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        
                 @if ($result=='success')
                 <h3 class="text-dark mb-1" >Device Id: {{$data->device_id}}</h3>
 
@@ -137,4 +165,3 @@
                         
                            
            
-                       
