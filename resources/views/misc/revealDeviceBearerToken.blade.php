@@ -44,7 +44,7 @@
                     <p>You may send the request using the link below. </p>
                     <hr>
                     <div style="display:flex; align-items:baseline;">
-                      <p class="mb-0">Link:&nbsp;  </p><span>{{route('deviceAPI.v1')}}</span>
+                      <p class="mb-0">Link:&nbsp;  </p><span>{{route('deviceAPI.v1', ['device_id'=>$data['device_id']])}}</span>
                     </div>
                     <p class="mb-0">Bearer Token Required</p>
                     <p class="mb-0">Query Parameters: button_id</p>
