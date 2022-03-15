@@ -127,7 +127,7 @@
              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                 
-                <a class="btn btn-primary" href="{{ route('newDeviceWizard') }}"> Add Device</a>
+                <a class="btn btn-primary" href="{{ route('newDeviceWizard') }}?back={{Route::currentRouteName()}}"> Add Device</a>
               <div class="btn-group" hidden >
                 <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                   New Device
@@ -228,8 +228,8 @@
                                   <i class="fas fa-sliders-h"></i>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                  <li><a  class="dropdown-item" href="{{route('individual_device')}}/@{{i['device_id']}}">Edit</a></li> 
-                                  <li><a  class="dropdown-item" href="{{route('individual_device_ownership')}}/@{{i['device_id']}}">Ownership share</a></li>
+                                  <li><a  class="dropdown-item" href="{{route('individual_device')}}/@{{i['device_id']}}?back={{Route::currentRouteName()}}">Edit</a></li> 
+                                  <li><a  class="dropdown-item" href="{{route('individual_device_ownership')}}/@{{i['device_id']}}?back={{Route::currentRouteName()}}">Ownership share</a></li>
                                   <li><a  class="dropdown-item" 
                                     
                                     ng-click="openRevealBearerTokenWindow(i['device_id']);"

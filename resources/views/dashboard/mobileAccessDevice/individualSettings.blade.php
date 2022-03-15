@@ -74,7 +74,10 @@
              
 
               <div class="modal-footer">
-                <a type="button" class="btn btn-secondary" href="{{ url()->previous() }}">Close</a>
+                @if ($backRouteName=='mobile_access_list')
+                    <a type="button" class="btn btn-secondary" href="{{ route('mobile_access_list') }}">Close</a>
+                @endif
+                
                 <button type="submit" class="btn btn-primary">Amend</button>
               </div>
             </form>

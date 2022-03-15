@@ -146,7 +146,15 @@
                     <input type="text" class="form-control" id="newBearerToken" name="newBearerToken" disabled/>
                   </div>
                   <div class="modal-footer">
-                    <a type="button" class="btn btn-secondary" href="{{ url()->previous() }}">Close</a>
+                    @if ($backRouteName=="deviceList")
+                        <a type="button" class="btn btn-secondary" href="{{ route('deviceList') }}">Close</a>
+                    @elseif($backRouteName=="deviceSharedToMe")
+                        <a type="button" class="btn btn-secondary" href="{{ route('deviceSharedToMe') }}">Close</a>
+
+                    @else
+                        
+                    @endif
+                    
                     <button type="submit" class="btn btn-primary">Amend</button>
                   </div>
                 </form>            

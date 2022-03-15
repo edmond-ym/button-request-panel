@@ -90,20 +90,22 @@ class DeviceOwnershipShareController extends Controller
         return redirect(url()->previous());
     }
     public function individual_device_ownership_view($device_id,Request $request,DeviceController $dc) {
+        $backRouteName=$request->query("back");
+
         if(Auth::check()){ //Ensure Authenticated
             $userId=Auth::id();
             $data=DeviceList::where('user_id', $userId)//Ensure the Right
                 ->where('device_id', $device_id)
                 ->get();
             if(count($data)==0){
-                return view('dashboard.buttonDevice.ownershipSettings', ['result'=>'fail', 'data'=>[], 'device_id'=>[], 'device_nickname'=>[]]);
+                return view('dashboard.buttonDevice.ownershipSettings', ['result'=>'fail', 'data'=>[], 'device_id'=>[], 'device_nickname'=>[], 'backRouteName'=>$backRouteName]);
 
             }else{    
                 $data1 =DeviceList::join('device_ownership_share', 'device_ownership_share.device_id', '=', 'device_list.device_id')
                 ->join('users', 'users.id', '=', 'device_ownership_share.share_to_user_id')
                 ->where('device_list.user_id','=', $userId)->where('device_list.device_id','=',$device_id)// Ensure the right
                 ->select('device_ownership_share.case_id','device_ownership_share.share_to_user_id', 'users.email as share_to_email', 'device_ownership_share.created_time', 'device_ownership_share.right')->get();
-                return view('dashboard.buttonDevice.ownershipSettings', ['result'=>'success', 'data'=>$data1, 'device_id'=>$device_id, 'device_nickname'=>$data[0]->nickname]);
+                return view('dashboard.buttonDevice.ownershipSettings', ['result'=>'success', 'data'=>$data1, 'device_id'=>$device_id, 'device_nickname'=>$data[0]->nickname, 'backRouteName'=>$backRouteName]);
             }
         }else{
             return "xxx";

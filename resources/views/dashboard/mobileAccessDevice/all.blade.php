@@ -36,7 +36,7 @@
                                 <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">{{$item->nickname}}</td>
                                 <td class="px-6 py-4 whitespace-nowrap text-left text-sm font-medium">
                                     
-                                    <a  class="btn btn-primary"  href="{{route('mobile_access_individual', ['case_id'=>$item->case_id])}}">Edit</a> 
+                                    <a  class="btn btn-primary"  href="{{route('mobile_access_individual', ['case_id'=>$item->case_id])}}?back={{Route::currentRouteName()}}">Edit</a> 
 
                                 </td>
                                 <td>

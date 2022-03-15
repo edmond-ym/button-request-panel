@@ -179,7 +179,10 @@
                       Scan QR Code
                     </label>
                 </div>
-
+                @if ($backRouteName=="deviceList")
+                  <a class="btn btn-primary"  href="{{route('deviceList')}}">Cancel</a>
+                @endif
+                
                 <button class="btn btn-primary" ng-click="nextPage();postMethod();">Next</button>
             </div>
             

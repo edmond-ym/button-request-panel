@@ -16,6 +16,16 @@
     </div>
     @if ($result=='success')
     <div class="container">
+      <div >
+        @if ($backRouteName=="deviceList")
+            <a type="button" class="btn btn-secondary" href="{{ route('deviceList') }}">Close</a>
+  
+        @else
+            
+        @endif
+        
+        
+      </div>
         <div class="flex flex-col">
            <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
              <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
@@ -95,7 +105,9 @@
              </div>
            </div>
         </div>
+       
     </div>
+   
     @else
     <center><p style="position: sticky;top: 50%;left:20%;right:20%;transform:translateY(400%);"class="text-2xl">No Privilege</p></center>
 

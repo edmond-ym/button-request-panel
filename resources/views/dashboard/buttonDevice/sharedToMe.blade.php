@@ -78,7 +78,7 @@
                           
                    
                           <div ng-if="i['right']=='advanced'">
-                            <a  class="btn btn-primary"  href="{{route('individual_device')}}/@{{i['device_id']}}">Edit</a>
+                            <a  class="btn btn-primary"  href="{{route('individual_device')}}/@{{i['device_id']}}?back={{Route::currentRouteName()}}">Edit</a>
                           </div>
                           <div ng-if="i['right']!='advanced'">
                             No Privilege

@@ -115,6 +115,7 @@ class DeviceController extends Controller
         }
     }
     public function device_amend(Request $request){
+        
         if(Auth::check()){
             $userId=Auth::id();
             $validator=Validator::make($request->all(), [
@@ -132,7 +133,8 @@ class DeviceController extends Controller
                 ->where('device_id', $validated['device_id'])
                 ->update(['info' => $validated['info'], 'nickname' => $validated['nickname'], 'repeated_message'=>$request->input('repeated_msg')]);
             }
-            return redirect()->route('individual_device', ['device_id' => $validated['device_id']]);
+           // return redirect()->route('individual_device', ['device_id' => $validated['device_id']]);
+           return redirect(url()->previous());
 
             
         }else{
@@ -186,15 +188,17 @@ class DeviceController extends Controller
         }     
     }
     public function individual_device_view($device_id,Request $request,DeviceController $dc, DeviceList $deviceList) {
+        $backRouteName=$request->query("back");
+        
         if(Auth::check()){ //Ensure Authenticated
             $userId=Auth::id();
             
             if(DeviceRightService::AbsoluteRightOnDevice($device_id) || DeviceRightService::SharedDeviceAdvancedRight(Auth::id(), $device_id)){//Ensure the Right
                 $data=DeviceList::where('device_id', $device_id)->get();
-                return view('dashboard.buttonDevice.deviceSettings', ['result'=>'success','data'=>$data[0], 'info'=>($data[0]->info), 'info_len'=>count(json_decode($data[0]->info))]);
+                return view('dashboard.buttonDevice.deviceSettings', ['result'=>'success','data'=>$data[0], 'info'=>($data[0]->info), 'info_len'=>count(json_decode($data[0]->info)), 'backRouteName'=>$backRouteName]);
                 
             }else{            
-                return view('dashboard.buttonDevice.deviceSettings', ['result'=>'fail', 'data'=>[], 'info'=>[], 'info_len'=>[]]);
+                return view('dashboard.buttonDevice.deviceSettings', ['result'=>'fail', 'data'=>[], 'info'=>[], 'info_len'=>[], 'backRouteName'=>$backRouteName]);
             }
         }else{
             return "xxx";
@@ -208,8 +212,9 @@ class DeviceController extends Controller
         return view('dashboard.buttonDevice.all', ['data'=>$data]);
     }
 
-    public function newDeviceWizard(){
-        return view('dashboard.buttonDevice.newDeviceWizard');
+    public function newDeviceWizard(Request $request){
+        $backRouteName=$request->query("back");
+        return view('dashboard.buttonDevice.newDeviceWizard', ['backRouteName'=>$backRouteName]);
     }
 
     public function revealDeviceBearerToken(Request $request, $device_id){
