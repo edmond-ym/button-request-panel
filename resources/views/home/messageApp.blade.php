@@ -1,10 +1,10 @@
 <x-home-nav >
-    <header class="masthead" style="background: url('assets/img/bg-pattern.png'), linear-gradient(to left, #7b4397, #dc2430);">
+    <header class="masthead" style="background: linear-gradient(171deg, var(--bs-indigo) 25%, white 100%), var(--bs-indigo);">
         <div class="container h-100">
             <div class="row h-100">
                 <div class="col-lg-7 my-auto">
                     <div class="mx-auto header-content">
-                        <h1 class="mb-5">Message App allows you manage the App effectively in your mobile phone</h1><a class="btn btn-outline-warning btn-xl" role="button" href="#download">Link for PWA APP</a>
+                        <h1 class="mb-5">Message App allows you manage the App effectively in your mobile phone</h1><a class="btn btn-outline-warning btn-xl" role="button" href="http://button-request.web.app" style="--bs-warning: #ffc107;--bs-warning-rgb: 255,193,7;">Link for PWA APP</a>
                     </div>
                 </div>
                 <div class="col-lg-5 my-auto">
@@ -38,7 +38,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-6">
-                                <div class="feature-item"><i class="fas fa-filter text-primary"></i>
+                                <div class="feature-item"><i class="fas fa-filter" style="color: var(--bs-blue);"></i>
                                     <h3>Filterable</h3>
                                     <p class="text-muted">Filter messages by its name, its pin status and the ownership status(Owner or Sharee).</p>
                                 </div>
@@ -57,7 +57,7 @@
                 <div class="col-lg-4 my-auto">
                     <div class="device-container">
                         <div class="device-mockup iphone6_plus portrait white">
-                            <div class="device" style="background: url(&quot;assets/img/393A813C-1411-4FCD-8CF8-A87E5D39CBE0_1_105_c_iphone12black_portrait.png&quot;) no-repeat;background-size: 100%;"></div>
+                            <div class="device" style="background: url(&quot;assets/img/82A69E14-0E04-497B-B23A-0F94BEA71A49_1_105_c_iphone12black_portrait.png&quot;) no-repeat;background-size: 100%;"></div>
                         </div>
                     </div>
                 </div>
@@ -82,5 +82,4 @@
             </div>
         </div>
     </section>
-
 </x-home-nav >
