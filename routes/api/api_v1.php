@@ -33,7 +33,29 @@ use App\Library\Services\DeviceShareService;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('apiKeyTest', function (Request $request){
+    $data=DB::table('personal_access_tokens')->where('token', '=',hash('sha256',$request->bearerToken()))->get();
+    
+    if (count($data)==1) {
+        if (Auth::loginUsingId($data[0]->tokenable_id)) {
+            //return $data[0];
+            return response()->json(['result'=>'valid', 
+            'data'=>[
+                'userId'=>$request->user()->id,
+                'subscribed'=>SubscriptionManagementService::offlineStatusSubscribed($request->user()->id), 
+                'right'=>[
+                    'create'=>in_array("create", json_decode($data[0]->abilities)) ? 'yes' : 'no',
+                    'read'=>in_array("read", json_decode($data[0]->abilities)) ? 'yes' : 'no',
+                    'update'=>in_array("update", json_decode($data[0]->abilities)) ? 'yes' : 'no',
+                    'delete'=>in_array("delete", json_decode($data[0]->abilities)) ? 'yes' : 'no'
+                ]
+            ]]);
+        }
+        return response()->json(['result'=>'invalid', 'data'=>[]]);
+    }
+    return response()->json(['result'=>'invalid', 'data'=>[]]);
+   
+});
 ///subscription middleware
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('message')->group(function(){
