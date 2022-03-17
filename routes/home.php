@@ -8,17 +8,17 @@ $routeList=[
     [
         'route'=>'/',
         'bladeName'=>'home',
-        'routeName'=>'home'
+        'routeName'=>'home.home'
     ],
     [
         'route'=>'/messageApp',
         'bladeName'=>'messageApp',
-        'routeName'=>'messageApp'
+        'routeName'=>'home.messageApp'
     ],
     [
         'route'=>'/features',
         'bladeName'=>'features',
-        'routeName'=>'features'
+        'routeName'=>'home.features'
     ]
 ];
 

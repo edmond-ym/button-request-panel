@@ -46,8 +46,8 @@ Route::get('/', function () {
 
 })->name('home');
 
-Route::get('/doc', function () {
-    return view('documentation');
+Route::get('/doc1', function () {
+    return view('documentation1');
 });
 
 Route::get('/api-doc', function () {

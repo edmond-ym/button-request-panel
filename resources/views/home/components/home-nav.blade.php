@@ -25,9 +25,9 @@
         <div class="container"><a class="navbar-brand" href="#page-top">Button Request</a><button data-bs-toggle="collapse" data-bs-target="#navbarResponsive" class="navbar-toggler float-end" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{route('home')}}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('messageApp')}}">Message App</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{route('features')}}">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('home.home')}}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('home.messageApp')}}">Message App</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{route('home.features')}}">Features</a></li>
 
                     <li class="nav-item"><a class="nav-link" href="{{route('apiDoc')}}">API Documentation</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{route('dashboard')}}">Console</a></li>
