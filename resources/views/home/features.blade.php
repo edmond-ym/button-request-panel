@@ -21,21 +21,21 @@
                     <div class="box" style="height: 350px;"><i class="fas fa-tools icon"></i>
                         <h3 class="name">Message Configurable</h3>
                         <p class="description">You may set the message for the corresponding button</p>
-                        <a class="learn-more" target="_blank" href="{{URL::to('/');}}/documentation">Learn more »</a>
+                        <a class="learn-more" target="_blank" href="{{URL::to('/');}}/documentation/#/console/deviceList?id=edit-device">Learn more »</a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
                     <div class="box" style="height: 350px;"><i class="fas fa-sitemap icon"></i>
                         <h3 class="name">Device - Button Hierarchy</h3>
                         <p class="description">There can be more than 1 button in a device. There can be many devices attached to 1 account</p>
-                        <a class="learn-more" target="_blank" href="{{URL::to('/');}}/documentation">Learn more »</a>
+                        <a class="learn-more" target="_blank" href="{{URL::to('/');}}/documentation/#/introduction/device---button-hierarchy">Learn more »</a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
                     <div class="box" style="height: 350px;"><i class="fa fa-share-square-o icon"></i>
                         <h3 class="name">Device Shareable</h3>
                         <p class="description">A Device can be shared to other registered account. The owner of the device may set the sharee's access right of the corresponding device.</p>
-                        <a class="learn-more" target="_blank" href="{{URL::to('/');}}/documentation">Learn more »</a>
+                        <a class="learn-more" target="_blank" href="{{URL::to('/');}}/documentation/#/console/deviceList?id=ownership-share">Learn more »</a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">

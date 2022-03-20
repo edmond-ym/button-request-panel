@@ -1,9 +1,11 @@
-# Introduction
+
+
+# [Introduction](#introduction)
 Specific Button on the Specific Device means the message.
 When the user presses the specific button on the specific device, the request is sent to this Platform and the user 
 may view the new message in the console.
 
-## Running Principle
+## [Running Principle](#running-principle)
 ![alt text](assets/req_principle.png)
 
 A Button on a device is pressed. Then, the device, which has the internet connection and matched to the
@@ -11,7 +13,7 @@ specific account in the console, sends the request to the console. The message w
 the Button ID and Device ID, and the user may view messages in the console and PWA App.
 
 
-## Device - Button Hierarchy
+## [Device - Button Hierarchy](#device---button-hierarchy)
 To understand hierarchy, there are 3 hierarchies. The top level is your account.
 Each device has an unique credential, which can be attached to your account.
 You may attach multiple devices to your account.
@@ -23,19 +25,28 @@ You may imagine it as an address:
 (Button ID), (Device Credential), (Account)
 
 
-## Console
+## [Console](#intro-console)
 The console aims to provide the user the comprehensive management of messages and connected devices.
 
-## PWA App
+## [PWA App](#intro-pwaApp)
 The PWA App provides the convenience for the user to manage messages effectively on their own mobile device.
 
 
-# Console
-## Device List
+
+
+
+
+
+
+
+
+# [Console](#Console)
+
+## [Device List](#device-list)
 
 > Device List is a page for you to manage all devices effectively.
 
-### New Device
+### [New Device](#new-device)
 ![alt text](assets/new_device_first_page.png)
 
 There are 2 ways for you to add a new device. 
@@ -55,7 +66,7 @@ The second way is to generate a new
 credential immediately.
 ![alt text](assets/new_device_generate_new_credentials.png)
 
-### Action On Device
+### [Action On Device](#action-on-device)
 
 
 You may perform 3 actions against a device, including Making Active, Suspend, and Revoke.
@@ -65,16 +76,18 @@ You may perform certain action against a device, you need to select the device.
 To Revoke a device, you must first suspend it. This may ensure the user think twice before
 doing it.
 
-### Edit Device
-#### Changing Nickname
+
+
+### [Edit Device](#edit-device)
+#### [Changing Nickname](#changing-nickname)
 You may change the nickname of the corresponding to whatever you want.
 
-#### Button Id - Message
+#### [Button Id - Message](#button-id---message)
 ![alt text](assets/buttonId_message.png)
 You may set different message for different Button Id.
 The Button Id must be unique within this device. You may set whatever Button Id you want given that
 it is unique.
-#### Repeated Messages
+#### [Repeated Messages](#repeated-messages)
 ![alt text](assets/repeat_message.png)
 
 The sender may press the same button from same device multiple times. Each time the sender 
@@ -87,50 +100,53 @@ Once you disable that, there is no repeated messages. When there is no correspon
 not be entertained. If that message is deleted in the console, the press on that button will lead to the regeneration
 of the message.
 
-### Ownership Share
+### [Ownership Share](#ownership-share)
 You may share the device to another user of this console, to enable them to view, pin, or
 delete messages. The sharee may also change the settings of the corresponding device. It depends 
 on the sharee's right set by the sharer.
 
-#### Right 
-##### Basic
+#### [Sharee's Right](#sharees-right)
+##### [Basic](#sharees-right-basic)
 View messages received from the corresponding device.
-##### Intermediate
+##### [Intermediate](#sharees-right-intermediate)
 View, Pin, and delete messages received from the corresponding device.
-##### Advanced
+##### [Advanced](#sharees-right-advanced)
 View, Pin, and delete messages received from the corresponding device.
 Change settings of the corresponding device.
 
-#### Give Up Sharee's Right
+#### [Give Up Sharee's Right](#give-up-sharees-right)
 The sharee may give up the right on the corresponding device
 
-#### Revoke Sharee's Right
+#### [Revoke Sharee's Right](#revoke-sharees-right)
 The sharer may revoke the sharee's right on the corresponding device.
-### Reveal Bearer Token
+### [Reveal Bearer Token](#reveal-bearer-token)
 The Bearer Token is protected through encryption. The user may decrypt it to read the
 corresponding bearer token.
 
 
 
-## Mobile Access
+## [Mobile Access](#mobile-access)
 You may access messages from the pwa app.
-### Access Token
+### [Access Token](#mobile-access-access-token)
 In order to connect from the pwa app, you need to copy and paste the Access Token to the PWA app.
-### Nickname
+### [Nickname](#mobile-access-nickname)
 For each access token, you may specify whatever nickname you want.
-## API Tokens
-
-## Subscription
 
 
-## Message
+
+## [API Tokens](#api-tokens)
+
+## [Subscription](#subscription)
+
+
+## [Message](#message)
 ![alt text](assets/message_box.png)
 
-### Pin
+### [Pin](#message-pin)
 Pin the message important to you.
-### Delete
+### [Delete](#message-delete)
 Delete the message by pressing the cross at the top-right corner.
-### Filter
+### [Filter](#message-filter)
 Sometimes there are many messages in the console. You might find it hard to manage. However,
 there is a very good feature enables you to filter the messages by the Device Name, Pin Status(Pin or Unpinned),
 and Origin(Message from your own device or Message from the Device Shared To You)
