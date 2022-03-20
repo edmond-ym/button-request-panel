@@ -3,9 +3,17 @@ Specific Button on the Specific Device means the message.
 When the user presses the specific button on the specific device, the request is sent to this Platform and the user 
 may view the new message in the console.
 
+## Running Principle
+![alt text](assets/req_principle.png)
+A Button on a device is pressed. Then, the device, which has the internet connection and matched to the
+specific account in the console, sends the request to the console. The message will be generated according to
+the Button ID and Device ID, and the user may view messages in the console and PWA App.
 
+## Console
+The console aims to provide the user the comprehensive management of messages and connected devices.
 
-
+## PWA App
+The PWA App provides the convenience for the user to manage messages effectively on their own mobile device.
 
 # Console
 ## Device List
