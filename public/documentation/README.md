@@ -5,15 +5,30 @@ may view the new message in the console.
 
 ## Running Principle
 ![alt text](assets/req_principle.png)
+
 A Button on a device is pressed. Then, the device, which has the internet connection and matched to the
 specific account in the console, sends the request to the console. The message will be generated according to
 the Button ID and Device ID, and the user may view messages in the console and PWA App.
+
+
+## Device - Button Hierarchy
+To understand hierarchy, there are 3 hierarchies. The top level is your account.
+Each device has an unique credential, which can be attached to your account.
+You may attach multiple devices to your account.
+
+In each device, there is at least one button. Each button is classified unique because its
+unique Button ID.
+
+You may imagine it as an address:
+(Button ID), (Device Credential), (Account)
+
 
 ## Console
 The console aims to provide the user the comprehensive management of messages and connected devices.
 
 ## PWA App
 The PWA App provides the convenience for the user to manage messages effectively on their own mobile device.
+
 
 # Console
 ## Device List
@@ -37,7 +52,7 @@ The data in the QR code must be in the following format.
 }
 ```
 The second way is to generate a new 
-credentials immediately.
+credential immediately.
 ![alt text](assets/new_device_generate_new_credentials.png)
 
 ### Action On Device
@@ -61,6 +76,16 @@ The Button Id must be unique within this device. You may set whatever Button Id 
 it is unique.
 #### Repeated Messages
 ![alt text](assets/repeat_message.png)
+
+The sender may press the same button from same device multiple times. Each time the sender 
+presses the button, the message is generated. It means that you will see repeated messages
+in the console/PWA App. 
+
+You may disable that in the console. 
+
+Once you disable that, there is no repeated messages. When there is no corresponding message and the sender try to press the button, the message is generated. After that, further press on the same button from the same device will
+not be entertained. If that message is deleted in the console, the press on that button will lead to the regeneration
+of the message.
 
 ### Ownership Share
 You may share the device to another user of this console, to enable them to view, pin, or
