@@ -21,30 +21,35 @@
                     <div class="box" style="height: 350px;"><i class="fas fa-tools icon"></i>
                         <h3 class="name">Message Configurable</h3>
                         <p class="description">You may set the message for the corresponding button</p>
+                        <a class="learn-more" href="{{URL::to('/');}}/documentation">Learn more »</a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
                     <div class="box" style="height: 350px;"><i class="fas fa-sitemap icon"></i>
                         <h3 class="name">Device - Button Hierarchy</h3>
                         <p class="description">There can be more than 1 button in a device. There can be many devices attached to 1 account</p>
+                        <a class="learn-more" href="{{URL::to('/');}}/documentation">Learn more »</a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
                     <div class="box" style="height: 350px;"><i class="fa fa-share-square-o icon"></i>
                         <h3 class="name">Device Shareable</h3>
                         <p class="description">A Device can be shared to other registered account. The owner of the device may set the sharee's access right of the corresponding device.</p>
+                        <a class="learn-more" href="{{URL::to('/');}}/documentation">Learn more »</a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
                     <div class="box" style="height: 350px;"><i class="fa fa-mobile-phone icon"></i>
                         <h3 class="name">PWA App Available</h3>
                         <p class="description">&nbsp;It allows you to manage the messages received of your account.&nbsp;</p>
+                        <a class="learn-more" href="{{route('home.messageApp')}}">Learn more »</a>
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-5 col-lg-4 item">
                     <div class="box" style="height: 350px;"><i class="fas fa-cloud icon"></i>
                         <h3 class="name">API available</h3>
                         <p class="description">It allows you to do further extension.</p>
+                        <a class="learn-more"  href="{{route('apiDoc')}}">Learn more »</a>
                     </div>
                 </div>
             </div>
