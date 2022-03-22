@@ -62,13 +62,13 @@ delete messages. The sharee may also change the settings of the corresponding de
 on the sharee's right set by the sharer.
 
 ### [Sharee's Right](#sharees-right)
-#### [Basic](#sharees-right-basic)
-View messages received from the corresponding device.
-#### [Intermediate](#sharees-right-intermediate)
-View, Pin, and delete messages received from the corresponding device.
-#### [Advanced](#sharees-right-advanced)
-View, Pin, and delete messages received from the corresponding device.
-Change settings of the corresponding device.
+| Right Classification       | Right                                                            |
+| -------------------------- | ---------------------------------------------------------------- |
+| Basic                      | View messages received.                                          |
+| Intermediate               | View, Pin, and delete messages received.                         |
+| Advanced                   | View, Pin, and delete messages received. Change device settings. |
+
+
 
 ### [Give Up Sharee's Right](#give-up-sharees-right)
 The sharee may give up the right on the corresponding device

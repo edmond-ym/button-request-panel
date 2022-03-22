@@ -7,5 +7,8 @@ In order to connect from the pwa app, you need to copy and paste the Access Toke
 
 
 ## [Nickname](#mobile-access-nickname)
+Nickname is not for internal use. It is intended for you to easily identify the 
+Mobile Access Token you have created.
+
 For each access token, you may specify whatever nickname you want.
 
