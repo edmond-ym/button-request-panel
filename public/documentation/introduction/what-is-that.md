@@ -1,4 +1,5 @@
 
+
 # What is that?
 Specific Button on the Specific Device means the message.
 When the user presses the specific button on the specific device, the request is sent to this Platform and the user 

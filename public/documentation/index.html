@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,12 +15,20 @@
 <body>
   <div id="app">Please wait...</div>
   <script>
-    window.$docsify = {
+    window.$docsify = {      
+
       name: 'Button Request Documentation',
       loadSidebar: true,
       subMaxLevel: 5,
-
       homepage: 'introduction/what-is-that.md',
+      vueGlobalOptions: {
+        data() {
+          return {
+            baseUrl: "http://localhost",
+          };
+        },
+      },
+      
       //themeColor: '#3F51B5',
       //relativePath: true,
       //loadNavbar: true,
@@ -29,7 +38,10 @@
     }
   </script>
   
+
   <!-- Docsify v4 -->
   <script src="https://cdn.jsdelivr.net/npm/docsify@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.min.js"></script>
+
 </body>
 </html>
