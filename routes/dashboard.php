@@ -35,16 +35,18 @@ use Illuminate\Contracts\Encryption\DecryptException;
 */
 
 
-Route::get('/', function () {
+/*Route::get('/2', function () {
     //$stripeCustomer = $user->createAsStripeCustomer();
     //return  User::find(Auth::id())->deviceSharedToMe;
     //return  User::find(Auth::id())->deviceSharedToMe;
     //return User::find(Auth::id())->messageOfMyDevice()->orderBy('datetime')->get();
     
     //return view('welcome');
-    return view('home');
+    //return "jjj";
+    echo $_SERVER['SERVER_NAME'] ;//. $_SERVER['REQUEST_URI'];
+    //return view('home');
 
-})->name('home');
+})->name('home');*/
 
 Route::get('/doc1', function () {
     return view('documentation1');
