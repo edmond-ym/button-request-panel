@@ -24,7 +24,7 @@
       vueGlobalOptions: {
         data() {
           return {
-            baseUrl: "https://<?php echo $_SERVER['SERVER_NAME']?>",
+            baseUrl: "https://<?php echo $_SERVER['HTTP_HOST']; ?>",
           };
         },
       },
@@ -45,3 +45,7 @@
 
 </body>
 </html>
+
+    
+    
+      
