@@ -398,7 +398,9 @@ paths:
           content:
             application/json:
               schema:
-                result: 
+                type: object
+                properties:
+                  result: 
                     description: Result of the Action
                     type: string
                     example: success
@@ -411,23 +413,23 @@ paths:
                       - not-valid-array
                       - fail
                       - success
-                data:
-                  description: Data
-                  ##type: array
-                  items:
-                    properties:
-                      device_id:
-                        type: string
-                      info: 
-                        type: string
-                      datetime: 
-                        type: string
-                      status: 
-                        type: string
-                      nickname:
-                        type: string
-                      repeated_message: 
-                        type: string
+                  data:
+                    description: Data
+                    ##type: array
+                    items:
+                      properties:
+                        device_id:
+                          type: string
+                        info: 
+                          type: string
+                        datetime: 
+                          type: string
+                        status: 
+                          type: string
+                        nickname:
+                          type: string
+                        repeated_message: 
+                          type: string
   
   '/api/v1/buttonDevice/deviceSharedToMe/fetch': 
     post:
