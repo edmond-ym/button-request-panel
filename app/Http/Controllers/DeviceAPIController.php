@@ -58,7 +58,7 @@ class DeviceAPIController extends Controller
 
             
         }else{
-            $result=["result"=>"non-valid-request"];
+            $result=["result"=>"not-valid-request"];
             //return response()->json()->header('Access-Control-Allow-Origin', '*');
         }
         return response()->json($result);
