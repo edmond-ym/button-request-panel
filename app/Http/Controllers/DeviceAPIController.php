@@ -18,7 +18,7 @@ use App\Library\Services\CommonService;
 
 class DeviceAPIController extends Controller
 {
-    public function push_msg($device_id=null, Request $request) {
+    public function push_msg( Request $request, $device_id=null) {
         
         
        /* $bearerToken=hash('sha256',$request->bearerToken());

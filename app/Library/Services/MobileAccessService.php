@@ -14,6 +14,9 @@ class MobileAccessService
        
     }
     public static function NewMobileAccess($userId,$nickname){
+        if ($nickname == "" or $nickname==null) {
+            return (Object)['result'=>'missing-nickname', 'data'=>[]];
+        }
         $case_id=Str::random(15);
         $r=MobileAccess::insert([
             'case_id' => $case_id,
@@ -52,7 +55,7 @@ class MobileAccessService
             $r=MobileAccess::where('case_id', '=', $case_id)
                     ->where('user_id', '=',$userId) // ensure user right on that
                     ->update($updateArray);
-            $data=MobileAccess::select('case_id', 'nickname')->where('user_id', '=', $userId)->where('case_id','=', $case_id)->get();
+            $data=MobileAccess::select('case_id', 'nickname','access_token', 'deleted_from_phone', 'last_access')->where('user_id', '=', $userId)->where('case_id','=', $case_id)->get();
 
             if ($r) {
                 return (Object)['result'=>'success', 'data'=>$data];

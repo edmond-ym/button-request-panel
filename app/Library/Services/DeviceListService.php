@@ -18,6 +18,9 @@ class DeviceListService
     }
 
     public static function newDeviceGenerate($user_id, $nickname){
+        if ($nickname == "" or $nickname==null) {
+            return (Object)['result'=>'missing-nickname', 'data'=>[]];
+        }
         $case_id=Str::random(10);
         $device_id=Str::uuid();
 
@@ -101,7 +104,7 @@ class DeviceListService
                     if ($action=="delete") {  //Pass Button Id Array ["Id1","Id2","Id3"]
     
                         //not array check
-    
+                        
                         $r=self::trimArrayByObjectKeyValue($buttonIdMsgArray, $passData, "buttonNo");
                         if ($r->result=="success") {
                             $r1=DeviceList::where('user_id', $user_id)
@@ -110,7 +113,7 @@ class DeviceListService
                             if ($r1) {
                                 return (Object)["result"=>"success", "data"=>
                                 DeviceList::select('device_id', 'info', 'datetime', 'status', 'nickname', 'repeated_message')
-                                ->where("user_id", "=",$user_id )->get()
+                                ->where("user_id", "=",$user_id )->where("device_id", "=", $device_id)->get()
                                 ];
                             }else{
                                 return (Object)["result"=>"fail", "data"=>[]];
@@ -130,7 +133,7 @@ class DeviceListService
                             if ($r1) {
                                 return (Object)["result"=>"success", "data"=>
                                 DeviceList::select('device_id', 'info', 'datetime', 'status', 'nickname', 'repeated_message')
-                                ->where("user_id", "=",$user_id )->get()
+                                ->where("user_id", "=",$user_id )->where("device_id", "=", $device_id)->get()
                                 ];
                             }else{
                                 return (Object)["result"=>"fail", "data"=>[]];
