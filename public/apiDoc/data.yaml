@@ -1,9 +1,9 @@
 openapi: 3.0.0
 servers:
-  - url: https://143.198.74.202
-    description: Button Device Server
-  ##- url: http://localhost
+  ##- url: https://143.198.74.202
   ##  description: Button Device Server
+  - url: http://localhost
+    description: Button Device Server
 info:
   title: Button Request
   version: 1.0.0
@@ -60,15 +60,18 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
+            
           - name: button_id
             in: query
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
+                  
+
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
@@ -83,12 +86,12 @@ paths:
       description: Fetch all messages
       
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                $ref: '#/components/schemas/MessageFetchResult'
 
   '/api/v1/message/pinStatus/{msgId}/{action}': 
     post:
@@ -104,19 +107,19 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
           - name: action
             in: path
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
               enum:
                 - pin
                 - unpin
 
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
@@ -137,9 +140,9 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
@@ -160,15 +163,16 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
 
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                $ref: '#/components/schemas/DeviceListFetchResult'
+
   '/api/v1/buttonDevice/myDevice/repeatedMessage/{device_id}/{action}': 
     post:
       security:
@@ -182,27 +186,27 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
           - name: action
             in: path
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
               enum:
                 - allow
                 - disallow
      
 
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                $ref: '#/components/schemas/DeviceListRepeatedMessage'
 
-  '/api/v1/buttonDevice/myDevice/{device_id}/buttonId/{action}': 
+  '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/updateOrNew/{device_id}': 
     post:
       security:
         - NormalAPIAuth: []    
@@ -215,29 +219,84 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
-          - name: action
-            in: path
-            required: true
-            deprecated: false
+              type: string
+          
+      requestBody:
+        description: Button Message Info
+        required: true
+        content:
+          application/x-www-form-urlencoded:
             schema:
-              type: varchar
-              enum:
-                - delete
-                - updateOrNew
-          - name: passData
-            in: query
-            required: true
-            deprecated: false
-            schema:
-              type: varchar
+              type: object
+              properties:
+                passData: 
+                  type: object
+                  properties:
+                    dataArray: 
+                      type: array
+                      items:
+                        required:
+                        - buttonNo
+                        - message
+                        properties:
+                         buttonNo:
+                           type: string
+                           default: ''
+                           examples:
+                           - ewq
+                         message:
+                           title: Message
+                           type: string
+                           default: ''
+                           examples:
+                           - ewq1
+ 
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                $ref: '#/components/schemas/DeviceListRepeatedMessage'
+                
+  '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/delete/{device_id}': 
+    post:
+      security:
+        - NormalAPIAuth: []    
+      tags:
+        - DeviceList
+      description: Button Message Delete
+      parameters:
+          - name: device_id
+            in: path
+            required: true
+            deprecated: false
+            schema:
+              type: string
+      requestBody:
+        description: Delete Button Id
+        required: true
+        content:
+          application/form-data:
+            schema:
+              type: object
+              properties:
+                passData: 
+                  type: object
+                  properties:
+                    dataArray: 
+                      type: array
+                      items:
+                        type: "string"
+                    
+              
+      responses:
+        'default':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeviceListRepeatedMessage'
   
   '/api/v1/buttonDevice/deviceSharedToMe/fetch': 
     post:
@@ -246,15 +305,44 @@ paths:
       tags:
         - DeviceShare
       description: Fetch Device Shared To Me
-      
-          
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                type: array
+                items:
+                  properties:
+                    result: 
+                      description: Result of the Action
+                      type: string
+                      example: success
+                    data:
+                      type: array
+                      items: 
+                        properties:
+                          case_id: 
+                            type: string
+                          device_id:
+                            type: string
+                          share_to_user_id:
+                            type: string
+                          created_time: 
+                            type: string
+                          nickname:
+                            type: string
+                          status: 
+                            type: string
+                          info: 
+                            type: string
+                          right:
+                            type: string
+                          owner_name:
+                            type: string
+                          owner_email: 
+                            type: string
+                                 
   '/api/v1/buttonDevice/deviceSharedToMe/delete/{case_id}': 
     post:
       security:
@@ -268,15 +356,28 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
          
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                ##$ref: '#/components/schemas/Result'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                  data:
+                    description: Data
+                    ##type: array
+                    properties:
+                      case_id":
+                        type: string
+                      
   
   '/api/v1/buttonDevice/shareDevice/new/{email}/{device_id}': 
     post:
@@ -291,21 +392,44 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
           - name: email
             in: path
             required: true
             deprecated: false
             schema:
-              type: email
+              type: string
          
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                  data:
+                    description: Data
+                    ##type: array
+                    items:
+                      properties:
+                        name: 
+                          type: string
+                        email: 
+                          type: string
+                        right: 
+                          type: string
+                        device_id: 
+                          type: string
+                        case_id: 
+                          type: string
+                        created_time: 
+                          type: string
+
   '/api/v1/buttonDevice/shareDevice/changeRight/{case_id}/{right}': 
     post:
       security:
@@ -319,24 +443,48 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
           - name: right
             in: path
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
               enum:
                 - basic
                 - middle
                 - advanced
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                  data:
+                    description: Data
+                    ##type: array
+                    items:
+                      properties:
+                        name: 
+                          type: string
+                        email: 
+                          type: string
+                        right: 
+                          type: string
+                        device_id: 
+                          type: string
+                        case_id: 
+                          type: string
+                        created_time: 
+                          type: string
+                          
+
 
   '/api/v1/buttonDevice/myDevice/new/{nickname}': 
     post:
@@ -351,15 +499,15 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
           
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                $ref: '#/components/schemas/NewDevice'
 
   '/api/v1/mobileDevice/fetch': 
     post:
@@ -370,12 +518,13 @@ paths:
       description: Fetch Mobile Access Token
           
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                $ref: '#/components/schemas/MobileAccessTokenRelated'
+                
 
   '/api/v1/mobileDevice/new/{nickname}': 
     post:
@@ -390,15 +539,16 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
           
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                $ref: '#/components/schemas/MobileAccessTokenRelated'
+   
   
   '/api/v1/mobileDevice/amend/{case_id}': 
     post:
@@ -413,21 +563,22 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
           - name: nickname
             in: query
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
           
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Result'
+              schema: 
+                $ref: '#/components/schemas/MobileAccessTokenRelated'
+
   '/api/v1/mobileDevice/revoke/{case_id}': 
     post:
       security:
@@ -441,15 +592,29 @@ paths:
             required: true
             deprecated: false
             schema:
-              type: varchar
+              type: string
 
       responses:
-        '200':
+        'default':
           description: successful operation
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                  data:
+                    description: Data
+                    ##type: array
+                    
+                    properties:
+                      case_id: 
+                        type: string
+                        
+   
 
 components:
   securitySchemes:
@@ -471,7 +636,199 @@ components:
           description: Result of the Action
           type: string
           example: success
+    MessageFetchResult:
+      type: object
+      properties:
+        result: 
+          description: Result of the Action
+          type: string
+          example: success
+        data:
+          description: Data
+          ##type: array
+          items:
+            ##$ref:  '#/components/schemas/MessageFetchData'
+            properties:
+              msg_id: 
+                type: string
+              message: 
+                type: string
+              datetime: 
+                type: string
+              device_id: 
+                type: string
+              nickname: 
+                type: string
+              pin:
+                type: boolean
+              shared_to_me: 
+                type: boolean
+            example:
+              msg_id: rKApwQgjdSxFn4MdpOhMUA4I3X3dRy84B7CUMirm
+              message: Hi
+              datetime: 2022-03-06 21:10:31 +00:00
+              device_id: d0d2b049-bc71-4606-8492-3521f76beb8e
+              nickname: Device 1
+              pin": false
+              shared_to_me: false
+    DeviceListFetchResult:
+      type: object
+      properties:
+        result: 
+          description: Result of the Action
+          type: string
+          example: success
+        data:
+          description: Data
+          type: array
+          items:
+            properties:
+              device_id:
+                type: string
+              info: 
+                type: string
+              datetime: 
+                type: string
+              status: 
+                type: string
+              nickname:
+                type: string
+              repeated_message: 
+                type: string
+
+              OwnershipShare: 
+                type: object
+                items:
+                  properties:
+                    case_id:
+                      type: string
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    right:
+                      type: string
+                    created_time:
+                      type: string
+
+            ###example: 
+            ###  - device_id: 65c35959-d54c-46c5-a388-26d073928d4f
+            ###    info: []
+            ###    datetime: 2022-03-08 20:21:39 +00:00
+            ###    status: active
+            ###    nickname: Device 1
+            ###    repeated_message: no
+            ###    OwnershipShare: 
+            ###        name: Someone
+            ###        email: someone@example.com
+            ###        right: basic
+            ###        created_time: 2022-03-24 08:47:39 +00:00
+                  
+                   
+                    
+    DeviceListRepeatedMessage:
+      type: object
+      properties:
+        result: 
+          description: Result of the Action
+          type: string
+          example: success
+        data:
+          description: Data
+          ##type: array
+          items:
+            properties:
+              device_id:
+                type: string
+              info: 
+                type: string
+              datetime: 
+                type: string
+              status: 
+                type: string
+              nickname:
+                type: string
+              repeated_message: 
+                type: string
+
+            ###example:
+            ###  device_id: 65c35959-d54c-46c5-a388-26d073928d4f
+            ###  info: []
+            ###  datetime: 2022-03-08 20:21:39 +00:00
+            ###  status: active
+            ###  nickname: Device 1
+            ###  repeated_message: no
+              
+    NewDevice:
+      type: object
+      properties:
+        result: 
+          description: Result of the Action
+          type: string
+          example: success
+        data:
+          description: Data
+          ##type: array
+          items:
+            properties:
+              case_id":
+                type: string
+              device_id":
+                type: string
+              user_id":
+                type: string
+              bearer_token":  
+                type: string
+              info":
+                type: string
+              datetime": 
+                type: string
+              status": 
+                type: string
+              nickname": 
+                type: string
+
+    MobileAccessTokenRelated:
+      type: object
+      properties:
+        result: 
+          description: Result of the Action
+          type: string
+          example: success
+        data:
+          description: Data
+          ##type: array
+          items:
+            properties:
+              
+              case_id: 
+                type: string
+              nickname:
+                type: string
+              access_token:
+                type: string
+              deleted_from_phone:
+                type: string
+              last_access:
+                type: string
+   
+
+
+
+            
+           
       
 
+
+
+      
+
+
+
+
+            
+    
+
+          
 
 
