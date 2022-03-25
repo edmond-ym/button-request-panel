@@ -68,7 +68,9 @@ class DeviceShareService
             } 
             return (Object)["result"=>"no-privilege"];
         }
-        return (Object)["result"=> $validator->errors()->first('email')];
+        return (Object)["result"=> "not-valid-email"];
+        //return (Object)["result"=> $validator->errors()->first('email')];
+
     }
 
     public static function changeShareeRight($userId, $case_id, $new_right){
