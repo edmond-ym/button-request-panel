@@ -270,10 +270,16 @@ paths:
                           type: string
                         status: 
                           type: string
+                          enum:
+                            - active
+                            - suspend
                         nickname:
                           type: string
                         repeated_message: 
                           type: string
+                          enum: 
+                            - null
+                            - no
 
 
   '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/updateOrNew/{device_id}': 
@@ -356,10 +362,16 @@ paths:
                           type: string
                         status: 
                           type: string
+                          enum:
+                            - active
+                            - suspend
                         nickname:
                           type: string
                         repeated_message: 
                           type: string
+                          enum: 
+                            - null
+                            - no
                 
   '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/delete/{device_id}': 
     post:
@@ -424,12 +436,19 @@ paths:
                           type: string
                         datetime: 
                           type: string
+                        
                         status: 
                           type: string
+                          enum:
+                            - active
+                            - suspend
                         nickname:
                           type: string
                         repeated_message: 
                           type: string
+                          enum: 
+                            - null
+                            - no
   
   '/api/v1/buttonDevice/deviceSharedToMe/fetch': 
     post:
@@ -471,10 +490,17 @@ paths:
                             type: string
                           status: 
                             type: string
+                            enum: 
+                              - active
+                              - suspend
                           info: 
                             type: string
                           right:
                             type: string
+                            enum:
+                              - basic
+                              - middle
+                              - advanced
                           owner_name:
                             type: string
                           owner_email: 
@@ -571,12 +597,19 @@ paths:
                           type: string
                         right: 
                           type: string
+                          enum:
+                              - basic
+                              - middle
+                              - advanced
                         device_id: 
                           type: string
                         case_id: 
                           type: string
                         created_time: 
                           type: string
+
+                        
+                         
 
   '/api/v1/buttonDevice/shareDevice/changeRight/{case_id}/{right}': 
     post:
@@ -632,6 +665,10 @@ paths:
                           type: string
                         right: 
                           type: string
+                          enum:
+                            - basic
+                            - middle
+                            - advanced
                         device_id: 
                           type: string
                         case_id: 
@@ -903,8 +940,14 @@ components:
                 type: string
               pin:
                 type: boolean
+                enum:
+                  - true
+                  - false
               shared_to_me: 
                 type: boolean
+                enum:
+                  - true
+                  - false
             example:
               msg_id: rKApwQgjdSxFn4MdpOhMUA4I3X3dRy84B7CUMirm
               message: Hi
@@ -935,10 +978,16 @@ components:
                 type: string
               status: 
                 type: string
+                enum: 
+                  - active
+                  - suspend
               nickname:
                 type: string
               repeated_message: 
                 type: string
+                enum: 
+                  - null
+                  - no
 
               OwnershipShare: 
                 type: object
@@ -1010,10 +1059,15 @@ components:
                 type: string
               datetime: 
                 type: string
+              
               status: 
                 type: string
-              nickname: 
+                enum:
+                  - active
+                  - suspend
+              nickname:
                 type: string
+             
     
     
    
