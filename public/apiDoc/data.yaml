@@ -1,9 +1,9 @@
 openapi: 3.0.0
 servers:
-  ##- url: https://143.198.74.202
-  ##  description: Button Device Server
-  - url: http://localhost
+  - url: https://143.198.74.202
     description: Button Device Server
+  #- url: http://localhost
+  #  description: Button Device Server
 info:
   title: Button Request
   version: 1.0.0
@@ -15,24 +15,24 @@ info:
     
     ## API Categories
 
-    There are only 1 category of API
+    There are only 2 classification of API
    
     Below is the API classification
     
       - Button Device API
+      - Normal API
 
     ## API Operations
 
     ### Button Device API
     
-    Using the Button Device API, you may send the defined messages to the console.
+    Generating Messages
 
+    ### Normal API
+    
+    Managing Resources
+    
    
-
-    # Authentication
-  
-    ##For Button Device API, the device id and the bearer token is the authentication method 
-
 
 
 tags:
@@ -76,7 +76,23 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum: 
+                      - not-valid-request
+                      - device-id-not-exist
+                      - decryption-failed
+                      - no-privilege
+                      - not-subscribed
+                      - fail
+                      - success
+                      - no-repeated-message
+                      - button-id-not-exist
+                      - no-repeated-message
   '/api/v1/message/fetch':   
     post:
       security:
@@ -124,7 +140,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum:
+                      - success
+                      - fail
+                      - not-exist
+                      - invalid-action
+                      - not-subscribed
+                      - no-privilege
   
   '/api/v1/message/delete/{msgId}':    
     post:
@@ -147,7 +175,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Result'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum:
+                      - success
+                      - fail
+                      - not-exist
+                      - not-subscribed
+                      - no-privilege
+  
 
   '/api/v1/buttonDevice/myDevice/list/{device_id}': 
     post:
@@ -160,7 +200,7 @@ paths:
 
           - name: device_id
             in: path
-            required: true
+            required: false
             deprecated: false
             schema:
               type: string
@@ -204,7 +244,37 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceListRepeatedMessage'
+
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum: 
+                      - no-privilege
+                      - not-subscribed
+                      - invalid-command
+                      - fail
+                      - success
+                  data:
+                    description: Data
+                    ##type: array
+                    items:
+                      properties:
+                        device_id:
+                          type: string
+                        info: 
+                          type: string
+                        datetime: 
+                          type: string
+                        status: 
+                          type: string
+                        nickname:
+                          type: string
+                        repeated_message: 
+                          type: string
+
 
   '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/updateOrNew/{device_id}': 
     post:
@@ -220,6 +290,7 @@ paths:
             deprecated: false
             schema:
               type: string
+              
           
       requestBody:
         description: Button Message Info
@@ -257,7 +328,38 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceListRepeatedMessage'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum:
+                      - no-privilege
+                      - not-subscribed
+                      - passData-body-key-missing
+                      - dataArray-key-missing
+                      - invalid-command
+                      - not-valid-array
+                      - fail
+                      - success
+                  data:
+                    description: Data
+                    ##type: array
+                    items:
+                      properties:
+                        device_id:
+                          type: string
+                        info: 
+                          type: string
+                        datetime: 
+                          type: string
+                        status: 
+                          type: string
+                        nickname:
+                          type: string
+                        repeated_message: 
+                          type: string
                 
   '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/delete/{device_id}': 
     post:
@@ -296,7 +398,36 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/DeviceListRepeatedMessage'
+                result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum:
+                      - no-privilege
+                      - not-subscribed
+                      - passData-body-key-missing
+                      - dataArray-key-missing
+                      - invalid-command
+                      - not-valid-array
+                      - fail
+                      - success
+                data:
+                  description: Data
+                  ##type: array
+                  items:
+                    properties:
+                      device_id:
+                        type: string
+                      info: 
+                        type: string
+                      datetime: 
+                        type: string
+                      status: 
+                        type: string
+                      nickname:
+                        type: string
+                      repeated_message: 
+                        type: string
   
   '/api/v1/buttonDevice/deviceSharedToMe/fetch': 
     post:
@@ -318,7 +449,11 @@ paths:
                       description: Result of the Action
                       type: string
                       example: success
+                      enum:
+                        $ref: '#/components/schemas/ResultCommon/enum'
+
                     data:
+                      description: Device Data
                       type: array
                       items: 
                         properties:
@@ -371,11 +506,16 @@ paths:
                     description: Result of the Action
                     type: string
                     example: success
+                    enum: 
+                      - no-privilege
+                      - not-subscribed
+                      - fail
+                      - success
                   data:
                     description: Data
                     ##type: array
                     properties:
-                      case_id":
+                      case_id:
                         type: string
                       
   
@@ -412,6 +552,12 @@ paths:
                     description: Result of the Action
                     type: string
                     example: success
+                    enum: 
+                      - no-privilege
+                      - not-subscribed
+                      - not-valid-email
+                      - fail
+                      - success
                   data:
                     description: Data
                     ##type: array
@@ -466,6 +612,13 @@ paths:
                     description: Result of the Action
                     type: string
                     example: success
+                    enum:
+                      - no-privilege
+                      - not-subscribed
+                      - not-valid-right
+                      - case-id-not-exist
+                      - fail
+                      - success
                   data:
                     description: Data
                     ##type: array
@@ -523,7 +676,29 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MobileAccessTokenRelated'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum:
+                      $ref: '#/components/schemas/ResultCommon/enum'
+                  data:
+                    description: Data
+                    ##type: array
+                    items:
+                      properties:
+                        case_id: 
+                          type: string
+                        nickname:
+                          type: string
+                        access_token:
+                          type: string
+                        deleted_from_phone:
+                          type: string
+                        last_access:
+                          type: string
                 
 
   '/api/v1/mobileDevice/new/{nickname}': 
@@ -547,8 +722,33 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MobileAccessTokenRelated'
-   
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum:
+                      - no-privilege
+                      - not-subscribed
+                      - fail
+                      - success
+                  data:
+                    description: Data
+                    ##type: array
+                    items:
+                      properties:
+                        case_id: 
+                          type: string
+                        nickname:
+                          type: string
+                        access_token:
+                          type: string
+                        deleted_from_phone:
+                          type: string
+                        last_access:
+                          type: string
+             
   
   '/api/v1/mobileDevice/amend/{case_id}': 
     post:
@@ -577,7 +777,33 @@ paths:
           content:
             application/json:
               schema: 
-                $ref: '#/components/schemas/MobileAccessTokenRelated'
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum:
+                      - no-privilege
+                      - not-subscribed
+                      - fail
+                      - success
+                      - invalid-query
+                  data:
+                    description: Data
+                    ##type: array
+                    items:
+                      properties:
+                        case_id: 
+                          type: string
+                        nickname:
+                          type: string
+                        access_token:
+                          type: string
+                        deleted_from_phone:
+                          type: string
+                        last_access:
+                          type: string
 
   '/api/v1/mobileDevice/revoke/{case_id}': 
     post:
@@ -606,6 +832,11 @@ paths:
                     description: Result of the Action
                     type: string
                     example: success
+                    enum:
+                      - no-privilege
+                      - not-subscribed
+                      - fail
+                      - success
                   data:
                     description: Data
                     ##type: array
@@ -627,8 +858,14 @@ components:
       description: This is normal API
       type: http
       scheme: bearer
-      
+                
+
   schemas:
+    ResultCommon:
+      enum:
+        - success
+        - not-subscribed
+        - no-privilege
     Result:
       type: object
       properties:
@@ -636,6 +873,7 @@ components:
           description: Result of the Action
           type: string
           example: success
+          
     MessageFetchResult:
       type: object
       properties:
@@ -643,6 +881,8 @@ components:
           description: Result of the Action
           type: string
           example: success
+          enum:
+             $ref: '#/components/schemas/ResultCommon/enum'
         data:
           description: Data
           ##type: array
@@ -678,8 +918,10 @@ components:
           description: Result of the Action
           type: string
           example: success
+          enum:
+            $ref: '#/components/schemas/ResultCommon/enum'
         data:
-          description: Data
+          description: Device List Fetched
           type: array
           items:
             properties:
@@ -726,31 +968,8 @@ components:
                   
                    
                     
-    DeviceListRepeatedMessage:
-      type: object
-      properties:
-        result: 
-          description: Result of the Action
-          type: string
-          example: success
-        data:
-          description: Data
-          ##type: array
-          items:
-            properties:
-              device_id:
-                type: string
-              info: 
-                type: string
-              datetime: 
-                type: string
-              status: 
-                type: string
-              nickname:
-                type: string
-              repeated_message: 
-                type: string
-
+   
+      
             ###example:
             ###  device_id: 65c35959-d54c-46c5-a388-26d073928d4f
             ###  info: []
@@ -766,51 +985,35 @@ components:
           description: Result of the Action
           type: string
           example: success
+          enum: 
+            - no-privilege
+            - not-subscribed
+            - missing-nickname
+            - success
+            - fail
         data:
           description: Data
           ##type: array
           items:
             properties:
-              case_id":
+              case_id:
                 type: string
-              device_id":
+              device_id:
                 type: string
-              user_id":
+              user_id:
                 type: string
-              bearer_token":  
+              bearer_token:  
                 type: string
-              info":
+              info:
                 type: string
-              datetime": 
+              datetime: 
                 type: string
-              status": 
+              status: 
                 type: string
-              nickname": 
+              nickname: 
                 type: string
-
-    MobileAccessTokenRelated:
-      type: object
-      properties:
-        result: 
-          description: Result of the Action
-          type: string
-          example: success
-        data:
-          description: Data
-          ##type: array
-          items:
-            properties:
-              
-              case_id: 
-                type: string
-              nickname:
-                type: string
-              access_token:
-                type: string
-              deleted_from_phone:
-                type: string
-              last_access:
-                type: string
+    
+    
    
 
 
@@ -823,6 +1026,13 @@ components:
 
       
 
+
+
+
+            
+    
+
+          
 
 
 
