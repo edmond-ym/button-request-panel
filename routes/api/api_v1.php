@@ -69,7 +69,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
-        Route::post('pinStatus/{msgId}/{action}', function (Request $request, $msgId, $action){
+        Route::post('pinStatus/{msgId?}/{action?}', function (Request $request, $msgId=null, $action=null){
             if ($request->user()->tokenCan('update')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     
@@ -86,7 +86,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return response()->json(['result'=>'no-privilege']);
         });
         
-        Route::post('delete/{msgId}', function (Request $request, $msgId){
+        Route::post('delete/{msgId?}', function (Request $request, $msgId=null){
             if ($request->user()->tokenCan('delete')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     return response()->json(MessageService::deleteMessage(Auth::id(), $msgId));
@@ -111,7 +111,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     }
                     for ($i=0; $i < count($data); $i++) { 
                         $data[$i]['OwnershipShare']=DeviceOwnershipShare::join('users', 'users.id', '=', 'device_ownership_share.share_to_user_id')
-                        ->select("users.name", "users.email", "right", "created_time")->where('device_id', '=', $data[$i]['device_id'])->get();
+                        ->select("device_ownership_share.case_id AS case_id", "users.name", "users.email", "right", "created_time")->where('device_id', '=', $data[$i]['device_id'])->get();
                     }
                     return response()->json(['result'=>'success', 'data'=>$data]);
                 }
@@ -119,7 +119,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
-        Route::post('myDevice/repeatedMessage/{device_id}/{action}', function (Request $request, $device_id, $action){
+        Route::post('myDevice/repeatedMessage/{device_id?}/{action?}', function (Request $request, $device_id=null, $action=null){
             if ($request->user()->tokenCan('update')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     if ($action=="allow") {
@@ -136,9 +136,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
 
-        Route::post('myDevice/{device_id}/buttonId/{action}', function (Request $request, $device_id, $action){
+        Route::post('myDevice/buttonMessageUpdate/{action?}/{device_id?}', function (Request $request, $action=null,$device_id=null){
             if ($request->user()->tokenCan('update')) {
-               
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     /*$a=json_decode('
                     [
@@ -160,16 +159,18 @@ Route::middleware(['auth:sanctum'])->group(function () {
                     [
                         "ewq"
                     ]'
-                    , true);*/
+                    , true);*/  
                     if ($request->has('passData')) {
-                        $r=DeviceListService::buttonMessageConfigure(Auth::id(), $device_id, $action, json_decode($request->input('passData'), true));
-                        return response()->json(['result'=>$r->result, 'data'=>$r->data]);
-
+                        if (array_key_exists('dataArray', json_decode($request->input('passData'), true))) {
+                            $r=DeviceListService::buttonMessageConfigure(Auth::id(), $device_id, $action, json_decode($request->input('passData'), true)['dataArray']);
+                            return response()->json(['result'=>$r->result, 'data'=>$r->data]);
+                        }else{
+                            return response()->json(['result'=>'dataArray-key-missing', 'data'=>[]]);
+                        }
                     }else{
-                        return response()->json(['result'=>'passData-query-param-missing', 'data'=>[]]);
+                        return response()->json(['result'=>'passData-body-key-missing', 'data'=>[]]);
                     }
-                    
-                    
+
                     //return response()->json(['result'=>'invalid-command', 'data'=>[]]);
                 }
                 return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
@@ -193,7 +194,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
-        Route::post('deviceSharedToMe/delete/{case_id}', function (Request $request, $case_id){
+        Route::post('deviceSharedToMe/delete/{case_id?}', function (Request $request, $case_id=null){
             if ($request->user()->tokenCan('delete')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     $r=DeviceShareService::GiveUpShareeRight($request->user()->id, $case_id);
@@ -203,7 +204,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>["case_id"=>$r->case_id]]);
         });
-        Route::post('shareDevice/new/{email}/{device_id}', function (Request $request, $email, $device_id){
+        Route::post('shareDevice/new/{email?}/{device_id?}', function (Request $request, $email=null, $device_id=null){
             if ($request->user()->tokenCan('create')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     $r=DeviceShareService::ShareNewDevice($request->user()->id, $email, $device_id);
@@ -220,7 +221,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
-        Route::post('shareDevice/changeRight/{case_id}/{right}', function (Request $request, $case_id, $right){
+        Route::post('shareDevice/changeRight/{case_id?}/{right?}', function (Request $request, $case_id=null, $right=null){
             if ($request->user()->tokenCan('update')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     
@@ -268,7 +269,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });*/
-        Route::post('myDevice/new/{nickname}', function (Request $request, $nickname){
+        Route::post('myDevice/new/{nickname?}', function (Request $request, $nickname=null){
             if ($request->user()->tokenCan('create')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     
@@ -293,7 +294,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
-        Route::post('new/{nickname}', function (Request $request, $nickname){
+        Route::post('new/{nickname?}', function (Request $request, $nickname=null){
             if ($request->user()->tokenCan('create')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     $rObj=MobileAccessService::NewMobileAccess($request->user()->id, $nickname);
@@ -307,7 +308,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             }
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
-        Route::post('revoke/{case_id}', function (Request $request, $case_id){
+        Route::post('revoke/{case_id?}', function (Request $request, $case_id=null){
 
             if ($request->user()->tokenCan('delete')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
@@ -320,7 +321,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
             return response()->json(['result'=>'no-privilege', 'data'=>[]]);
         });
 
-        Route::post('amend/{case_id}', function (Request $request, $case_id){
+        Route::post('amend/{case_id?}', function (Request $request, $case_id=null){
 
             if ($request->user()->tokenCan('update')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
