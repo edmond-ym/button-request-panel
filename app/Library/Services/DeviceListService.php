@@ -168,9 +168,9 @@ class DeviceListService
                 }
                 return (Object)["result"=>"success", "newArray"=>$newArray ];
             }
-            return (Object)["result"=>"non-valid-array", "newArray"=>[] ];
+            return (Object)["result"=>"not-valid-array", "newArray"=>[] ];
         }
-        return (Object)["result"=>"non-valid-array", "newArray"=>[] ];
+        return (Object)["result"=>"not-valid-array", "newArray"=>[] ];
     }
 
     public static function addOrUpdateObjectInArray($oldArray, $ObjectArrayUpdateOrCreate,$existDetermineKey, $requiredUpdateKey, $keyAllowedArray){
@@ -206,7 +206,7 @@ class DeviceListService
             }
             return (Object)["result"=>"success", "newArray"=> $newArray];
         }
-        return (Object)["result"=>"non-valid-array", "newArray"=> []];
+        return (Object)["result"=>"not-valid-array", "newArray"=> []];
     }
 
     public static function ArrayObjectKeyValueExist($array, $keyName, $keyValue){
