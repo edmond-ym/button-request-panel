@@ -941,13 +941,7 @@ components:
         - success
         - not-subscribed
         - no-privilege
-    Result:
-      type: object
-      properties:
-        result: 
-          description: Result of the Action
-          type: string
-          example: success
+    
           
     MessageFetchResult:
       type: object
