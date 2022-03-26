@@ -56,8 +56,9 @@ Route::post('apiKeyTest', function (Request $request){
     return response()->json(['result'=>'invalid', 'data'=>[]]);
    
 });
+
 ///subscription middleware
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum', 'apiAuth'])->group(function () {
     Route::prefix('message')->group(function(){
         Route::post('fetch', function (Request $request){
             if ($request->user()->tokenCan('read')) {
@@ -99,6 +100,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('buttonDevice')->group(function(){
         Route::post('myDevice/list/{device_id?}', function (Request $request, $device_id=null){
+            
             if ($request->user()->tokenCan('read')) {
                 if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                     if ($device_id==null) {
@@ -341,4 +343,3 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     });
 });
-
