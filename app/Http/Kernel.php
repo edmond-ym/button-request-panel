@@ -69,6 +69,11 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cors' => \App\Http\Middleware\cors::class,
         'subscription' => \App\Http\Middleware\SubscriptionStatus::class,
+        'apiAuth' => \App\Http\Middleware\apiAuth::class,
+    ];
+    protected $middlewarePriority = [
+        'apiAuth' => \App\Http\Middleware\apiAuth::class,
+        'auth' => \App\Http\Middleware\Authenticate::class,
 
     ];
 }
