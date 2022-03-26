@@ -330,13 +330,13 @@ paths:
                          buttonNo:
                            type: string
                            default: ''
-                           examples:
+                           example:
                            - ewq
                          message:
                            title: Message
                            type: string
                            default: ''
-                           examples:
+                           example:
                            - ewq1
  
       responses:
