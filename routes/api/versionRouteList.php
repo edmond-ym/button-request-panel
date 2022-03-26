@@ -13,7 +13,7 @@ $routeList=[
 ];
 
 foreach ($routeList as $version => $fileName) {
-    Route::prefix($version)->group(base_path('routes/api/'.$fileName));
+    Route::/*middleware(['apiAuth'])->*/prefix($version)->group(base_path('routes/api/'.$fileName));
 }
    
    
