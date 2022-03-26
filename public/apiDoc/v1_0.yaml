@@ -1,9 +1,9 @@
 openapi: 3.0.0
 servers:
-  - url: https://143.198.74.202
-    description: Button Device Server
-  #- url: http://localhost
+  #- url: https://143.198.74.202
   #  description: Button Device Server
+  - url: http://localhost
+    description: Button Device Server
 info:
   title: Button Request
   version: 1.0.0
@@ -93,6 +93,7 @@ paths:
                       - no-repeated-message
                       - button-id-not-exist
                       - no-repeated-message
+        
   '/api/v1/message/fetch':   
     post:
       security:
@@ -108,7 +109,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MessageFetchResult'
-
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
   '/api/v1/message/pinStatus/{msgId}/{action}': 
     post:
       security:
@@ -153,6 +155,8 @@ paths:
                       - invalid-action
                       - not-subscribed
                       - no-privilege
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
   
   '/api/v1/message/delete/{msgId}':    
     post:
@@ -187,6 +191,8 @@ paths:
                       - not-exist
                       - not-subscribed
                       - no-privilege
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
   
 
   '/api/v1/buttonDevice/myDevice/list/{device_id}': 
@@ -212,6 +218,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceListFetchResult'
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
 
   '/api/v1/buttonDevice/myDevice/repeatedMessage/{device_id}/{action}': 
     post:
@@ -280,8 +288,9 @@ paths:
                           enum: 
                             - null
                             - no
-
-
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
+            
   '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/updateOrNew/{device_id}': 
     post:
       security:
@@ -372,7 +381,8 @@ paths:
                           enum: 
                             - null
                             - no
-                
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'        
   '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/delete/{device_id}': 
     post:
       security:
@@ -449,7 +459,8 @@ paths:
                           enum: 
                             - null
                             - no
-  
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
   '/api/v1/buttonDevice/deviceSharedToMe/fetch': 
     post:
       security:
@@ -505,7 +516,8 @@ paths:
                             type: string
                           owner_email: 
                             type: string
-                                 
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'                        
   '/api/v1/buttonDevice/deviceSharedToMe/delete/{case_id}': 
     post:
       security:
@@ -545,7 +557,8 @@ paths:
                     properties:
                       case_id:
                         type: string
-                      
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'              
   
   '/api/v1/buttonDevice/shareDevice/new/{email}/{device_id}': 
     post:
@@ -607,7 +620,8 @@ paths:
                           type: string
                         created_time: 
                           type: string
-
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
                         
                          
 
@@ -675,7 +689,8 @@ paths:
                           type: string
                         created_time: 
                           type: string
-                          
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'                  
 
 
   '/api/v1/buttonDevice/myDevice/new/{nickname}': 
@@ -700,6 +715,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewDevice'
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
 
   '/api/v1/mobileDevice/fetch': 
     post:
@@ -738,7 +755,8 @@ paths:
                           type: string
                         last_access:
                           type: string
-                
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'        
 
   '/api/v1/mobileDevice/new/{nickname}': 
     post:
@@ -787,7 +805,8 @@ paths:
                           type: string
                         last_access:
                           type: string
-             
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'     
   
   '/api/v1/mobileDevice/amend/{case_id}': 
     post:
@@ -843,7 +862,8 @@ paths:
                           type: string
                         last_access:
                           type: string
-
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'
   '/api/v1/mobileDevice/revoke/{case_id}': 
     post:
       security:
@@ -883,7 +903,8 @@ paths:
                     properties:
                       case_id: 
                         type: string
-                        
+        'Unauthenticated':
+          $ref: '#/components/schemas/Unauthenticated'                
    
 
 components:
@@ -900,6 +921,19 @@ components:
                 
 
   schemas:
+    Unauthenticated:
+      description: Unauthenticated
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                type: string
+                enum: 
+                  - not-authenticated
+          
+  
     ResultCommon:
       enum:
         - success

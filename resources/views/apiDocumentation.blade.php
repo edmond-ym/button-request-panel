@@ -1,4 +1,4 @@
-<!--<!doctype html> 
+<!doctype html> 
 <html>
 <head>
   <meta charset="utf-8"> 
@@ -6,7 +6,7 @@
 </head>
 <body>
   <rapi-doc
-    spec-url="{{asset('apiDoc/data.yaml')}}"
+    spec-url="{{asset('apiDoc/v1_0.yaml')}}"
     theme = "graynav"
     render-style = "read"
     id = "thedoc"
@@ -25,8 +25,8 @@
 
   > </rapi-doc>
 </body>
-</html>-->
-<!DOCTYPE html>
+</html>
+<!--<!DOCTYPE html>
 <html>
   <head>
     <title>Redoc</title>
@@ -43,7 +43,7 @@
     </style>
   </head>
   <body>
-    <redoc spec-url='{{asset('apiDoc/data.yaml')}}'></redoc>
+    <redoc spec-url='{{asset('apiDoc/v1_0.yaml')}}'></redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"> </script>
   </body>
-</html>
+</html>-->
