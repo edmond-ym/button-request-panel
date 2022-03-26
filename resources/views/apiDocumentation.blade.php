@@ -1,4 +1,4 @@
-<!doctype html> 
+<!--<!doctype html> 
 <html>
 <head>
   <meta charset="utf-8"> 
@@ -25,8 +25,8 @@
 
   > </rapi-doc>
 </body>
-</html>
-<!--<!DOCTYPE html>
+</html>-->
+<!DOCTYPE html>
 <html>
   <head>
     <title>Redoc</title>
@@ -46,4 +46,4 @@
     <redoc spec-url='{{asset('apiDoc/v1_0.yaml')}}'></redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@latest/bundles/redoc.standalone.js"> </script>
   </body>
-</html>-->
+</html>

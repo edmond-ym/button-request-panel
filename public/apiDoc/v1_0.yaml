@@ -46,6 +46,7 @@ tags:
     description: Device Share
   - name: MobileAccessToken
     description: Mobile Access Token
+
 paths:
   '/deviceAPI/v1/{deviceId}':
     post:
@@ -109,8 +110,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MessageFetchResult'
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
+          
   '/api/v1/message/pinStatus/{msgId}/{action}': 
     post:
       security:
@@ -155,7 +157,7 @@ paths:
                       - invalid-action
                       - not-subscribed
                       - no-privilege
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
   
   '/api/v1/message/delete/{msgId}':    
@@ -191,7 +193,7 @@ paths:
                       - not-exist
                       - not-subscribed
                       - no-privilege
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
   
 
@@ -218,7 +220,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DeviceListFetchResult'
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
 
   '/api/v1/buttonDevice/myDevice/repeatedMessage/{device_id}/{action}': 
@@ -288,7 +290,7 @@ paths:
                           enum: 
                             - null
                             - no
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
             
   '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/updateOrNew/{device_id}': 
@@ -381,7 +383,7 @@ paths:
                           enum: 
                             - null
                             - no
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'        
   '/api/v1/buttonDevice/myDevice/buttonMessageUpdate/delete/{device_id}': 
     post:
@@ -459,7 +461,7 @@ paths:
                           enum: 
                             - null
                             - no
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
   '/api/v1/buttonDevice/deviceSharedToMe/fetch': 
     post:
@@ -516,7 +518,7 @@ paths:
                             type: string
                           owner_email: 
                             type: string
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'                        
   '/api/v1/buttonDevice/deviceSharedToMe/delete/{case_id}': 
     post:
@@ -557,7 +559,7 @@ paths:
                     properties:
                       case_id:
                         type: string
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'              
   
   '/api/v1/buttonDevice/shareDevice/new/{email}/{device_id}': 
@@ -620,7 +622,7 @@ paths:
                           type: string
                         created_time: 
                           type: string
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
                         
                          
@@ -689,7 +691,7 @@ paths:
                           type: string
                         created_time: 
                           type: string
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'                  
 
 
@@ -715,7 +717,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NewDevice'
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
 
   '/api/v1/mobileDevice/fetch': 
@@ -755,7 +757,7 @@ paths:
                           type: string
                         last_access:
                           type: string
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'        
 
   '/api/v1/mobileDevice/new/{nickname}': 
@@ -805,7 +807,7 @@ paths:
                           type: string
                         last_access:
                           type: string
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'     
   
   '/api/v1/mobileDevice/amend/{case_id}': 
@@ -862,7 +864,7 @@ paths:
                           type: string
                         last_access:
                           type: string
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'
   '/api/v1/mobileDevice/revoke/{case_id}': 
     post:
@@ -903,7 +905,7 @@ paths:
                     properties:
                       case_id: 
                         type: string
-        'Unauthenticated':
+        '403':
           $ref: '#/components/schemas/Unauthenticated'                
    
 
