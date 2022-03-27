@@ -28,7 +28,7 @@ tags:
 
 
 paths:
-  '/deviceAPI/v1/{deviceId}':
+  '/{deviceId}':
     post:
       security:
         - DeviceAPIAuth: []    
