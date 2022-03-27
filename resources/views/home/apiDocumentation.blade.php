@@ -1,5 +1,6 @@
 
 
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,7 +14,7 @@
   <body>
 
     <elements-api
-      apiDescriptionUrl="{{asset('apiDoc/definitions/v1/openapi.yaml')}}"
+      apiDescriptionUrl="{{$url}}"
       router="hash"
       layout="sidebar"
     />
