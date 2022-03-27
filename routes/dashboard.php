@@ -52,10 +52,7 @@ Route::get('/doc1', function () {
     return view('documentation1');
 });
 
-Route::get('/api-doc', function () {
-    
-    return view('apiDocumentation');
-})->name('apiDoc');
+
 
 Route::get('/test', function (Request $request) {
     //return "an";
