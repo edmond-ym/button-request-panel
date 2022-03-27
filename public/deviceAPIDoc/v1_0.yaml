@@ -1,8 +1,7 @@
 openapi: 3.0.0
 servers:
-  #- url: https://143.198.74.202/deviceAPI/v1
-  #  description: Button Device API Server
-  - url: http://localhost/deviceAPI/v1
+  - url: https://143.198.74.202/deviceAPI/v1
+  #- url: http://localhost/deviceAPI/v1
     description: Button Device API Server
 info:
   title: Button Device API
