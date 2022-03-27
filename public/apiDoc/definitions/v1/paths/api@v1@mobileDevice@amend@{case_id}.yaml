@@ -1,0 +1,55 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - MobileAccessToken
+  description: Amend Nickname
+  summary: Amend Nickname
+  operationId: amendMobileAccessTokenNickname
+  parameters:
+    - name: case_id
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+    - name: nickname
+      in: query
+      required: true
+      deprecated: false
+      schema:
+        type: string
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - no-privilege
+                  - not-subscribed
+                  - fail
+                  - success
+                  - invalid-query
+              data:
+                description: Data
+                items:
+                  properties:
+                    case_id:
+                      type: string
+                    nickname:
+                      type: string
+                    access_token:
+                      type: string
+                    deleted_from_phone:
+                      type: string
+                    last_access:
+                      type: string

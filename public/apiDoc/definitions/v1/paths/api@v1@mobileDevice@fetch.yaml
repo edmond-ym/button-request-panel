@@ -1,0 +1,40 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - MobileAccessToken
+  description: Fetch Mobile Access Token
+  summary: Fetch Mobile Access Token
+  operationId: fetchMobileAccessToken
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - success
+                  - not-subscribed
+                  - no-privilege
+              data:
+                description: Data
+                items:
+                  properties:
+                    case_id:
+                      type: string
+                    nickname:
+                      type: string
+                    access_token:
+                      type: string
+                    deleted_from_phone:
+                      type: string
+                    last_access:
+                      type: string

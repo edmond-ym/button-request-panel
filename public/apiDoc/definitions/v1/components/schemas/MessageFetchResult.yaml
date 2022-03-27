@@ -1,0 +1,42 @@
+type: object
+properties:
+  result:
+    description: Result of the Action
+    type: string
+    example: success
+    enum:
+      - success
+      - not-subscribed
+      - no-privilege
+  data:
+    description: Data
+    items:
+      properties:
+        msg_id:
+          type: string
+        message:
+          type: string
+        datetime:
+          type: string
+        device_id:
+          type: string
+        nickname:
+          type: string
+        pin:
+          type: boolean
+          enum:
+            - true
+            - false
+        shared_to_me:
+          type: boolean
+          enum:
+            - true
+            - false
+      example:
+        msg_id: rKApwQgjdSxFn4MdpOhMUA4I3X3dRy84B7CUMirm
+        message: Hi
+        datetime: '2022-03-06 21:10:31 +00:00'
+        device_id: d0d2b049-bc71-4606-8492-3521f76beb8e
+        nickname: Device 1
+        pin": false
+        shared_to_me: false

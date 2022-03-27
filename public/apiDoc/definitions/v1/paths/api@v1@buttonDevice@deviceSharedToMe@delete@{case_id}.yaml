@@ -1,0 +1,39 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceShare
+  description: Give up Sharee's Right
+  summary: Give up Sharee's Right
+  operationId: giveUpShareeRight
+  parameters:
+    - name: case_id
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - no-privilege
+                  - not-subscribed
+                  - fail
+                  - success
+              data:
+                description: Data
+                properties:
+                  case_id:
+                    type: string

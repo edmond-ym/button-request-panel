@@ -1,0 +1,65 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceList
+  description: Repeated Message Settings
+  summary: Repeated Message Settings
+  operationId: repeatedMessageSettings
+  parameters:
+    - name: device_id
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+    - name: action
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+        enum:
+          - allow
+          - disallow
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - no-privilege
+                  - not-subscribed
+                  - invalid-command
+                  - fail
+                  - success
+              data:
+                description: Data
+                items:
+                  properties:
+                    device_id:
+                      type: string
+                    info:
+                      type: string
+                    datetime:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                        - active
+                        - suspend
+                    nickname:
+                      type: string
+                    repeated_message:
+                      enum:
+                        - null
+                        - 'no'

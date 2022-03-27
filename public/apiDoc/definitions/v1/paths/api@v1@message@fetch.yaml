@@ -1,0 +1,17 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - MessageAPI
+  description: Fetch all messages
+  summary: Fetch all messages
+  operationId: fetchMessage
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/MessageFetchResult.yaml

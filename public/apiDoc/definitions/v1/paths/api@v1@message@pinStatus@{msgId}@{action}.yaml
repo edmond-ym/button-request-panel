@@ -1,0 +1,45 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - MessageAPI
+  description: Pin or Unpin Message
+  summary: Pin or Unpin Message
+  operationId: PinOrUnpinMessage
+  parameters:
+    - name: msgId
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+    - name: action
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+        enum:
+          - pin
+          - unpin
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - success
+                  - fail
+                  - not-exist
+                  - invalid-action
+                  - not-subscribed
+                  - no-privilege

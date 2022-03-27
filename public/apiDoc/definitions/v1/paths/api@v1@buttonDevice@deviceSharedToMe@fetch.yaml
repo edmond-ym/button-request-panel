@@ -1,0 +1,59 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceShare
+  description: Fetch Device Shared To Me
+  summary: Fetch Device Shared To Me
+  operationId: fetchDeviceSharedToMe
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              properties:
+                result:
+                  description: Result of the Action
+                  type: string
+                  example: success
+                  enum:
+                    - success
+                    - not-subscribed
+                    - no-privilege
+                data:
+                  description: Device Data
+                  type: array
+                  items:
+                    properties:
+                      case_id:
+                        type: string
+                      device_id:
+                        type: string
+                      share_to_user_id:
+                        type: string
+                      created_time:
+                        type: string
+                      nickname:
+                        type: string
+                      status:
+                        type: string
+                        enum:
+                          - active
+                          - suspend
+                      info:
+                        type: string
+                      right:
+                        type: string
+                        enum:
+                          - basic
+                          - middle
+                          - advanced
+                      owner_name:
+                        type: string
+                      owner_email:
+                        type: string

@@ -1,0 +1,88 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceList
+  description: Button Message Update
+  summary: Button Message Update
+  operationId: buttonMessageUpdate
+  parameters:
+    - name: device_id
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+  requestBody:
+    description: Button Message Info
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          properties:
+            passData:
+              type: object
+              properties:
+                dataArray:
+                  type: array
+                  items:
+                    required:
+                      - buttonNo
+                      - message
+                    properties:
+                      buttonNo:
+                        type: string
+                        default: ''
+                        example:
+                          - ewq
+                      message:
+                        title: Message
+                        type: string
+                        default: ''
+                        example:
+                          - ewq1
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - no-privilege
+                  - not-subscribed
+                  - passData-body-key-missing
+                  - dataArray-key-missing
+                  - invalid-command
+                  - not-valid-array
+                  - fail
+                  - success
+              data:
+                description: Data
+                items:
+                  properties:
+                    device_id:
+                      type: string
+                    info:
+                      type: string
+                    datetime:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                        - active
+                        - suspend
+                    nickname:
+                      type: string
+                    repeated_message:
+                      enum:
+                        - null
+                        - 'no'

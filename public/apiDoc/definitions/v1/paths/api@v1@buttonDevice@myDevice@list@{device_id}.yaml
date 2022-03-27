@@ -1,0 +1,24 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceList
+  description: Fetch Device List
+  summary: Fetch Device List
+  operationId: fetchDeviceList
+  parameters:
+    - name: device_id
+      in: path
+      required: false
+      deprecated: false
+      schema:
+        type: string
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/DeviceListFetchResult.yaml

@@ -1,0 +1,76 @@
+openapi: 3.1.0
+servers:
+  #- url: 'http://localhost/api/v1'
+  - url: https://143.198.74.202/api/v1
+    description: Button Request Server
+  
+info:
+  title: Button Request
+  version: 1.0.0
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+  description: |
+    # Introduction
+    Button Request is a platform for someone who want to replace tedious and repeated message with  a button. 
+   
+    ##API 
+    API enables you to access the resources using external software.
+
+tags:
+  - name: deviceAPI
+    description: Button Device API
+    x-displayName: Button Device
+  - name: MessageAPI
+    description: Fetch/Pin/Unpin/Delete Message through Normal API
+    x-displayName: Message
+  - name: DeviceList
+    description: Manage Device
+    x-displayName: Device Management
+  - name: DeviceShare
+    description: Device Share
+    x-displayName: Device Share
+  - name: MobileAccessToken
+    description: Mobile Access Token
+    x-displayName: Mobile Access Token
+paths:
+  
+  /message/fetch:
+    $ref: paths/api@v1@message@fetch.yaml
+  '/message/pinStatus/{msgId}/{action}':
+    $ref: 'paths/api@v1@message@pinStatus@{msgId}@{action}.yaml'
+  '/message/delete/{msgId}':
+    $ref: 'paths/api@v1@message@delete@{msgId}.yaml'
+  '/buttonDevice/myDevice/list/{device_id}':
+    $ref: 'paths/api@v1@buttonDevice@myDevice@list@{device_id}.yaml'
+  '/buttonDevice/myDevice/repeatedMessage/{device_id}/{action}':
+    $ref: 'paths/api@v1@buttonDevice@myDevice@repeatedMessage@{device_id}@{action}.yaml'
+  '/buttonDevice/myDevice/buttonMessageUpdate/updateOrNew/{device_id}':
+    $ref: 'paths/api@v1@buttonDevice@myDevice@buttonMessageUpdate@updateOrNew@{device_id}.yaml'
+  '/buttonDevice/myDevice/buttonMessageUpdate/delete/{device_id}':
+    $ref: 'paths/api@v1@buttonDevice@myDevice@buttonMessageUpdate@delete@{device_id}.yaml'
+  /buttonDevice/deviceSharedToMe/fetch:
+    $ref: paths/api@v1@buttonDevice@deviceSharedToMe@fetch.yaml
+  '/buttonDevice/deviceSharedToMe/delete/{case_id}':
+    $ref: 'paths/api@v1@buttonDevice@deviceSharedToMe@delete@{case_id}.yaml'
+  '/buttonDevice/shareDevice/new/{email}/{device_id}':
+    $ref: 'paths/api@v1@buttonDevice@shareDevice@new@{email}@{device_id}.yaml'
+  '/buttonDevice/shareDevice/changeRight/{case_id}/{right}':
+    $ref: 'paths/api@v1@buttonDevice@shareDevice@changeRight@{case_id}@{right}.yaml'
+  '/buttonDevice/myDevice/new/{nickname}':
+    $ref: 'paths/api@v1@buttonDevice@myDevice@new@{nickname}.yaml'
+  /mobileDevice/fetch:
+    $ref: paths/api@v1@mobileDevice@fetch.yaml
+  '/mobileDevice/new/{nickname}':
+    $ref: 'paths/api@v1@mobileDevice@new@{nickname}.yaml'
+  '/mobileDevice/amend/{case_id}':
+    $ref: 'paths/api@v1@mobileDevice@amend@{case_id}.yaml'
+  '/mobileDevice/revoke/{case_id}':
+    $ref: 'paths/api@v1@mobileDevice@revoke@{case_id}.yaml'
+components:
+  securitySchemes:
+   
+    NormalAPIAuth:
+      description: API
+      type: http
+      scheme: bearer

@@ -1,0 +1,24 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceList
+  description: New Device
+  summary: Add New Device
+  operationId: newDevice
+  parameters:
+    - name: nickname
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            $ref: ../components/schemas/NewDevice.yaml

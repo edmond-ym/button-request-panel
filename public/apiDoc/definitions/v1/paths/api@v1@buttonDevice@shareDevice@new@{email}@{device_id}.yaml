@@ -1,0 +1,61 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceShare
+  description: Share Device To
+  summary: Share Device to another user
+  operationId: shareDeviceTo
+  parameters:
+    - name: device_id
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+    - name: email
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - no-privilege
+                  - not-subscribed
+                  - not-valid-email
+                  - fail
+                  - success
+              data:
+                description: Data
+                items:
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    right:
+                      type: string
+                      enum:
+                        - basic
+                        - middle
+                        - advanced
+                    device_id:
+                      type: string
+                    case_id:
+                      type: string
+                    created_time:
+                      type: string

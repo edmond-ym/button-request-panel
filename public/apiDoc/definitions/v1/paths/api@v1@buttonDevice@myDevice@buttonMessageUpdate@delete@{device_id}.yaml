@@ -1,0 +1,74 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceList
+  description: Button Message Delete
+  summary: Button Message Delete
+  operationId: buttonMessageDelete
+  parameters:
+    - name: device_id
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+  requestBody:
+    description: Delete Button Id
+    required: true
+    content:
+      application/form-data:
+        schema:
+          type: object
+          properties:
+            passData:
+              type: object
+              properties:
+                dataArray:
+                  type: array
+                  items:
+                    type: string
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - no-privilege
+                  - not-subscribed
+                  - passData-body-key-missing
+                  - dataArray-key-missing
+                  - invalid-command
+                  - not-valid-array
+                  - fail
+                  - success
+              data:
+                description: Data
+                items:
+                  properties:
+                    device_id:
+                      type: string
+                    info:
+                      type: string
+                    datetime:
+                      type: string
+                    status:
+                      type: string
+                      enum:
+                        - active
+                        - suspend
+                    nickname:
+                      type: string
+                    repeated_message:
+                      enum:
+                        - null
+                        - 'no'

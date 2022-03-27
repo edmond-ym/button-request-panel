@@ -1,0 +1,36 @@
+type: object
+properties:
+  result:
+    description: Result of the Action
+    type: string
+    example: success
+    enum:
+      - no-privilege
+      - not-subscribed
+      - missing-nickname
+      - success
+      - fail
+  data:
+    description: Data
+    items:
+      properties:
+        case_id:
+          type: string
+        device_id:
+          type: string
+        user_id:
+          type: string
+        bearer_token:
+          type: string
+        info:
+          type: string
+        datetime:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - suspend
+        nickname:
+          type: string
+description: ''

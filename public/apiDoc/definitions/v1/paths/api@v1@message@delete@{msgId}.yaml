@@ -1,0 +1,35 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - MessageAPI
+  description: Delete Message
+  summary: Delete Message
+  operationId: deleteMessage
+  parameters:
+    - name: msgId
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - success
+                  - fail
+                  - not-exist
+                  - not-subscribed
+                  - no-privilege

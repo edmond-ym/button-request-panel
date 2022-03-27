@@ -1,0 +1,47 @@
+type: object
+properties:
+  result:
+    description: Result of the Action
+    type: string
+    example: success
+    enum:
+      - success
+      - not-subscribed
+      - no-privilege
+  data:
+    description: Device List Fetched
+    type: array
+    items:
+      properties:
+        device_id:
+          type: string
+        info:
+          type: string
+        datetime:
+          type: string
+        status:
+          type: string
+          enum:
+            - active
+            - suspend
+        nickname:
+          type: string
+        repeated_message:
+          enum:
+            - null
+            - 'no'
+        OwnershipShare:
+          type: object
+          items:
+            properties:
+              case_id:
+                type: string
+              name:
+                type: string
+              email:
+                type: string
+              right:
+                type: string
+              created_time:
+                type: string
+x-examples: {}

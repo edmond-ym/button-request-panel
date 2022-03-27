@@ -1,0 +1,48 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - MobileAccessToken
+  description: New Mobile Access Token
+  summary: New Mobile Access Token
+  operationId: newMobileAccessToken
+  parameters:
+    - name: nickname
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - no-privilege
+                  - not-subscribed
+                  - fail
+                  - success
+              data:
+                description: Data
+                items:
+                  properties:
+                    case_id:
+                      type: string
+                    nickname:
+                      type: string
+                    access_token:
+                      type: string
+                    deleted_from_phone:
+                      type: string
+                    last_access:
+                      type: string

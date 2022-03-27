@@ -1,0 +1,66 @@
+post:
+  security:
+    - NormalAPIAuth: []
+  tags:
+    - DeviceShare
+  description: Change Sharee's Right
+  summary: Change Sharee's Right
+  operationId: changeShareeRight
+  parameters:
+    - name: case_id
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+    - name: right
+      in: path
+      required: true
+      deprecated: false
+      schema:
+        type: string
+        enum:
+          - basic
+          - middle
+          - advanced
+  responses:
+    '403':
+      $ref: ../components/responses/Unauthenticated.yaml
+    default:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              result:
+                description: Result of the Action
+                type: string
+                example: success
+                enum:
+                  - no-privilege
+                  - not-subscribed
+                  - not-valid-right
+                  - case-id-not-exist
+                  - fail
+                  - success
+              data:
+                description: Data
+                items:
+                  properties:
+                    name:
+                      type: string
+                    email:
+                      type: string
+                    right:
+                      type: string
+                      enum:
+                        - basic
+                        - middle
+                        - advanced
+                    device_id:
+                      type: string
+                    case_id:
+                      type: string
+                    created_time:
+                      type: string
