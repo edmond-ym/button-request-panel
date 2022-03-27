@@ -1,0 +1,114 @@
+openapi: 3.0.0
+servers:
+  #- url: https://143.198.74.202/deviceAPI/v1
+  #  description: Button Device API Server
+  - url: http://localhost/deviceAPI/v1
+    description: Button Device API Server
+info:
+  title: Button Device API
+  version: 1.0.0
+  license: 
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+    #identifier: Apache 2.0
+
+  description: >
+    # Introduction
+    
+    When Button on the corresponding device is pressed, the request is sent using this
+    api and the message is generated 
+    
+   
+
+tags:
+  - name: deviceAPI
+    description: Button Device API
+    x-displayName: Button Device API
+
+
+
+paths:
+  '/deviceAPI/v1/{deviceId}':
+    post:
+      security:
+        - DeviceAPIAuth: []    
+      tags:
+        - deviceAPI
+      description: Send a Button Request
+      summary: Send a message by pressing the button
+      operationId: deviceAPI
+      parameters:
+          - name: deviceId
+            in: path
+            required: true
+            deprecated: false
+            schema:
+              type: string
+            
+          - name: button_id
+            in: query
+            required: true
+            deprecated: false
+            schema:
+              type: string
+                  
+
+      responses:
+        'default':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum: 
+                      - not-valid-request
+                      - device-id-not-exist
+                      - decryption-failed
+                      - no-privilege
+                      - not-subscribed
+                      - fail
+                      - success
+                      - no-repeated-message
+                      - button-id-not-exist
+                      - no-repeated-message
+        '400':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: success
+                    enum: 
+                      - not-valid-request
+  
+
+components:
+  securitySchemes:
+    DeviceAPIAuth:
+      description: This is for the Button Device Request
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+    
+                
+ 
+      
+
+
+
+      
+
+
+
+
+            
+    
