@@ -13,7 +13,7 @@
   <body>
 
     <elements-api
-      apiDescriptionUrl="{{asset('deviceAPIDoc/v1_0.yaml')}}"
+      apiDescriptionUrl="{{$url}}"
       router="hash"
       layout="sidebar"
     />
