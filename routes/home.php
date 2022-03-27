@@ -19,6 +19,16 @@ $routeList=[
         'route'=>'/features',
         'bladeName'=>'features',
         'routeName'=>'home.features'
+    ],
+    [
+        'route'=>'/api-doc',
+        'bladeName'=>'apiDocumentation',
+        'routeName'=>'apiDoc'
+    ],
+    [
+        'route'=>'/device-api-doc',
+        'bladeName'=>'deviceApiDocumentation',
+        'routeName'=>'deviceApiDoc'
     ]
 ];
 
