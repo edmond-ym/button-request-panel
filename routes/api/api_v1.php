@@ -187,12 +187,15 @@ Route::middleware(['auth:sanctum', 'apiAuth'])->group(function () {
                         ]'
                         , true);*/  
                         if ($request->has('passData')) {
-                            if (array_key_exists('dataArray', json_decode($request->input('passData'), true))) {
-                                $r=DeviceListService::buttonMessageConfigure(Auth::id(), $device_id, $action, json_decode($request->input('passData'), true)['dataArray']);
-                                return response()->json(['result'=>$r->result, 'data'=>$r->data]);
-                            }else{
-                                return response()->json(['result'=>'dataArray-key-missing', 'data'=>[]]);
+                            if(is_array(json_decode($request->input('passData'), true))){
+                                if (array_key_exists('dataArray', json_decode($request->input('passData'), true))) {
+                                    $r=DeviceListService::buttonMessageConfigure(Auth::id(), $device_id, $action, json_decode($request->input('passData'), true)['dataArray']);
+                                    return response()->json(['result'=>$r->result, 'data'=>$r->data]);
+                                }else{
+                                    return response()->json(['result'=>'dataArray-key-missing', 'data'=>[]]);
+                                }
                             }
+                            return response()->json(['result'=>'passData-not-object', 'data'=>[]]);
                         }else{
                             return response()->json(['result'=>'passData-body-key-missing', 'data'=>[]]);
                         }
