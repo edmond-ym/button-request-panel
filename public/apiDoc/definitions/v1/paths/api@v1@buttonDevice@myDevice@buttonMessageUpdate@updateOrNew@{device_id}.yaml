@@ -45,7 +45,7 @@ post:
   responses:
     '403':
       $ref: ../components/responses/Unauthenticated.yaml
-    default:
+    '200':
       description: successful operation
       content:
         application/json:
