@@ -3,7 +3,7 @@ servers:
   #- url: 'http://localhost/api/v1'
   - url: https://143.198.74.202/api/v1
     description: Button Request Server
-  
+
 info:
   title: Button Request
   version: 1.0.0
@@ -13,10 +13,9 @@ info:
   description: |
     # Introduction
     Button Request is a platform for someone who want to replace tedious and repeated message with  a button. 
-   
+
     ##API 
     API enables you to access the resources using external software.
-
 tags:
   - name: deviceAPI
     description: Button Device API
@@ -34,7 +33,6 @@ tags:
     description: Mobile Access Token
     x-displayName: Mobile Access Token
 paths:
-  
   /message/fetch:
     $ref: paths/api@v1@message@fetch.yaml
   '/message/pinStatus/{msgId}/{action}':
@@ -69,7 +67,6 @@ paths:
     $ref: 'paths/api@v1@mobileDevice@revoke@{case_id}.yaml'
 components:
   securitySchemes:
-   
     NormalAPIAuth:
       description: API
       type: http
