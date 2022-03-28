@@ -26,5 +26,14 @@ class APIException extends Exception
     {
         
     }*/
-    
+    public function render($request, NotFoundHttpException $exception)
+    {
+
+            if ($request->is('api/v1/*')) {
+                return response()->json([
+                    'message' => 'Record not found.'
+                ], 405);
+            }        
+        
+    }
 }
