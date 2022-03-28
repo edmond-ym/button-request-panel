@@ -33,3 +33,5 @@ post:
                   - not-exist
                   - not-subscribed
                   - no-privilege
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml

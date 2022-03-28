@@ -65,6 +65,7 @@ post:
                   - not-valid-array
                   - fail
                   - success
+                  - passData-not-object
               data:
                 description: Data
                 items:
@@ -86,3 +87,5 @@ post:
                       enum:
                         - null
                         - 'no'
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml

@@ -22,3 +22,5 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/DeviceListFetchResult.yaml
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml

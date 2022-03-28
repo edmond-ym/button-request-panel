@@ -15,3 +15,5 @@ post:
         application/json:
           schema:
             $ref: ../components/schemas/MessageFetchResult.yaml
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml

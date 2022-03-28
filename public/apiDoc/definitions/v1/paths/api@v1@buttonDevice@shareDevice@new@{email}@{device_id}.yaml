@@ -59,3 +59,5 @@ post:
                       type: string
                     created_time:
                       type: string
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml

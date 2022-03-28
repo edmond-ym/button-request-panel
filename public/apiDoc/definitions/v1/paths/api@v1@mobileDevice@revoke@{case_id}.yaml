@@ -37,3 +37,5 @@ post:
                 properties:
                   case_id:
                     type: string
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml

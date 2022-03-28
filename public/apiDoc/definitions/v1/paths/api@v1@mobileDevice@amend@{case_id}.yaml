@@ -53,3 +53,5 @@ post:
                       type: string
                     last_access:
                       type: string
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml

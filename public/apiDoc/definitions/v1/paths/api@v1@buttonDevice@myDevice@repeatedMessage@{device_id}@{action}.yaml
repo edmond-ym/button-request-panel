@@ -63,3 +63,5 @@ post:
                       enum:
                         - null
                         - 'no'
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml

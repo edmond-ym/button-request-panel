@@ -1,0 +1,10 @@
+description: Not Post Method
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        result:
+          type: string
+          enum:
+            - not-post-method

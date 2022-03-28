@@ -43,3 +43,5 @@ post:
                   - invalid-action
                   - not-subscribed
                   - no-privilege
+    '405':
+      $ref: ../components/responses/NotPostMethod.yaml
