@@ -14,7 +14,7 @@ info:
     # Introduction
     Button Request is a platform for someone who want to replace tedious and repeated message with  a button. 
 
-    ##API 
+    ## API 
     API enables you to access the resources using external software.
 tags:
   - name: deviceAPI
@@ -33,7 +33,7 @@ tags:
     description: Mobile Access Token
     x-displayName: Mobile Access Token
 paths:
-  /message/fetch:
+  '/message/fetch':
     $ref: paths/api@v1@message@fetch.yaml
   '/message/pinStatus/{msgId}/{action}':
     $ref: 'paths/api@v1@message@pinStatus@{msgId}@{action}.yaml'
@@ -47,7 +47,7 @@ paths:
     $ref: 'paths/api@v1@buttonDevice@myDevice@buttonMessageUpdate@updateOrNew@{device_id}.yaml'
   '/buttonDevice/myDevice/buttonMessageUpdate/delete/{device_id}':
     $ref: 'paths/api@v1@buttonDevice@myDevice@buttonMessageUpdate@delete@{device_id}.yaml'
-  /buttonDevice/deviceSharedToMe/fetch:
+  '/buttonDevice/deviceSharedToMe/fetch':
     $ref: paths/api@v1@buttonDevice@deviceSharedToMe@fetch.yaml
   '/buttonDevice/deviceSharedToMe/delete/{case_id}':
     $ref: 'paths/api@v1@buttonDevice@deviceSharedToMe@delete@{case_id}.yaml'
@@ -57,7 +57,7 @@ paths:
     $ref: 'paths/api@v1@buttonDevice@shareDevice@changeRight@{case_id}@{right}.yaml'
   '/buttonDevice/myDevice/new/{nickname}':
     $ref: 'paths/api@v1@buttonDevice@myDevice@new@{nickname}.yaml'
-  /mobileDevice/fetch:
+  '/mobileDevice/fetch':
     $ref: paths/api@v1@mobileDevice@fetch.yaml
   '/mobileDevice/new/{nickname}':
     $ref: 'paths/api@v1@mobileDevice@new@{nickname}.yaml'
