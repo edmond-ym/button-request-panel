@@ -38,5 +38,5 @@ properties:
         datetime: '2022-03-06 21:10:31 +00:00'
         device_id: d0d2b049-bc71-4606-8492-3521f76beb8e
         nickname: Device 1
-        pin": false
+        pin: false
         shared_to_me: false
