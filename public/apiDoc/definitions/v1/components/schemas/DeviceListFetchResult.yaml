@@ -31,7 +31,7 @@ properties:
             - null
             - 'no'
         OwnershipShare:
-          type: object
+          type: array
           items:
             properties:
               case_id:
