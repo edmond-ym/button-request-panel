@@ -115,7 +115,7 @@ Route::middleware(['auth:sanctum', 'apiAuth'])->group(function () {
             if ($request->isMethod('post')) {
                 if ($request->user()->tokenCan('read')) {
                     if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
-                        if ($device_id==null) {
+                        if ($device_id==null || $device_id == "") {
                             $data=DeviceList::select('device_id', 'info', 'datetime', 'status', 'nickname', 'repeated_message')
                             ->where("user_id", "=",$request->user()->id )->get();
                         }
