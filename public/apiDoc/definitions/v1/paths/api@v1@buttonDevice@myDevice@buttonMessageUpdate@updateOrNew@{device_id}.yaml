@@ -27,21 +27,18 @@ post:
                 dataArray:
                   type: array
                   items:
+                    type: object
                     required:
                       - buttonNo
                       - message
                     properties:
                       buttonNo:
                         type: string
-                        default: ''
-                        example:
-                          - ewq
+                        
                       message:
                         title: Message
                         type: string
-                        default: ''
-                        example:
-                          - ewq1
+                       
   responses:
     '403':
       $ref: ../components/responses/Unauthenticated.yaml

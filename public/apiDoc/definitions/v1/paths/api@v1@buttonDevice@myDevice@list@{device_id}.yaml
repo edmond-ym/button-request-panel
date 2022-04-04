@@ -13,6 +13,7 @@ post:
       deprecated: false
       schema:
         type: string
+        default: null
   responses:
     '403':
       $ref: ../components/responses/Unauthenticated.yaml
