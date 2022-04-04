@@ -115,7 +115,7 @@ Route::middleware(['auth:sanctum', 'apiAuth'])->group(function () {
             if ($request->isMethod('post')) {
                 if ($request->user()->tokenCan('read')) {
                     if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
-                        if ($device_id==null || $device_id == "") {
+                        if ($device_id==null || $device_id == "" || $device_id=="all") {
                             $data=DeviceList::select('device_id', 'info', 'datetime', 'status', 'nickname', 'repeated_message')
                             ->where("user_id", "=",$request->user()->id )->get();
                         }
@@ -165,6 +165,7 @@ Route::middleware(['auth:sanctum', 'apiAuth'])->group(function () {
             
                 if ($request->user()->tokenCan('update')) {
                     if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
+                        
                         /*$a=json_decode('
                         [
                             {

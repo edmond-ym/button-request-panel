@@ -11,9 +11,10 @@ post:
       in: path
       required: false
       deprecated: false
+      description: \"all\" when showing all devices.
       schema:
         type: string
-        default: null
+        default: "all"
   responses:
     '403':
       $ref: ../components/responses/Unauthenticated.yaml
