@@ -22,8 +22,11 @@ info:
     ## API Tools
     We have created PHP API Library, which enables you to use API conveniently.
 
-    <https://gitlab.com/button-request>
+    Composer (PHP):
+    <https://packagist.org/packages/button-request/api-v1>
     
+    PyPi (Python):
+    <https://pypi.org/project/ButtonRequest-APIv1>
    
 tags:
   - name: deviceAPI

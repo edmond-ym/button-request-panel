@@ -34,9 +34,10 @@ post:
                   - success
               data:
                 description: Data
-                properties:
-                  case_id:
-                    type: string
+                items:
+                  properties:
+                    case_id:
+                      type: string
     '405':
       $ref: ../components/responses/NotPostMethod.yaml
       

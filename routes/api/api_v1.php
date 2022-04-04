@@ -235,11 +235,11 @@ Route::middleware(['auth:sanctum', 'apiAuth'])->group(function () {
                 if ($request->user()->tokenCan('delete')) {
                     if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                        $r=DeviceShareService::GiveUpShareeRight($request->user()->id, $case_id);
-                       return response()->json(['result'=>$r->result, 'data'=>["case_id"=>$r->case_id]]);
+                       return response()->json(['result'=>$r->result, 'data'=>[["case_id"=>$r->case_id]]]);
                     }
-                    return response()->json(['result'=>'not-subscribed','data'=>["case_id"=>$r->case_id]]);
+                    return response()->json(['result'=>'not-subscribed','data'=>[["case_id"=>$r->case_id]]]);
                 }
-               return response()->json(['result'=>'no-privilege', 'data'=>["case_id"=>$r->case_id]]); 
+               return response()->json(['result'=>'no-privilege', 'data'=>[["case_id"=>$r->case_id]]]); 
             }else{
                 return response()->json(['result'=>'not-post-method']);
             }
@@ -328,7 +328,7 @@ Route::middleware(['auth:sanctum', 'apiAuth'])->group(function () {
                     if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                         
                         $rObj=DeviceListService::newDeviceGenerate($request->user()->id, $nickname);
-                        return response()->json(['result'=>$rObj->result, 'data'=>$rObj->data]);
+                        return response()->json(['result'=>$rObj->result, 'data'=>[$rObj->data]]);
                     }
                     return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
                 }
@@ -382,7 +382,7 @@ Route::middleware(['auth:sanctum', 'apiAuth'])->group(function () {
                     if (SubscriptionManagementService::offlineStatusSubscribed($request->user()->id)) {
                         
                         $rObj=MobileAccessService::MobileAccessDestroy($request->user()->id, $case_id);
-                        return response()->json(['result'=>$rObj->result, 'data'=>['case_id'=>$rObj->case_id]]);
+                        return response()->json(['result'=>$rObj->result, 'data'=>[['case_id'=>$rObj->case_id]]]);
                     }
                     return response()->json(['result'=>'not-subscribed', 'data'=>[]]);
                 }

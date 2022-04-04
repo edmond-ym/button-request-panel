@@ -53,7 +53,7 @@ paths:
                   
 
       responses:
-        'default':
+        '200':
           description: successful operation
           content:
             application/json:
@@ -65,18 +65,26 @@ paths:
                     type: string
                     example: success
                     enum: 
-                      - not-valid-request
-                      - device-id-not-exist
-                      - decryption-failed
-                      - no-privilege
                       - not-subscribed
                       - fail
                       - success
                       - no-repeated-message
                       - button-id-not-exist
-                      - no-repeated-message
-        '400':
-          description: successful operation
+                  data:
+                    description: Data
+                    type: array
+                    items:
+                      properties:
+                        msg_id:
+                          type: string
+                        message:
+                          type: string
+                        datetime:
+                          type: string
+
+                      
+        '403':
+          description: Unauthenticated
           content:
             application/json:
               schema:
@@ -85,9 +93,54 @@ paths:
                   result: 
                     description: Result of the Action
                     type: string
-                    example: success
+                    example: device-id-not-exist
+                    enum: 
+                      - device-id-not-exist
+                      - decryption-failed
+                      - wrong-bearer-token
+                  data:
+                    description: Data
+                    example: []
+                    enum: 
+                      - []
+
+                      
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: device-suspended
+                    enum: 
+                      - device-suspended
+                  data:
+                    description: Data
+                    example: []
+                    enum: 
+                      - []
+        '400':
+          description: Not a Valid Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result: 
+                    description: Result of the Action
+                    type: string
+                    example: not-valid-request
                     enum: 
                       - not-valid-request
+                  data:
+                    description: Data
+                    example: []
+                    enum: 
+                      - []
   
 
 components:

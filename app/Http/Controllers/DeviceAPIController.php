@@ -19,8 +19,6 @@ use App\Library\Services\CommonService;
 class DeviceAPIController extends Controller
 {
     public function push_msg( Request $request, $device_id=null) {
-        
-        
        /* $bearerToken=hash('sha256',$request->bearerToken());
         $result=[];
         if($device_id != "" && $bearerToken != "" && $request->has('button_id')){
@@ -47,18 +45,18 @@ class DeviceAPIController extends Controller
                     if ($res->decryptedString==$request->bearerToken() ) {// Ensure Right
                         $result=self::push_msg_internal($data, $button_id);
                     }else{
-                        $result=["result"=>"no-privilege"];
+                        $result=["result"=>"wrong-bearer-token", "data"=>[]];
                     }
                 } else {
-                    $result=["result"=>"decryption-failed"];
+                    $result=["result"=>"decryption-failed", "data"=>[]];
                 }
             }else{
-                $result=["result"=>"device-id-not-exist"];
+                $result=["result"=>"device-id-not-exist", "data"=>[]];
             }
 
             
         }else{
-            $result=["result"=>"not-valid-request"];
+            $result=["result"=>"not-valid-request", "data"=>[]];
             //return response()->json()->header('Access-Control-Allow-Origin', '*');
         }
         return response()->json($result);
@@ -70,9 +68,10 @@ class DeviceAPIController extends Controller
     public static function push_msg_internal($deviceListIndiData, $button_id){
         $data=$deviceListIndiData;
         $result=[];
-        if (count($data)!=1 || $data[0]->status=="suspend") {
-            $result=["result"=>"no-privilege"];
-            //return response()->json()->header('Access-Control-Allow-Origin', '*');
+        if (count($data)!=1  ) {
+            $result=["result"=>"device-id-not-exist", "data"=>[]];
+        }else if($data[0]->status=="suspend"){
+            $result=["result"=>"device-suspended", "data"=>[]];
         }else{
             $info=$data[0]->info;
             $infoArr=json_decode($info);
@@ -86,7 +85,7 @@ class DeviceAPIController extends Controller
                 }
             }
             if(!$exist){
-                $result=["result"=>"button-id-not-exist"];
+                $result=["result"=>"button-id-not-exist", "data"=>[]];
                 //return response()->json()->header('Access-Control-Allow-Origin', '*'); 
             }else{
                 $repeated_message=$data[0]->repeated_message;
@@ -95,7 +94,7 @@ class DeviceAPIController extends Controller
                     $length=count(DeviceList::find($data[0]->case_id)->messageEnquiry()->where('message','=',$msg)->get());
                     
                     if ($length>0) {
-                        $result=["result"=>"no-repeated-message"];
+                        $result=["result"=>"no-repeated-message", "data"=>[]];
                     } else {
                         if (SubscriptionManagementService::subscribed(DeviceList::find($data[0]->case_id)->user_id)) {
                             $data1=MessageEnquiry::insert([
@@ -106,12 +105,18 @@ class DeviceAPIController extends Controller
                                 'pin' => 'false'
                             ]);
                             if($data1){
-                                $result=["result"=>"success"];
+                                $result=["result"=>"success", "data"=>[
+                                    [
+                                        'msg_id' => Str::random(40),
+                                        'message' => $msg,
+                                        'datetime' =>  gmdate("Y-m-d H:i:s P"),
+                                    ]
+                                ]];
                             }else{
-                                $result=["result"=>"fail"];
+                                $result=["result"=>"fail", "data"=>[]];
                             }
                         } else {
-                            $result=["result"=>"not-subscribed"];
+                            $result=["result"=>"not-subscribed", "data"=>[]];
                         }
                         
                         
@@ -127,12 +132,12 @@ class DeviceAPIController extends Controller
                             'pin' => 'false'
                         ]);
                         if($data1){
-                            $result=["result"=>"success"];
+                            $result=["result"=>"success", "data"=>[]];
                         }else{
-                            $result=["result"=>"fail"];
+                            $result=["result"=>"fail", "data"=>[]];
                         }
                     }else{
-                        $result=["result"=>"not-subscribed"];
+                        $result=["result"=>"not-subscribed", "data"=>[]];
                     }
                     
                 }  
