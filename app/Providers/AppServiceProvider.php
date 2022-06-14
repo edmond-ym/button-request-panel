@@ -6,6 +6,8 @@ use Illuminate\Support\ServiceProvider;
 use Laravel\Cashier\Cashier;
 use App\Models\Cashier\Subscription;
 use App\Models\Cashier\SubscriptionItem;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\App;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -25,7 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (App::environment('production')) {
+            URL::forceScheme('https');
+        }
         Cashier::calculateTaxes();
         Cashier::useCustomerModel(User::class);
         Cashier::useSubscriptionModel(Subscription::class);
