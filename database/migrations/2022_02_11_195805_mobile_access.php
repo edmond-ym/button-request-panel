@@ -17,7 +17,8 @@ class MobileAccess extends Migration
         Schema::create('mobile_access', function (Blueprint $table) {
             $table->string('case_id', 45)->unique()->primary();
             $table->string('access_token',100)->unique()/*->primary()*/;
-            $table->string('user_id',45);
+            //$table->string('user_id',45);
+            $table->bigInteger('user_id');
             $table->string('nickname', 45);
             $table->string('deleted_from_phone', 45)->nullable();
             $table->string('last_access', 45)->nullable();
