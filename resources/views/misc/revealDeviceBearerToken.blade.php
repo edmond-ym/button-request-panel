@@ -43,7 +43,7 @@
                     <h4 class="alert-heading">Device API</h4>
                     <p>You may send the request using the link below. </p>
                     <hr>
-                    <div style="display:flex; max-width:100%;">
+                    <div style="display:flex; max-width:100%; overflow: scroll;">
                       <p class="mb-0 " style="max-width: 100%;">Link:&nbsp;  </p>
                       <span style="max-width: 100%;">{{route('deviceAPI.v1', ['device_id'=>$data['device_id']])}}</span>
                     </div>
