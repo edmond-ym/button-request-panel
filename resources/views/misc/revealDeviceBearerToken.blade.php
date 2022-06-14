@@ -21,7 +21,7 @@
         <div  class="badge-item col-12	col-sm-12	col-md-6	col-lg-4	col-xl-3 " ></div>
         <div  class="badge-item col-12	col-sm-12	col-md-6	col-lg-4	col-xl-3 ">
             @if ($result=="success")
-                <h3>The link is only valid for 5 minutes</h3>
+                <h3 hidden>The link is only valid for 5 minutes</h3>
                 <div class="mb-3">
                     <label for="deviceId" class="form-label">Device ID</label>
                     <input type="name" class="form-control" id="deviceId" name="deviceId" ng-model="device_id" value="{{$data['device_id']}}"readonly  >

@@ -218,9 +218,9 @@ class DeviceController extends Controller
     }
 
     public function revealDeviceBearerToken(Request $request, $device_id){
-        if (! $request->hasValidSignature()) {
+        /*if (! $request->hasValidSignature()) {
             abort(401);
-        }
+        }*/
         if (Auth::check()) {
             $data=DeviceList::select('device_id', 'bearer_token')
             ->where("user_id", "=",Auth::id() )    // ensure power
