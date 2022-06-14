@@ -126,16 +126,20 @@ class SubscriptionManagementService
         return $count;
     }
     public static function subscribed($userId){
-        
-        
-        $subData=self::currentSubscriptionData($userId);
-        if (self::subscriptionType($userId, $subData) !="none") {
-            if (self::subscriptionItemList($userId, $subData)[0]->plan->active) {
-                return true;
-            } 
+        $testMode=config('app.test_mode');
+        if (!$testMode) {
+           $subData=self::currentSubscriptionData($userId);
+            if (self::subscriptionType($userId, $subData) !="none") {
+                if (self::subscriptionItemList($userId, $subData)[0]->plan->active) {
+                    return true;
+                } 
+            }
+               
+            return false; 
+        }else{
+            return true;
         }
-           
-        return false;
+        
     }
     public static function offlineSubscriptionStatusUpdate($userId){
         if (self::subscribed($userId)) {
