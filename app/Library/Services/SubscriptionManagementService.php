@@ -145,7 +145,8 @@ class SubscriptionManagementService
         }
     }
     public static function offlineStatusSubscribed($userId){
-        $testMode=false;
+        $testMode=config('app.test_mode');
+        
         if (!$testMode) {
             if (User::where('id', '=',$userId)->get()[0]->subscription_status_updated=='false') {
                 self::offlineSubscriptionStatusUpdate($userId);

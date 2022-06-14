@@ -122,6 +122,15 @@ return [
     'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
+    /*
+    |--------------------------------------------------------------------------
+    | Test Mode
+    |--------------------------------------------------------------------------
+    |
+    | When it is true, the subscription requirement is exempted.
+    |
+    */
+    'test_mode'=> env('TEST_MODE', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -133,6 +142,8 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
+
+   
 
     'providers' => [
 
