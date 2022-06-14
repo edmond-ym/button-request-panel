@@ -1,6 +1,6 @@
 openapi: 3.0.0
 servers:
-  #- url: https://143.198.74.202
+  #- url: https://button-request.herokuapp.com
   #  description: Button Request Server
   - url: http://localhost
     description: Button Request Server
