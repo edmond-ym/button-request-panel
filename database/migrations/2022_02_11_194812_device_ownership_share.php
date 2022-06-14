@@ -17,7 +17,8 @@ class DeviceOwnershipShare extends Migration
             
             $table->string('case_id', 255)->unique()->primary();
             $table->string('device_id', 45);
-            $table->string('share_to_user_id', 20);
+            ////$table->string('share_to_user_id', 20);
+            $table->bigInteger('share_to_user_id');
             $table->string('right', 45);
             $table->string('created_time', 60);
 
