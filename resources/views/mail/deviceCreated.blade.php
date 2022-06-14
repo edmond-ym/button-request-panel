@@ -26,5 +26,5 @@ Hi {{$fullName}},
 @endif
 
 Thanks,<br>
-Inchoatae Limited
+Button Request
 
