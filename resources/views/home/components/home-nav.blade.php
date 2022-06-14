@@ -46,6 +46,7 @@
                     <li class="nav-item"><a class="nav-link" target="_blank" href="{{URL::to('/');}}/documentation">Docs</a></li>
 
                     <li class="nav-item"><a class="nav-link" target="_blank" href="{{route('apiDoc')}}">API Docs</a></li>
+                    <li class="nav-item"><a class="nav-link" target="_blank" href="{{route('deviceApiDoc')}}">Device API Docs</a></li>
                     <li class="nav-item"><a class="nav-link" target="_blank" href="{{route('dashboard')}}">Console</a></li>
           
                     
