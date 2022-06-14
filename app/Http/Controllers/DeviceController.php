@@ -187,7 +187,7 @@ class DeviceController extends Controller
             return redirect()->route('deviceList');        
         }     
     }
-    public function individual_device_view($device_id,Request $request,DeviceController $dc, DeviceList $deviceList) {
+    public function individual_device_view($device_id,Request $request/*,DeviceController $dc,*//* DeviceList $deviceList*/) {
         $backRouteName=$request->query("back");
         
         if(Auth::check()){ //Ensure Authenticated
@@ -204,7 +204,7 @@ class DeviceController extends Controller
             return "xxx";
         }
     }
-    public function device_list_table(DeviceList $deviceList, $user_id=null) {
+    public function device_list_table(/*DeviceList $deviceList, */$user_id=null) {
         if ($user_id==null) {
             $user_id=Auth::id();
         }

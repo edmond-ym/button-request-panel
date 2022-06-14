@@ -89,7 +89,7 @@ class DeviceOwnershipShareController extends Controller
         //
         return redirect(url()->previous());
     }
-    public function individual_device_ownership_view($device_id,Request $request,DeviceController $dc) {
+    public function individual_device_ownership_view($device_id,Request $request/*,DeviceController $dc*/) {
         $backRouteName=$request->query("back");
 
         if(Auth::check()){ //Ensure Authenticated

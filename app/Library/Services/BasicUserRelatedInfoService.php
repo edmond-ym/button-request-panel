@@ -6,7 +6,16 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\DeviceOwnershipShare;
 use App\Library\Services\MessageService;
 use App\Models\MobileAccess;
-class BasicUserRelatedInfoService
+
+abstract class UserInfoService{
+    abstract public static function deviceList();
+    abstract public static function deviceSharedToMe();
+    abstract public static function messages();
+    abstract public static function mobileKey();
+    abstract public static function forDashboard();
+}
+
+class BasicUserRelatedInfoService extends UserInfoService
 {
     
     function __construct() {
@@ -55,7 +64,7 @@ class BasicUserRelatedInfoService
     }
     public static function forDashboard(){
         
-
+        
         $output_array=[
             'myDevice' => self::deviceList(),
             'deviceSharedToMe' => self::deviceSharedToMe(),
