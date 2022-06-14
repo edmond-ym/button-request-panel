@@ -24,7 +24,8 @@ class DeviceList extends Migration
             $table->string('nickname', 45);
             $table->string('repeated_message', 45)->nullable();
             $table->string('status', 45);
-            $table->string('user_id', 45);
+            //$table->string('user_id', 45);
+            $table->bigInteger('user_id');
             $table->text('info')->nullable();
 
         });
