@@ -254,6 +254,7 @@ class DeviceController extends Controller
             ->where("user_id", "=",Auth::id() )    // ensure power
             ->where("device_id", "=", $device_id)
             ->get();
+        return $data;
         if (count($data)>0) {
             
             $temUrl=URL::temporarySignedRoute(
