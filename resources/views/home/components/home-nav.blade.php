@@ -56,10 +56,10 @@
         </div>
     </nav>
     {{$slot}}
-    <footer>
+    <footer><!--©&nbsp;Button Request 2022. -->
         <div class="container">
-            <p>©&nbsp;Button Request 2022. All Rights Reserved.</p>
-            <ul class="list-inline">
+            <p>All Rights Reserved</p>
+            <ul class="list-inline" hidden>
                 <li class="list-inline-item"><a href="#">Privacy</a></li>
                 <li class="list-inline-item"><a href="#">Terms</a></li>
                 <li class="list-inline-item"><a href="#">FAQ</a></li>
