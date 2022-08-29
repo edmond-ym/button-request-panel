@@ -158,15 +158,12 @@ class DeviceAPIController extends Controller
                 if ($res->result=="success") {
                     if ($res->decryptedString==$request->bearerToken() ) {// Ensure Right
                         
-                        try{
+                        try{           
                             $button_list=$data[0]->info;
-                            $result=["result"=>"success", "data"=>json_decode($info)];
+                            $result=["result"=>"success", "data"=>json_decode($button_list)];
                         }catch (Exception $e){
                             $result=["result"=>"button-list-data-invalid", "data"=>[]];
                         }
-
-
-                        $result=["result"=>"s", "data"=>[]];
 
                     }else{
                         $result=["result"=>"wrong-bearer-token", "data"=>[]];
