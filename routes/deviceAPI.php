@@ -14,4 +14,5 @@ use App\Http\Controllers\DeviceAPIController;
 });*/
 
 Route::post('/v1/{device_id?}', [DeviceAPIController::class, 'push_msg'])->withoutMiddleware([VerifyCsrfToken::class])->name("deviceAPI.v1");//Subs Protected
+Route::post('/button_list/v1/{device_id}', [DeviceAPIController::class, 'button_list'])->withoutMiddleware([VerifyCsrfToken::class])->name("deviceAPI.buttonList.v1");
 

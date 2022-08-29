@@ -148,5 +148,51 @@ class DeviceAPIController extends Controller
 
 
     }
+
+    public function button_list(Request $request, $device_id){
+        if ($request->bearerToken() != "") {
+            $data=DeviceList::where('device_id', $device_id)->get();
+
+            if (count($data)==1) {
+                $res=CommonService::DeviceAPIDecrypt($data[0]->bearer_token);
+                if ($res->result=="success") {
+                    if ($res->decryptedString==$request->bearerToken() ) {// Ensure Right
+                        
+                        try{
+                            $button_list=$data[0]->info;
+                            $result=["result"=>"success", "data"=>json_decode($info)];
+                        }catch (Exception $e){
+                            $result=["result"=>"button-list-data-invalid", "data"=>[]];
+                        }
+
+
+                        $result=["result"=>"s", "data"=>[]];
+
+                    }else{
+                        $result=["result"=>"wrong-bearer-token", "data"=>[]];
+                    }
+                } else {
+                    $result=["result"=>"decryption-failed", "data"=>[]];
+                }
+            }
+            else{
+                $result=["result"=>"device-id-not-exist", "data"=>[]];
+            }
+        }else{
+            $result=["result"=>"bearer-token-missing", "data"=>[]];
+        }
+
+        return response()->json($result);
+
+
+    }
+
   
 }
+
+
+
+
+    
+               
+   
