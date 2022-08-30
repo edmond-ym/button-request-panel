@@ -65,13 +65,38 @@
                           <div class="mb-3">
                               <label class="col-form-label">Message For Different Button:</label>
                               <button type="button" class="btn btn-primary"ng-click="formCon.addNewButton();">New</button></br>
-                              </br><div class="input-group mb-3"ng-repeat="item in formCon.infoList">
+                              </br>
+                              <div class="card" ng-repeat="item in formCon.infoList">
+                               
+                                <div class="card-body">
+                                  <!--<h5 class="card-title">Button</h5>-->
+                                  <div class="text-right">
+                                    <button type="button" ng-click="formCon.deleteButton($index);" class="btn-close float-right" aria-label="Close"></button>
+                                  </div>
+                                  <div class="input-group  input-group-sm">
+                                    <span class="input-group-text">ID and Nickname</span>
+                                    <input type="text" aria-label="Button ID" ng-model="item.buttonNo" placeholder="Button ID" class="form-control">
+                                   
+                                    <input type="text" aria-label="Nickname" ng-model="item.nickname" placeholder="Nickname" class="form-control">
+                                  
+                                  </div>
+                                  </br> 
+                                  <div class="input-group input-group-sm mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Message</span>
+                                    <input type="text" class="form-control" ng-model="item.message" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                                  </div>
+                                  
+                                </div>
+                              </div>
+
+                              <!--<div class="input-group mb-3"ng-repeat="item in formCon.infoList">
                                 <input type="text" class="form-control" ng-model="item.buttonNo"placeholder="Button ID" required>
                                 <span class="input-group-text">:</span>
                                 <input type="text" class="form-control" ng-model="item.message" placeholder="Message" required>
-                                
+                                <input type="text" class="form-control" ng-model="item.nickname" placeholder="Nickname" required>
+
                                 <button type="button" class="btn btn-primary" ng-click="formCon.deleteButton($index);">Delete</button>
-                              </div>
+                              </div>-->
                               <textarea class="form-control" id="info" rows="3" name="info" value="{{ old('info') }}" hidden readonly>@{{formCon.infoList}}</textarea>
                               @error('info')<div class="alert alert-danger">{{ $message }}</div>@enderror
 
@@ -130,7 +155,11 @@
                               this.infoList={!! $info !!} 
                             @endif
                             
-                            
+                            this.infoList.forEach(element => {
+                              if (!('nickname' in element)) {
+                               element['nickname']="";
+                              }
+                            });
                             this.addNewButton=function(){
                               this.infoList.push({buttonNo:"", message:""});
                             }

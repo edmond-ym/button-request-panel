@@ -39,7 +39,7 @@ doing it.
 You may change the nickname of the corresponding to whatever you want.
 
 ### [Button Id - Message](#button-id---message)
-![alt text](../assets/buttonId_message.png)
+![alt text](../assets/buttonId_message1.png)
 You may set different message for different Button Id.
 The Button Id must be unique within this device. You may set whatever Button Id you want given that
 it is unique.

@@ -20,6 +20,19 @@ class CommonService{
         }
     }
 
+    public static function ObjectInArrayMustHaveKey($dataArray, $MustHaveKeyArray): Array{
+        $newDataArray=$dataArray;
+        for ($i=0; $i < count($dataArray); $i++) { 
+            $element=$dataArray[$i];
+            for ($j=0; $j < count($MustHaveKeyArray); $j++) { 
+                $key1=$MustHaveKeyArray[$j];
+                if (!array_key_exists($key1, $element)) {
+                    $newDataArray[$i][$key1]="";
+                }
+            }
+        }
+        return $newDataArray;
+    }
 
 
 }

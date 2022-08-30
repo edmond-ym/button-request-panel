@@ -160,7 +160,10 @@ class DeviceAPIController extends Controller
                         
                         try{           
                             $button_list=$data[0]->info;
-                            $result=["result"=>"success", "data"=>json_decode($button_list)];
+                            $result=[
+                                "result"=>"success", 
+                                "data"=>CommonService::ObjectInArrayMustHaveKey(json_decode($button_list, true), ["buttonNo", "message", "nickname"])         
+                                ];
                         }catch (Exception $e){
                             $result=["result"=>"button-list-data-invalid", "data"=>[]];
                         }
