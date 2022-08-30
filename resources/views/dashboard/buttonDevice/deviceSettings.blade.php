@@ -94,7 +94,6 @@
                                 <span class="input-group-text">:</span>
                                 <input type="text" class="form-control" ng-model="item.message" placeholder="Message" required>
                                 <input type="text" class="form-control" ng-model="item.nickname" placeholder="Nickname" required>
-
                                 <button type="button" class="btn btn-primary" ng-click="formCon.deleteButton($index);">Delete</button>
                               </div>-->
                               <textarea class="form-control" id="info" rows="3" name="info" value="{{ old('info') }}" hidden readonly>@{{formCon.infoList}}</textarea>
