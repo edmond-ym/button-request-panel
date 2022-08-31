@@ -157,17 +157,19 @@ class DeviceAPIController extends Controller
                 $res=CommonService::DeviceAPIDecrypt($data[0]->bearer_token);
                 if ($res->result=="success") {
                     if ($res->decryptedString==$request->bearerToken() ) {// Ensure Right
-                        
-                        try{           
-                            $button_list=$data[0]->info;
-                            $result=[
-                                "result"=>"success", 
-                                "data"=>CommonService::ObjectInArrayMustHaveKey(json_decode($button_list, true), ["buttonNo", "message", "nickname"])         
-                                ];
-                        }catch (Exception $e){
-                            $result=["result"=>"button-list-data-invalid", "data"=>[]];
+                        if($data[0]->status=="active"){
+                            try{           
+                                $button_list=$data[0]->info;
+                                $result=[
+                                    "result"=>"success", 
+                                    "data"=>CommonService::ObjectInArrayMustHaveKey(json_decode($button_list, true), ["buttonNo", "message", "nickname"])         
+                                    ];
+                            }catch (Exception $e){
+                                $result=["result"=>"button-list-data-invalid", "data"=>[]];
+                            }
+                        }else{
+                            $result=["result"=>"device-not-active", "data"=>[]];
                         }
-
                     }else{
                         $result=["result"=>"wrong-bearer-token", "data"=>[]];
                     }
