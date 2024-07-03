@@ -28,11 +28,12 @@ This project aims to enhance customer convenience and improve staff responsivene
 
 ## Technology Stack
 
-- **Backend**: PHP, Laravel
-- **Frontend**: JavaScript, AngularJS, HTML, CSS
+- **Backend Framework**: Laravel
+- **Frontend Framework**: AngularJS
+- **Languages**: PHP, JavaScript, HTML, CSS
 - **Database**: MySQL
 - **API Development**: RESTful APIs
-- **Progressive Web App**: TypeScript, Angular
+- **Progressive Web App**: TypeScript, Ionic
 
 
 ### Prerequisites
