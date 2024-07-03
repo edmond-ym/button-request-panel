@@ -2,21 +2,21 @@
 
 Welcome to the Button Request System! This project is designed to streamline the process of sending repeated messages in environments like restaurants, where customers can use a dedicated device to request assistance easily. When a customer presses a button on the device, an HTTP request is sent to a server, and a pre-configured message corresponding to the device's Unique ID is sent to the staff.
 
+There Device API to enable the the dedicated device to be integrated with this system.
+
 ## Table of Contents
 
 - [Project Overview](#project-overview)
 - [Features](#features)
 - [Technology Stack](#technology-stack)
-- [Installation](#installation)
-- [Usage](#usage)
-- [API Documentation](#api-documentation)
+- [Prerequisites](#prerequisites)
+- [Demo](#demo)
 - [Progressive Web App](#progressive-web-app)
-- [Contributing](#contributing)
-- [License](#license)
-
+- [Contact](#contact)
+  
 ## Project Overview
 
-This project aims to enhance customer convenience and improve staff responsiveness in service environments. The system consists of a web portal for configuration and monitoring, an API for communication between devices and the server, and a Progressive Web App (PWA) for staff to receive and manage requests.
+This project aims to enhance customer convenience and improve staff responsiveness in service environments. The system consists of a web portal for configuration and monitoring, an API for communication between devices and the server, and a Progressive Web App (PWA) for staff to receive and manage requests. 
 
 ## Features
 
@@ -29,12 +29,11 @@ This project aims to enhance customer convenience and improve staff responsivene
 ## Technology Stack
 
 - **Backend**: PHP, Laravel
-- **Frontend**: JavaScript, AngularJS
+- **Frontend**: JavaScript, AngularJS, HTML, CSS
 - **Database**: MySQL
 - **API Development**: RESTful APIs
 - **Progressive Web App**: TypeScript, Angular
 
-## Installation
 
 ### Prerequisites
 
@@ -43,6 +42,10 @@ This project aims to enhance customer convenience and improve staff responsivene
 - Node.js and npm
 - MySQL
 
+## Demo
+[https://button-request.herokuapp.com](https://button-request.herokuapp.com)
+## Progressive Web App
+[https://github.com/edmond-ym/button-request-mobile-app](https://github.com/edmond-ym/button-request-mobile-app)
 ## Contact
 
 If you have any questions or feedback, please reach out at [edmond@inchoatae.com](mailto:edmond@inchoatae.com).
