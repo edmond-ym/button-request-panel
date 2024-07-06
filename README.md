@@ -18,9 +18,9 @@ There Device API to enable the the dedicated device to be integrated with this s
 
 This project enhances customer convenience and improves staff responsiveness in service environments. It features:
 
-	•	Web Portal: For configuration and monitoring.
-	•	REST API: Facilitates communication between devices and the server, allowing clients to send pre-set messages to the admin using hardware or virtual button panels.
-	•	Progressive Web App (PWA): Enables staff to receive and manage requests efficiently.
+- Web Portal: For configuration and monitoring.
+- REST API: Facilitates communication between devices and the server, allowing clients to send pre-set messages to the admin using hardware or virtual button panels.
+- Progressive Web App (PWA): Enables staff to receive and manage requests efficiently.
 
 By leveraging these components, the system ensures streamlined communication and rapid response times, significantly improving the overall service experience.
 
