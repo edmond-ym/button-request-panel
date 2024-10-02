@@ -2,9 +2,9 @@
 
 namespace App\Library\Services;
 use Illuminate\Support\Facades\Crypt;
+use App\Library\Interface\CommonServiceInterface;
 
-
-class CommonService{
+class CommonService implements CommonServiceInterface{
 
     public static function DeviceAPIEncrypt($bearerToken){
         return Crypt::encryptString($bearerToken);

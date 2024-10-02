@@ -6,8 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\DeviceOwnershipShare;
 use App\Library\Services\MessageService;
 use App\Models\MobileAccess;
-
-class UserRightOnMobileTokenService
+use App\Library\Interface\UserRightOnMobileTokenServiceInterface;
+class UserRightOnMobileTokenService implements UserRightOnMobileTokenServiceInterface
 {
     
     function __construct() {

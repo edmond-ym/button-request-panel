@@ -4,8 +4,8 @@ use App\Models\User;
 use App\Models\DeviceList;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DeviceOwnershipShare;
-
-class SubscriptionManagementService
+use App\Library\Interface\SubscriptionManagementServiceInterface;
+class SubscriptionManagementService implements SubscriptionManagementServiceInterface
 {
     function __construct() {
        

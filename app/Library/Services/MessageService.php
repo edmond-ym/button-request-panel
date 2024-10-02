@@ -5,8 +5,9 @@ use App\Models\DeviceList;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DeviceOwnershipShare;
 use Illuminate\Support\Facades\DB;
+use App\Library\Interface\MessageServiceInterface;
 
-class MessageService
+class MessageService implements MessageServiceInterface
 {
     function __construct() {
         

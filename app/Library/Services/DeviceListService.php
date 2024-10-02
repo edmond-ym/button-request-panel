@@ -9,9 +9,9 @@ use App\Models\MobileAccess;
 use Illuminate\Support\Str;
 use App\Library\Services\DeviceRightService;
 use App\Library\Services\CommonService;
+use App\Library\Interface\DeviceListServiceInterface;
 
-
-class DeviceListService
+class DeviceListService implements DeviceListServiceInterface
 {
     function __construct(){
 

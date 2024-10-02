@@ -4,8 +4,9 @@ use App\Models\User;
 use App\Models\DeviceList;
 use Illuminate\Support\Facades\Auth;
 use App\Models\DeviceOwnershipShare;
+use App\Library\Interface\DeviceRightServiceInterface;
 
-class DeviceRightService
+class DeviceRightService implements DeviceRightServiceInterface
 {
     function __construct(User $user, DeviceList $deviceList) {
         $this->user=$user;

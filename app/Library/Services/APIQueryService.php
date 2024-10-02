@@ -6,7 +6,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\DeviceOwnershipShare;
 use App\Library\Services\MessageService;
 use App\Models\MobileAccess;
-class APIQueryService
+use App\Library\Interface\APIQueryServiceInterface;
+
+class APIQueryService implements APIQueryServiceInterface
 {
 
     //A Way To Filter All irrelevant params

@@ -11,8 +11,9 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Library\Services\DeviceRightService;
 use App\Rules\DeviceShareValidEmail;
+use App\Library\Interface\DeviceShareServiceInterface;
 
-class DeviceShareService
+class DeviceShareService implements DeviceShareServiceInterface
 {
     function __construct(){
 

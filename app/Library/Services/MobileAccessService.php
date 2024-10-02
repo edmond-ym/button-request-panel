@@ -8,7 +8,8 @@ use App\Library\Services\MessageService;
 use App\Models\MobileAccess;
 use Illuminate\Support\Str;
 use App\Library\Services\UserRightOnMobileTokenService;
-class MobileAccessService
+use App\Library\Interface\MobileAccessServiceInterface;
+class MobileAccessService implements MobileAccessServiceInterface
 {
     function __construct() {
        
