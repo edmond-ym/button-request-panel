@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Library\Services\SubscriptionManagementService;
+use App\Library\Interface\SubscriptionManagementServiceInterface;
 
 class SubscriptionManagementServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,8 @@ class SubscriptionManagementServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(SubscriptionManagementServiceInterface::class, SubscriptionManagementService::class);
+
     }
 
     /**

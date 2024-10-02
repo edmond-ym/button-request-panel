@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Library\Services\UserRightOnMobileTokenService;
+use App\Library\Interface\UserRightOnMobileTokenServiceInterface;
 
 class UserRightOnMobileTokenServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,8 @@ class UserRightOnMobileTokenServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(UserRightOnMobileTokenServiceInterface::class, UserRightOnMobileTokenService::class);
+
     }
 
     /**

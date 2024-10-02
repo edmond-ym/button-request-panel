@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Library\Services\MessageService;
+use App\Library\Interface\MessageServiceInterface;
 
 class MessageServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,8 @@ class MessageServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(MessageServiceInterface::class, MessageService::class);
+
     }
 
     /**

@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use App\Library\Services\DeviceRightService;
+use App\Library\Interface\DeviceRightServiceInterface;
 class DeviceRightServiceProvider extends ServiceProvider
 {
     /**
@@ -13,7 +14,7 @@ class DeviceRightServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(DeviceRightServiceInterface::class, DeviceRightService::class);
     }
 
     /**
