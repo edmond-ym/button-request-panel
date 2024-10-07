@@ -157,7 +157,7 @@
 <div ng-app="newDeviceWizard">
     <div ng-controller="NewDeviceController">
       <div class="container">
-      <x-card>
+      
         <div class="container">
        
            
@@ -243,7 +243,7 @@
         
         
       </div>
-    </x-card>
+    
       </div>
     </div>
 
