@@ -1,5 +1,5 @@
 <div x-data="wireui_datetime_picker({
-        model: @entangle($attributes->wire('model')),
+        model: @entangle($attributes->wire('model')).live,
         config: {
             interval: {{ $interval }},
             is12H:    @boolean($timeFormat == '12'),
@@ -21,7 +21,7 @@
     {{ $attributes->only('wire:key') }}>
     <x-dynamic-component
         :component="WireUiComponent::resolve('input')"
-        {{ $attributes->whereDoesntStartWith(['wire:model', 'x-model', 'wire:key']) }}
+        {{ $attributes->whereDoesntStartWith(['wire:model.live', 'x-model', 'wire:key']) }}
         :borderless="$borderless"
         :shadowless="$shadowless"
         :label="$label"

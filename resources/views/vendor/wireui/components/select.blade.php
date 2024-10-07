@@ -1,5 +1,5 @@
 <div x-data="wireui_select({
-        model:       @entangle($attributes->wire('model')),
+        model:       @entangle($attributes->wire('model')).live,
         searchable:  @boolean($searchable),
         multiselect: @boolean($multiselect),
         readonly:    @boolean($readonly),
@@ -29,7 +29,7 @@
             readonly
             :name="$name"
             :icon="$icon"
-            {{ $attributes->whereDoesntStartWith(['wire:model', 'type', 'wire:key']) }}>
+            {{ $attributes->whereDoesntStartWith(['wire:model.live', 'type', 'wire:key']) }}>
 
             <x-slot name="prepend">
                 <div class="absolute left-0 inset-y-0 pl-2 pr-14 w-full flex items-center overflow-hidden cursor-pointer"
