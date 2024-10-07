@@ -29,7 +29,6 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->registerPolicies();
 
         //
        /* Gate::define('device-absolute-right', function(User $user, DeviceList $deviceList, $device_id){
