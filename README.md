@@ -44,8 +44,8 @@ By leveraging these components, the system ensures streamlined communication and
 
 ### Prerequisites
 
-- PHP 8.3 or higher
-- Composer
+- PHP 8.1 or higher
+- Composer 2.2 or higher
 - Node.js and npm
 - MySQL
 
