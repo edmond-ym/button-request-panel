@@ -16,7 +16,7 @@
       </div>
       <br>
       <div class="container">
-      <x-card>
+      
       <div class="container">
         <div class="mb-3">
           <label for="device_id" class="col-form-label">Connection Status:</label>
@@ -87,7 +87,7 @@
 
             </form>
       </div>
-    </x-card>
+    
     </div>
       
           

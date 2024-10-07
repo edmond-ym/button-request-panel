@@ -2,7 +2,7 @@
 
 <div class="fixed inset-0 overflow-y-auto {{ $zIndex }}"
     x-data="wireui_modal({
-        model: @entangle($attributes->wire('model'))
+        model: @entangle($attributes->wire('model')).live
     })"
     x-on:keydown.escape.window="close"
     x-on:keydown.tab.prevent="$event.shiftKey || nextFocusable().focus()"

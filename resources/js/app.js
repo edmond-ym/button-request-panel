@@ -1,7 +1,11 @@
 require('./bootstrap');
+const ClipboardJS=require('clipboard')
 
-import Alpine from 'alpinejs';
+
+new ClipboardJS('.button-copy');
+
+/*import Alpine from 'alpinejs';
 
 window.Alpine = Alpine;
 
-Alpine.start();
+Alpine.start();*/
