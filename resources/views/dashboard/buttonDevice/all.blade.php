@@ -307,12 +307,9 @@
             </div>
             <label for="bearerToken" class="form-label">Bearer Token</label>
             <div class="input-group mb-3">
-              <script>
-                new ClipboardJS('#button-copy');
-              </script>
               @inject('str', 'Illuminate\Support\Str')
               <input type="text" class="form-control" aria-label="Recipient's username" id="bearerToken" name="bearerToken" value="{{ 'dev_'.Str::random(40) }}" aria-describedby="button-addon2" readonly> 
-              <button class="btn btn-outline-secondary" data-clipboard-target="#bearerToken"type="button" id="button-copy" data-clipboard-action="copy" data-clipboard-target="#bearerToken">Copy</button>
+              <button class="btn btn-outline-secondary button-copy" data-clipboard-target="#bearerToken"type="button" data-clipboard-action="copy" data-clipboard-target="#bearerToken">Copy</button>
               @error('bearerToken')<div class="alert alert-danger">{{ $message }}</div>@enderror
             </div>
             <p class="text-danger">This is the only time you may copy the bearerToken!</p>
