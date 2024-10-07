@@ -1,4 +1,4 @@
-@props(['team', 'component' => 'dropdown-link'])
+@props(['team', 'component' => 'jet-dropdown-link'])
 
 <form method="POST" action="{{ route('current-team.update') }}">
     @method('PUT')
